@@ -1,0 +1,24 @@
+[
+  {
+    "value": "creditkaart",
+    "synonyms": [
+      "creditkaart",
+      "kreditkaart",
+      "creditcard"
+    ]
+  },
+  {
+    "value": "rekening",
+    "synonyms": [
+      "rekening",
+      "account"
+    ]
+  },
+  {
+    "value": "pas",
+    "synonyms": [
+      "pas",
+      "debitcard"
+    ]
+  }
+]

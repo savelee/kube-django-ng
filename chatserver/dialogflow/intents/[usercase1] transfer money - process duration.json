@@ -1,0 +1,38 @@
+{
+  "id": "df1afeba-8824-4174-96c9-aae703c185ee",
+  "parentId": "c7be0275-2d9f-4268-a95f-dc5693d4cebd",
+  "rootParentId": "c7be0275-2d9f-4268-a95f-dc5693d4cebd",
+  "name": "[usercase1] transfer money - process duration",
+  "auto": true,
+  "contexts": [
+    "usercase1transfermoney-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "usercase1",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "speech": "It takes 2 days to transfer #usercase1transfermoney-followup.amount to #usercase1transfermoney-followup.destination."
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1520936666,
+  "fallbackIntent": false,
+  "events": []
+}

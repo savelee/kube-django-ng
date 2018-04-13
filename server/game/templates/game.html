@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="post">
+        
+        <h1>{{ game.name }}</h1>
+
+        {% if game.release_date %}
+            <div class="date">
+                {{ game.release_date }}
+            </div>
+        {% endif %}
+
+        {% if game.platform %}
+        <div class="platform">
+            <p><strong>Platform</strong>: {{ game.platform }}</p>
+        </div>
+        {% endif %} 
+
+        {% if game.publisher %}
+        <div class="publisher">
+            <p><strong>Publisher</strong>: {{ game.publisher }}</p>
+        </div>
+        {% endif %} 
+  
+        {% if game.genre %}
+        <div class="genre">
+            <p><strong>Genre</strong>: {{ game.genre }}</p>
+        </div>
+        {% endif %}
+
+        {% if game.rating %}
+        <div class="rating">
+            <p><strong>Rating</strong>: {{ game.rating }}</p>
+        </div>
+        {% endif %}
+
+        {% if game.isWish %}
+        <div class="wishlist">
+            <p><strong>Wishlist</strong>: {{ game.isWish }}</p>
+        </div>
+        {% endif %}
+
+        <p>{{ game.description|linebreaksbr }}</p>
+
+        {% if game.image %}
+        <p>{{ game.image}}</p>
+        {% endif %}
+    </div>
+{% endblock %}

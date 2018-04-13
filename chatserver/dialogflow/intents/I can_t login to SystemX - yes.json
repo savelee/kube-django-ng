@@ -1,0 +1,43 @@
+{
+  "id": "936e3659-d5f8-4948-9a02-f4860f6d57f8",
+  "parentId": "e899c666-c187-41f3-9fa9-82c2bf6d64c0",
+  "rootParentId": "e899c666-c187-41f3-9fa9-82c2bf6d64c0",
+  "name": "I can\u0027t login to SystemX - yes",
+  "auto": true,
+  "contexts": [
+    "IcantlogintoSystemX-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "IcantlogintoSystemX.IcantlogintoSystemX-yes",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "de",
+          "speech": []
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "speech": []
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "speech": "Hmm. It looks like something else is wrong here!"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1519745544,
+  "fallbackIntent": false,
+  "events": []
+}

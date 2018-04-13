@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - image: gcr.io/gke-pipeline-savelee-192517/django-image:latest
+        name: django
+        ports:
+        - containerPort: 8080
+      - image: gcr.io/gke-pipeline-savelee-192517/angular-image:latest
+        name: angular
+        ports:
+        - containerPort: 80
+      - image: gcr.io/gke-pipeline-savelee-192517/chatserver-image:latest
+        name: chatserver
+        ports:
+        - containerPort: 3000  
+        env:
+          - name: "GOOGLE_APPLICATION_CREDENTIALS"
+            value: "/var/run/secret/cloud.google.com/master.json"
+        volumeMounts:
+          - name: "service-account"
+            mountPath: "/var/run/secret/cloud.google.com"
+          - name: "certs"
+            mountPath: "/etc/ssl/certs"
+      volumes:
+        - name: "service-account"
+          secret:
+            secretName: "dialogflow"
+        - name: "certs"
+          hostPath:
+            path: "/etc/ssl/certs" 

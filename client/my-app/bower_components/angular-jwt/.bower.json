@@ -1,0 +1,45 @@
+{
+  "name": "angular-jwt",
+  "version": "0.1.9",
+  "description": "Library to help you work with JWTs on AngularJS",
+  "authors": [
+    {
+      "name": "Martin Gontovnikas",
+      "email": "martin@gon.to"
+    },
+    {
+      "name": "Ryan Chenkie",
+      "email": "ryan.chenkie@auth0.com"
+    }
+  ],
+  "main": [
+    "dist/angular-jwt.js"
+  ],
+  "ignore": [
+    "src",
+    "test",
+    "Gruntfile.js",
+    "**/.*"
+  ],
+  "dependencies": {
+    "angular": "*"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.6",
+    "angular-scenario": "~1.6"
+  },
+  "resolutions": {
+    "angular": "^1.6.0"
+  },
+  "homepage": "https://github.com/auth0/angular-jwt",
+  "_release": "0.1.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.9",
+    "commit": "37407f03703976f97e0a1235a157885344f70377"
+  },
+  "_source": "https://github.com/auth0/angular-jwt.git",
+  "_target": "^0.1.9",
+  "_originalSource": "angular-jwt",
+  "_direct": true
+}

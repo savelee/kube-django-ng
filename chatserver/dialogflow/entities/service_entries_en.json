@@ -1,0 +1,21 @@
+[
+  {
+    "value": "account",
+    "synonyms": [
+      "account"
+    ]
+  },
+  {
+    "value": "debitcard",
+    "synonyms": [
+      "debitcard",
+      "atm card"
+    ]
+  },
+  {
+    "value": "creditcard",
+    "synonyms": [
+      "creditcard"
+    ]
+  }
+]

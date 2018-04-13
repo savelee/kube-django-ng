@@ -1,0 +1,58 @@
+{
+  "id": "efb9a635-2b00-44ef-90c9-283da2f8b828",
+  "name": "[payload] Tell me more about your company",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": "basic_card",
+          "platform": "google",
+          "lang": "en",
+          "title": "Google Amsterdam office",
+          "subtitle": "Google Amsterdam",
+          "formattedText": "Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, search engine, cloud computing, software, and hardware.",
+          "image": {
+            "url": "https://lh5.googleusercontent.com/p/AF1QipOH0cjYmzDB2o08cjjJHZ0qj2e2gkBdcyk-ydCn\u003dw408-h272-k-no",
+            "accessibilityText": "Google"
+          },
+          "buttons": [
+            {
+              "title": "Google",
+              "openUrlAction": {
+                "url": "http://www.google.com",
+                "urlTypeHint": "URL_TYPE_HINT_UNSPECIFIED"
+              }
+            }
+          ]
+        },
+        {
+          "type": 4,
+          "lang": "en",
+          "payload": {
+            "web": {
+              "type": "thumb",
+              "text": "Google",
+              "image": "https://lh5.googleusercontent.com/p/AF1QipOH0cjYmzDB2o08cjjJHZ0qj2e2gkBdcyk-ydCn\u003dw408-h272-k-no",
+              "link": "http://www.google.com"
+            }
+          }
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "google": false
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1520966162,
+  "fallbackIntent": false,
+  "events": []
+}

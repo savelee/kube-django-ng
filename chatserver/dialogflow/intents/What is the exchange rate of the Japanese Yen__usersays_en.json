@@ -1,0 +1,46 @@
+[
+  {
+    "id": "fc9b40b1-c70d-4dff-b380-7b1c687a172e",
+    "data": [
+      {
+        "text": "What\u0027s the exchange cost of ",
+        "userDefined": false
+      },
+      {
+        "text": "USD",
+        "alias": "currency",
+        "meta": "@sys.currency-name",
+        "userDefined": false
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520937550
+  },
+  {
+    "id": "05e755aa-69c3-450b-9358-685da2d0cbe3",
+    "data": [
+      {
+        "text": "What is the exchange rate of the ",
+        "userDefined": false
+      },
+      {
+        "text": "Japanese Yen",
+        "alias": "currency",
+        "meta": "@sys.currency-name",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520937521
+  }
+]

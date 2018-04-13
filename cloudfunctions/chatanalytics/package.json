@@ -1,0 +1,10 @@
+{
+    "name": "chatanalytics",
+    "version": "1.0.0",
+    "dependencies": {
+      "@google-cloud/bigquery": "^1.1.0",
+      "@google-cloud/language": "^1.2.0",
+      "@google-cloud/translate": "^1.1.0"
+    }
+  }
+  

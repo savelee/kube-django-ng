@@ -1,0 +1,82 @@
+#gcloud container builds submit --config cloud.yaml .
+
+$_DJANGO_IMAGE=django-image
+$_DJANGO_PORT=8080
+$_ANGULAR_IMAGE=angular-image
+$_ANGULAR_PORT=4200
+$SHORT_SHA=xxx
+CLOUDSDK_COMPUTE_ZONE=europe-west1-c
+CLOUDSDK_CONTAINER_CLUSTER=production
+${PROJECT_ID}=
+
+steps:
+# Build Django Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/$_DJANGO_IMAGE:$SHORT_SHA', './server' ]
+
+# Build Angular Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/$_ANGULAR_IMAGE', './client' ]
+
+# Push updated Django Container
+- id: 'Push Django image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/$_DJANGO_IMAGE:$SHORT_SHA' ]
+
+# Push updated Angular Container
+- id: 'Push Angular image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/$_ANGULAR_IMAGE:$SHORT_SHA' ]
+
+# Deploy Django in the Cloud
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'create', '-f', 'deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=production'
+
+# Patch the Deployment.yaml file
+- id: 'Patch manifest with new image'
+  name: 'gcr.io/cloud-builders/kubectl'
+  entrypoint: 'sh'
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=${_CLOUDSDK_COMPUTE_ZONE}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLOUDSDK_CONTAINER_CLUSTER}'
+  args:
+    - '-c'
+    - |
+      gcloud container clusters get-credentials \
+        --project="${PROJECT_ID}" --zone="${_CLOUDSDK_COMPUTE_ZONE}" "${_CLOUDSDK_CONTAINER_CLUSTER}"
+      cat <<EOF > patch.yaml
+      spec:
+        replicas: 1
+        template:
+          spec:
+            containers:
+              - name: ${_DJANGO_IMAGE}
+                image: gcr.io/${PROJECT_ID}/${_DJANGO_IMAGE}:${SHORT_SHA}
+                ports:
+                - containerPort: ${_DJANGO_PORT}
+                  protocol: TCP
+              - image: gcr.io/${PROJECT_ID}/${_ANGULAR_IMAGE}:${SHORT_SHA}
+                name: ${_ANGULAR_IMAGE}
+                ports:
+                - containerPort: ${_ANGULAR_PORT}
+                  protocol: TCP             
+      EOF
+      kubectl patch --local -o yaml \
+        -f deployment.yaml \
+        -p "$(cat patch.yaml)" \
+        > deployment.yaml
+# Apply change
+- id: 'Apply update to cluster'
+  name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'k8s/']
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=${_CLOUDSDK_COMPUTE_ZONE}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLOUDSDK_CONTAINER_CLUSTER}'
+
+
+images:
+- 'gcr.io/$PROJECT_ID/django-image'
+- 'gcr.io/$PROJECT_ID/angular-image'

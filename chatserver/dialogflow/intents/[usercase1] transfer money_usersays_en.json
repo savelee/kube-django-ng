@@ -1,0 +1,130 @@
+[
+  {
+    "id": "ca9fe587-09d4-4857-ab38-9d7ce7da2f1b",
+    "data": [
+      {
+        "text": "I like to tranper money",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 1,
+    "updated": 0
+  },
+  {
+    "id": "74b9efd8-abe9-4761-97b3-077c33cf1db9",
+    "data": [
+      {
+        "text": "I like to transfer ",
+        "userDefined": false
+      },
+      {
+        "text": "400",
+        "alias": "amount",
+        "meta": "@sys.unit-currency",
+        "userDefined": true
+      },
+      {
+        "text": " euro to ",
+        "userDefined": false
+      },
+      {
+        "text": "destination",
+        "alias": "destination",
+        "meta": "@sys.geo-country",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520937380
+  },
+  {
+    "id": "321481e4-f40f-4d27-b780-6c21c39221aa",
+    "data": [
+      {
+        "text": "I would like to transfer money",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1521205309
+  },
+  {
+    "id": "8f51f2e2-6033-48a6-9a87-8c3fa1b63df7",
+    "data": [
+      {
+        "text": "I like to transfer money to ",
+        "userDefined": false
+      },
+      {
+        "text": "destination",
+        "alias": "destination",
+        "meta": "@sys.geo-country",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520937380
+  },
+  {
+    "id": "8fe8fde2-8cba-40cc-aebc-01e0db8eb100",
+    "data": [
+      {
+        "text": "I like to send money",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520937380
+  },
+  {
+    "id": "474c3e98-9089-4f0a-9bf0-5a791f73b884",
+    "data": [
+      {
+        "text": "I like to transfer money",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520937380
+  },
+  {
+    "id": "7adbde81-664b-4d82-bc20-068a7901dc74",
+    "data": [
+      {
+        "text": "I like to transfer ",
+        "userDefined": false
+      },
+      {
+        "text": "400 euro",
+        "alias": "amount",
+        "meta": "@sys.unit-currency",
+        "userDefined": false
+      },
+      {
+        "text": " to my friend.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520937380
+  },
+  {
+    "id": "f7d005ac-f93b-4dd3-837f-29d60cdf874f",
+    "data": [
+      {
+        "text": "I have money that I want to tranfer",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520937380
+  }
+]

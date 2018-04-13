@@ -1,0 +1,41 @@
+{
+  "id": "6317dbd6-9179-48a5-b310-7429d34b23f6",
+  "name": "What is the exchange rate of the Japanese Yen?",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "id": "89f9addc-74f9-41ef-8adf-f476094c2b7d",
+          "dataType": "@sys.any",
+          "name": "any",
+          "value": "$any",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "nl",
+          "speech": "Ok, ik ga dit even voor je opzoeken."
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "speech": "Let me have a look..."
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1520937550,
+  "fallbackIntent": false,
+  "events": []
+}

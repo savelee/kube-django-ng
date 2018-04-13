@@ -1,0 +1,47 @@
+#gcloud container builds submit --config cloud.yaml .
+steps:
+# Build Django Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/gke-pipeline-savelee-192517/django-image', './server' ]
+
+# Build Angular Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/gke-pipeline-savelee-192517/angular-image', './client' ]
+
+# Build ChatServer Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/gke-pipeline-savelee-192517/chatserver-image', './chatserver' ]
+
+
+# Push updated Django Container
+- id: 'Push Django image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/gke-pipeline-savelee-192517/django-image' ]
+
+# Push updated Angular Container
+- id: 'Push Angular image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/gke-pipeline-savelee-192517/angular-image' ]
+
+# Push updated ChatServer Container
+- id: 'Push ChatServer image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/gke-pipeline-savelee-192517/chatserver-image' ]
+
+# Deploy Django in the Cloud
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=production'
+
+# Expose the service
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'expose', 'deployment', 'my-app', '--type="LoadBalancer"' ]
+
+
+
+images:
+- 'gcr.io/gke-pipeline-savelee-192517/django-image'
+- 'gcr.io/gke-pipeline-savelee-192517/angular-image'
+- 'gcr.io/gke-pipeline-savelee-192517/chatserver-image'

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <table class="table table-striped table-hover table-bordered" width="100%">
+        <thead>
+        <tr>
+            <th width="50%">Game</th>
+            <th width="15%">Release</th>
+            <th width="10%">Platform</th>
+            <th width="20%">Publisher</th>
+            <th width="10%">Genre</th>
+            <th width="20">Rating</th>
+            <th width="10">Wishlist</th>
+        <tr>
+        </thead>
+        <tbody>
+
+    {% for game in games %}
+        <tr>
+            
+            <td>
+                <a href="{% url 'game' pk=game.pk %}"><b>{{ game.name }}</b></a>
+            </td>
+            
+            <td>
+            {% if game.release_date %}
+            <span class="date">
+                {{ game.release_date }}
+            </span>
+            {% endif %}
+            </td>
+
+            <td>
+            {% if game.platform %}
+            <span class="platform">
+                {{ game.getPlatform }}
+            </span>
+            {% endif %} 
+            </td>
+
+            <td>
+            {% if game.publisher %}
+            <span class="publisher">
+                {{ game.publisher }}
+            </span>
+            {% endif %} 
+            </td>
+
+            <td>
+            {% if game.genre %}
+            <span class="genre">
+                {{ game.getGenre }}
+            </span>
+            {% endif %}
+            </td>
+
+            <td>
+            {% if game.rating %}
+            <span class="rating">
+                {{ game.rating }}
+            </span>
+            {% endif %}
+            </td>
+
+            <td>
+            {% if game.isWish %}
+            <span class="glyphicon glyphicon-ok"></span>
+            {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

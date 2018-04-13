@@ -1,0 +1,98 @@
+[
+  {
+    "id": "b3f2570d-8356-46c4-a29f-f290e8c07aa4",
+    "data": [
+      {
+        "text": "I would love to buy a new computer but I need help with my paper work",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 4,
+    "updated": 0
+  },
+  {
+    "id": "481cdb45-1d35-4ba0-9f4a-32f7f4325f39",
+    "data": [
+      {
+        "text": "I would love to buy a new computer but I need help with my paperwork",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 1,
+    "updated": 0
+  },
+  {
+    "id": "d79f4854-e563-404f-86e1-6ce2b8567a54",
+    "data": [
+      {
+        "text": "paperwork",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 1,
+    "updated": 0
+  },
+  {
+    "id": "75414beb-18d0-4189-875a-37fd6fe9eff0",
+    "data": [
+      {
+        "text": "I need help with my paper work",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1521041252
+  },
+  {
+    "id": "ebb974c1-3a2e-4ba8-934e-231f14287f03",
+    "data": [
+      {
+        "text": "How do I need to fill out the paperwork",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520523722
+  },
+  {
+    "id": "52a9d3cd-46e8-45fc-a58b-23448a923a20",
+    "data": [
+      {
+        "text": "I needs help to fill out the paperwork for my insurance",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520523722
+  },
+  {
+    "id": "a334212d-5521-47f8-b2f2-b76797741167",
+    "data": [
+      {
+        "text": "I need help with filling out paperwork",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520523722
+  },
+  {
+    "id": "95c8221e-808f-46dd-85b6-be4cc886afb6",
+    "data": [
+      {
+        "text": "I need help with filling out insurance paperwork",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520523722
+  }
+]

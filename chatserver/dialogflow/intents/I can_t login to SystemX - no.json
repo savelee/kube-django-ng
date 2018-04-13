@@ -1,0 +1,51 @@
+{
+  "id": "de6b2544-7469-4cc6-aa95-57fd669c0907",
+  "parentId": "e899c666-c187-41f3-9fa9-82c2bf6d64c0",
+  "rootParentId": "e899c666-c187-41f3-9fa9-82c2bf6d64c0",
+  "name": "I can\u0027t login to SystemX - no",
+  "auto": true,
+  "contexts": [
+    "IcantlogintoSystemX-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "IcantlogintoSystemX.IcantlogintoSystemX-no",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "id": "027285b6-f157-40cb-bd2b-3e99da43329a",
+          "dataType": "@computersystems",
+          "name": "computersystems",
+          "value": "#IcantlogintoSystemX-followup",
+          "prompts": []
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "de",
+          "speech": []
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "speech": []
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "speech": "Press the F5 button! This will help you to login onto $computersystems"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1519745802,
+  "fallbackIntent": false,
+  "events": []
+}

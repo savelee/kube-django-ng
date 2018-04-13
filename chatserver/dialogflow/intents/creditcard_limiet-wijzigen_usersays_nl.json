@@ -1,0 +1,1217 @@
+[
+  {
+    "id": "37e1918f-9680-4ffa-b0d6-233a9c512fe9",
+    "data": [
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "bestedingsruimte",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "wijzigen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502801291
+  },
+  {
+    "id": "87c0ae31-4d1e-4dc6-be35-fce2c4882514",
+    "data": [
+      {
+        "text": "zou ik ",
+        "userDefined": false
+      },
+      {
+        "text": "de",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " van mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " kunnen ",
+        "userDefined": false
+      },
+      {
+        "text": "aanpassen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1501588797
+  },
+  {
+    "id": "4b5c821f-c564-4782-9aa7-43c68092d210",
+    "data": [
+      {
+        "text": "cc",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502801291
+  },
+  {
+    "id": "f5643327-ec08-4693-a9dd-970cd9e3c5b2",
+    "data": [
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "wijzigen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1501591261
+  },
+  {
+    "id": "ce12e993-6198-448c-8556-3c40109ac003",
+    "data": [
+      {
+        "text": "cc",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "wijzigen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 2,
+    "updated": 1501591261
+  },
+  {
+    "id": "38a8e1ff-6de8-4ddb-882c-ce12c12b0644",
+    "data": [
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "cc",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502800761
+  },
+  {
+    "id": "b47f3bd5-7e67-4da4-85b3-fd07a25e8216",
+    "data": [
+      {
+        "text": "cc",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verlagen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 1,
+    "updated": 1502800761
+  },
+  {
+    "id": "4f59fd5c-198e-4091-9fb5-a3e1b187c5d3",
+    "data": [
+      {
+        "text": "cc",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "lager maken",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502800761
+  },
+  {
+    "id": "0edd781f-b9db-4544-b9ba-8fcb4481d391",
+    "data": [
+      {
+        "text": "uitbreiden",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcardlimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502800761
+  },
+  {
+    "id": "cf47e954-d609-4307-952c-edd7ab9977f0",
+    "data": [
+      {
+        "text": "kan ik ",
+        "userDefined": false
+      },
+      {
+        "text": "de",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " van mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "wijzigen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1503930332
+  },
+  {
+    "id": "d84cdb2e-511f-4ef1-b0e8-7f6fa63fb821",
+    "data": [
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verlagen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502801291
+  },
+  {
+    "id": "19cc6ce9-eeea-42f7-ad08-20fec38905d0",
+    "data": [
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 1,
+    "updated": 1502800761
+  },
+  {
+    "id": "d7575670-1f6e-49b4-86ff-6f261f20499d",
+    "data": [
+      {
+        "text": "Hoe verhoog ik de ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": false
+      },
+      {
+        "text": " op mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1506581458
+  },
+  {
+    "id": "df6a1e1a-1728-4825-9370-faf016d62dcc",
+    "data": [
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "aanpassen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502801291
+  },
+  {
+    "id": "459e2a4f-86df-46f6-9ba5-9051518718ca",
+    "data": [
+      {
+        "text": "cc",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1503930332
+  },
+  {
+    "id": "65f93ce1-4aa6-4905-ad1b-bc821b80ee4f",
+    "data": [
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "van",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502800761
+  },
+  {
+    "id": "7eb1184e-a133-43c3-af42-9c6e0a3fec71",
+    "data": [
+      {
+        "text": "ik wil graag ",
+        "userDefined": false
+      },
+      {
+        "text": "de",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " van mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "cc",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502800761
+  },
+  {
+    "id": "b7054d42-f5fb-4fc6-ab09-f710a4b59f00",
+    "data": [
+      {
+        "text": "Kan ik makkelijk mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "wijzigen",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1506521455
+  },
+  {
+    "id": "cb4fba02-a437-4307-b3fc-2fe690b78344",
+    "data": [
+      {
+        "text": "uitbreiding ",
+        "userDefined": false
+      },
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1501588797
+  },
+  {
+    "id": "0488c031-29bd-429e-ba45-40d00bd12a0c",
+    "data": [
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verlagen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502800761
+  },
+  {
+    "id": "4240107d-3b2d-4ca1-ae64-e16a68116d0c",
+    "data": [
+      {
+        "text": "kan ik ",
+        "userDefined": false
+      },
+      {
+        "text": "de",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " van mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "aanpssen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1501591261
+  },
+  {
+    "id": "899c74cb-3f4c-4f57-b806-d3343e96af2a",
+    "data": [
+      {
+        "text": "kan ik ",
+        "userDefined": false
+      },
+      {
+        "text": "de",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " van mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502801291
+  },
+  {
+    "id": "fc0a689e-7641-4bdc-8183-0da5b84a1fc0",
+    "data": [
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502801291
+  },
+  {
+    "id": "7c0f30ff-26d0-447e-a01e-aabe66bf4ca0",
+    "data": [
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "wijzigen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 1,
+    "updated": 1501591261
+  },
+  {
+    "id": "78e7329e-4632-470b-9d64-39873ff75d94",
+    "data": [
+      {
+        "text": "kan ik ",
+        "userDefined": false
+      },
+      {
+        "text": "de",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " van mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "aanpassen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1501591261
+  },
+  {
+    "id": "2043cda3-9c9e-4e90-bf07-c0fd1252eba7",
+    "data": [
+      {
+        "text": "kan ik ",
+        "userDefined": false
+      },
+      {
+        "text": "de",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " van mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verlagen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502801291
+  },
+  {
+    "id": "a6171c59-2b96-4640-bf90-48339414a18b",
+    "data": [
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "aanpassen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 1,
+    "updated": 1501591261
+  },
+  {
+    "id": "36354c02-e74a-4277-b256-8b27c8a1760f",
+    "data": [
+      {
+        "text": "krediet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "cc",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "wijzigen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1501591261
+  },
+  {
+    "id": "ff175d4f-b05a-404c-9ae8-d323e6b176d4",
+    "data": [
+      {
+        "text": "ik zou ",
+        "userDefined": false
+      },
+      {
+        "text": "de",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " van mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " graag wat ",
+        "userDefined": false
+      },
+      {
+        "text": "hoger",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      },
+      {
+        "text": " willen",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502800761
+  },
+  {
+    "id": "811a09d8-2d42-4643-8b89-57bc1ceb99b2",
+    "data": [
+      {
+        "text": "ophogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "van",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "cc",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502801291
+  },
+  {
+    "id": "c2f457b6-145c-4c28-adcd-26bbaf2a1298",
+    "data": [
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "wijzigen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1503930332
+  },
+  {
+    "id": "bee26234-8b29-4221-b32a-05739eecde84",
+    "data": [
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502800761
+  },
+  {
+    "id": "98904e17-7db7-4263-8e42-4ccee0db581f",
+    "data": [
+      {
+        "text": "zou ik ",
+        "userDefined": false
+      },
+      {
+        "text": "de",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "bestedingslimiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " van mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " kunnen ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502800761
+  },
+  {
+    "id": "05f24297-cf77-4da5-a730-456448eb702c",
+    "data": [
+      {
+        "text": "ik wil graag mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "limiet",
+        "alias": "creditcard-bestedingslimiet",
+        "meta": "@creditcard-bestedingslimiet",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "verhogen",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1502800761
+  }
+]
