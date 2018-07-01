@@ -53,9 +53,14 @@ export class NavbarComponent implements OnInit {
         var f = this.form;
         var username = f.get('username').value;
         var password = f.get('password').value;
-        var full = 'http://localhost:8080/authenticate/'; //TODO
 
-        this.http.post(full, {
+        //TODO
+        var server = location.protocol+'//'+location.hostname;
+        if(location.hostname == "localhost" && location.port == "4200"){
+          server = location.protocol+'//'+location.hostname+ ':8080/authenticate'
+        }
+
+        this.http.post(server, {
             "username": username, 
             "password": password 
         }).subscribe(token => {

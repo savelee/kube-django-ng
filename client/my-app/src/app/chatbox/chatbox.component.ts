@@ -26,15 +26,7 @@ export class ChatboxComponent implements OnInit {
     this.server = io(server);
     this.model = new ChatModel('');
 
-    /*this.http.get(server).subscribe(data => {
-      // Read the result field from the JSON response.
-      console.log(data);
-
-      //send welcome
-      this.server.emit('welcome', data);
-
-    });*/
-
+    this.server.emit('welcome'); 
   }
 
   //get diagnostic() { return JSON.stringify(this.model); }
@@ -72,6 +64,7 @@ export class ChatboxComponent implements OnInit {
           var errorText = error.type + ' - ' + error.message;
           console.log(errorText);
       });
+
   }
 
 }

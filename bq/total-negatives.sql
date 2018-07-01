@@ -1,0 +1,1 @@
+SELECT COUNT(TEXT) AS totalnegatives from `chatanalytics.chatmessages` where SCORE < 0

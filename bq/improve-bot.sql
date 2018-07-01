@@ -1,0 +1,2 @@
+SELECT TEXT, INTENT, POSTED, SESSION, CONFIDENCE from `chatanalytics.chatmessages` where CONFIDENCE 
+IS NULL AND INTENT LIKE "%Sorry%"

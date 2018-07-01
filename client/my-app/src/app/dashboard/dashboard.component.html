@@ -1,5 +1,160 @@
 <div class="main-content">
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats" >
+                    <div class="card-header" data-background-color="orange">
+                        <i class="material-icons">content_copy</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">Total Chat Messages</p>
+                        <h3 class="title">{{totals}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> Tracked from BigQuery
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats" >
+                    <div class="card-header" data-background-color="red">
+                        <i class="material-icons">info_outline</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">Negative Responses</p>
+                        <h3 class="title">{{totalNegatives}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> Tracked from BigQuery
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+
+                    <div class="card-header" data-background-color="red">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <span class="nav-tabs-title">Negative Responses</span>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th><b>Score</b></th>
+                                        <th><b>Text</b></th>
+                                        <th><b>Session</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let negative of negatives">
+                                        <td>{{ negative.SCORE * 100 | number:'1.0-2' }}%</td>
+                                        <td>{{ negative.TEXT }}</td>
+                                        <td>{{ negative.SESSION }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                    <div class="card">
+    
+                        <div class="card-header" data-background-color="red">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Unhandled Intents</span>
+                                 </div>
+                            </div>
+                        </div>
+    
+                        <div class="card-content">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th><b>Text</b></th>
+                                            <th><b>Intent</b></th>
+                                            <th><b>Session</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let unhandleditem of unhandled">
+                                            <td>{{ unhandleditem.TEXT }}</td>
+                                            <td>{{ unhandleditem.INTENT }}</td>
+                                            <td>{{ unhandleditem.SESSION }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="row">
+                <div class="col-lg-12 col-md-12">
+                        <div class="card">
+        
+                                <div class="card-header" data-background-color="purple">
+                                        
+                                                <span class="nav-tabs-title">Track Conversation</span>
+                                                
+                                                <form role="search" (ngSubmit)="onSubmit()" [formGroup]="form" class="ng-untouched ng-pristine ng-valid navbar-form navbar-right">
+                                                
+                                                    <div class="form-group is-empty">
+                                                        <input class="form-control" id="sessionid" type="text" formControlName="sessionid" name="sessionid" ngModel placeholder="Session ID">
+                                                    </div>
+                                                    <div class="form-group is-empty">
+                                                        <button class="btn btn-search-top btn-round btn-just-icon" type="submit">
+                                                            <i class="material-icons">search</i>
+                                                            <div class="ripple-container"></div>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                      
+                                    </div>
+                
+                                    <div class="card-content">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th><b>Posted</b></th>
+                                                        <th><b>Text</b></th>
+                                                        <th><b>Intent</b></th>
+                                                        <th><b>Score</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let result of searchresults">
+                                                        <td>{{ result.POSTED.value | date:'MM/dd/yyyy HH:mm:ss' }}</td>
+                                                        <td>{{ result.TEXT }}</td>
+                                                        <td>{{ result.INTENT }}</td>
+                                                        <td>{{ result.SCORE * 100 | number:'1.0-2' }}%</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                    </div>
+    
+                        </div>
+                    </div>
+            </div>
+
+
+    </div>
+</div>
+<!--<div class="main-content">
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -392,4 +547,4 @@
                 </div>
             </div>
         </div>
-</div>
+</div>-->

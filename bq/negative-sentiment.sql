@@ -1,0 +1,1 @@
+SELECT * from `chatanalytics.chatmessages` where SCORE < 0 ORDER BY SCORE ASC
