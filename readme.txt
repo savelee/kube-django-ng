@@ -25,9 +25,14 @@
 
 
 ## Deploy
-(First remove deployment and service from the console. From the root directory:)
+
+First remove deployment and service from the console. 
+From the root directory, run the following build script:
 
 `gcloud container builds submit --config cloud.yaml .`
+
+Now setup the services and loadbalancer:
+
 `kubectl expose deployment my-app --type="LoadBalancer"`
 
 
