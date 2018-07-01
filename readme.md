@@ -23,7 +23,7 @@ Run:
 
 ```
 cd client/my-app
-ng serve`
+ng serve
 ```
 
 ## Chat Server
