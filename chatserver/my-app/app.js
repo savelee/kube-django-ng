@@ -19,10 +19,46 @@ console.log(sessionClient);
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 const PubSub = require('@google-cloud/pubsub');
+const BQ = require('@google-cloud/bigquery');
+
 const pubsub = new PubSub({
     projectId: process.env.GCLOUD_PROJECT,
     keyFilename: process.env.GCLOUD_KEY_FILE
 });
+
+const bigquery = new BQ({
+    projectId: process.env.GCLOUD_PROJECT,
+    keyFilename: process.env.GCLOUD_KEY_FILE
+});
+
+//Make use of a dataset called: chatanalytics
+const dataset = bigquery.dataset('chatanalytics');
+//Make use of a BigQuery table called: chatmessages
+const table = dataset.table('chatmessages');
+
+var queryIt = function(sql){
+    var promise = new Promise(function(resolve, reject){
+
+        if(sql){
+            dataset.exists(function(err, exists) {
+                if(!exists){ reject("Can't find BQ dataset."); }
+                table.exists(function(err, exists) {
+                    if(!exists){ reject("Can't find BQ table."); }
+    
+                    //make the query
+                    bigquery.query(sql).then(function(data){
+                        resolve(data);
+                    });
+                });
+            });
+        } else {
+            reject("Missing sql");
+        }
+
+
+    });
+    return promise;
+};
 
 var pushIt = function(obj) {
     //var dataBuffer = Buffer.from(text, 'utf-8');
@@ -62,6 +98,10 @@ function detectIntent(request, cb){
         }
 
         if(result){
+
+            console.log(result);
+
+
             var dialogs = result.fulfillmentMessages;
             for (var i = 0, len = dialogs.length; i < len; i++) {
                 var messageType = dialogs[i].message; //text || payload
@@ -113,22 +153,55 @@ function detectIntent(request, cb){
 io.on('connection', function(client){
     
     client.on('welcome', function(data){
-        //console.log(data.username);
+        console.log(data);
+        console.log("TODO greet with username");
 
-        // The text query request.
-        const request = {
-            session: sessionPath,
-            queryInput: {
-                event:{  
-                    name: 'websitewelcome',
-                    parameters: structjson.jsonToStructProto({user: data.username}),
-                    languageCode: languageCode
+        if(data) {
+            // The text query request.
+            var request = {
+                session: sessionPath,
+                queryInput: {
+                    event:{  
+                        name: 'websitewelcome',
+                        parameters: structjson.jsonToStructProto({user: data.username}),
+                        languageCode: languageCode
+                    }
                 }
-            }
-        };
+            };
+        } else {
+            var request = {
+                session: sessionPath,
+                queryInput: {
+                    event:{  
+                        name: 'websitewelcome',
+                        languageCode: languageCode
+                    }
+                }
+            };         
+        }
 
-        console.log(request);
-        detectIntent(request);
+        detectIntent(request, function(botAnswer, confidence){
+
+            var analytics = {};
+            analytics.text = data;
+            analytics.posted = new Date().getTime();
+            analytics.intent = botAnswer.toString();
+            analytics.confidence = confidence;
+            analytics.session = client.id;
+            
+            //push data into pub/sub
+            console.log(analytics);
+
+            // we tell the client to execute 'agentmsg'
+            io.emit('agentmsg', {
+                username: "Bot",
+                message: botAnswer
+            });
+
+            
+            //pushIt(data);
+            pushIt(analytics);
+        });
 
     });
 
@@ -177,6 +250,66 @@ io.on('connection', function(client){
 
     client.on('disconnect', function(){
         console.log("Close Connection");
+    });
+
+    // when the client loads the realtime dashboard
+    client.on('dashboardload', function () {
+        console.log("load dashboard");
+
+        var queryCountTotals = "SELECT COUNT(TEXT) AS totals from `chatanalytics.chatmessages`";
+        var queryNegativesTotals = "SELECT COUNT(TEXT) AS totalnegatives from `chatanalytics.chatmessages` where SCORE < 0";
+        var queryImproveBot = "SELECT TEXT, INTENT, SESSION  from `chatanalytics.chatmessages` where CONFIDENCE IS NULL AND INTENT LIKE '%Sorry%' LIMIT 5";
+        var queryNegatives = "SELECT SCORE, TEXT, SESSION from `chatanalytics.chatmessages` where SCORE < 0 ORDER BY SCORE ASC LIMIT 5";
+        
+        var r1 = queryIt(queryCountTotals); //as totals
+        var r2 = queryIt(queryNegativesTotals); //as totalnegatives
+        var r3 = queryIt(queryImproveBot); // else
+        var r4 = queryIt(queryNegatives); //if score
+
+        Promise.all([r1, r2, r3, r4]).then(function(values) {
+
+            var negatives = [], unhandled = [], totalNegatives, totals;
+            var data = {};
+            values.forEach(function(item){
+                if(item[0][0]['totals']) {
+                    totals = item[0][0]['totals'];
+                } else if(item[0][0]['totalnegatives']){
+                    totalNegatives = item[0][0]['totalnegatives'];
+                } else if(item[0][0]['SCORE']){
+                    negatives.push(item[0]);
+                } else {
+                    unhandled.push(item[0]);
+                }
+            });
+
+            data.totals = totals;
+            data.totalNegatives = totalNegatives;
+            data.negatives = negatives;
+            data.unhandled = unhandled;
+            
+            console.log(data);
+
+            // we tell the client to execute 'dashboarddata'
+            io.emit('dashboarddata', data);
+        });
+    });
+    // when the client sends the session id from the realtime dashboard
+    client.on('getsession', function (session) {
+        
+        var querySession = "SELECT * from `chatanalytics.chatmessages` where SESSION = '"+ session +"' ORDER BY POSTED";
+        
+        var result = queryIt(querySession);
+        var searchresults = [];
+            
+        Promise.all([result]).then(function(values) {
+            values.forEach(function(item){
+                searchresults.push(item[0]);
+            });
+            // we tell the client to execute 'dashboarddata'
+            io.emit('dashboardsearch', searchresults);
+        });
+        
+
     });
 
 });
