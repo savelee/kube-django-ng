@@ -24,6 +24,8 @@ lib64/
 parts/
 sdist/
 var/
+googlebank/
+keys/
 *.egg-info/
 .installed.cfg
 *.egg

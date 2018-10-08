@@ -8,6 +8,12 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/gke-pipeline-savelee-192517/angular-image', './client' ]
 
+
+# Build Google Bank Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/gke-pipeline-savelee-192517/googlebank-image', './googlebank' ]
+
+
 # Build ChatServer Container
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/gke-pipeline-savelee-192517/chatserver-image', './chatserver' ]
@@ -22,6 +28,11 @@ steps:
 - id: 'Push Angular image to registry'
   name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/gke-pipeline-savelee-192517/angular-image' ]
+
+# Push updated GoogleBank Container
+- id: 'Push GoogleBank image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/gke-pipeline-savelee-192517/googlebank-image' ]
 
 # Push updated ChatServer Container
 - id: 'Push ChatServer image to registry'
@@ -39,9 +50,9 @@ steps:
 #- name: 'gcr.io/cloud-builders/kubectl'
 #  args: [ 'expose', 'deployment', 'my-app', '--type="LoadBalancer"' ]
 
-
-
 images:
 - 'gcr.io/gke-pipeline-savelee-192517/django-image'
 - 'gcr.io/gke-pipeline-savelee-192517/angular-image'
+- 'gcr.io/gke-pipeline-savelee-192517/googlebank-image'
 - 'gcr.io/gke-pipeline-savelee-192517/chatserver-image'
+
