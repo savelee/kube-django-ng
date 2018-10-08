@@ -1,6 +1,6 @@
 # Google Cloud - Dialogflow Enterprise Demo
 
-![alt text](https://github.com/savelee/kube-django-ng/images/architecture1.png "Containers")
+![alt text](https://github.com/savelee/kube-django-ng/blob/master/images/architecture1.png "Containers")
 
 This demo, showcases a dummy banking portal.
 It exists of the following containers:
@@ -12,7 +12,7 @@ It exists of the following containers:
 When a customer writes text into the chatbot, the Dialogflow agent matches the answer.
 It also pushes the contents to Pub/Sub.
 
-![alt text](https://github.com/savelee/kube-django-ng/images/architecture2.png "Cloud Function")
+![alt text](https://github.com/savelee/kube-django-ng/blob/master/images/architecture2.png "Cloud Function")
 
 
 A cloud function has a subscription on the Pub/Sub channel.
