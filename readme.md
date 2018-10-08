@@ -1,13 +1,15 @@
 # Google Cloud - Dialogflow Enterprise Demo
 
+By Lee Boonstra, Google Cloud.
+
 ![alt text](https://github.com/savelee/kube-django-ng/blob/master/images/architecture1.png "Containers")
 
 This demo, showcases a dummy banking portal.
 It exists of the following containers:
 
-* Web Front-end - An Angular app (**client**)
-* Dialogflow SDK - A Node JS app (**chatserver**)
-* CMS - A Python/Django app (**server**)
+* Web Front-end - An Angular app (**client** folder)
+* Dialogflow SDK - A Node JS app (**chatserver** folder)
+* CMS - A Python/Django app (**server** folder)
 
 When a customer writes text into the chatbot, the Dialogflow agent matches the answer.
 It also pushes the contents to Pub/Sub.
@@ -20,7 +22,7 @@ See also the **cloudfunctions** folder.
 
 Everytime a message comes in, the message will be passed to the NLP API to detect the sentiment,
 and to BigQuery. We run the BigQuery queries in a dashboard.
-The **bq** contains the queries.
+The **bq** folder contains the queries.
 
 # Setup instructions
 
