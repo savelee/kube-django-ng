@@ -1,11 +1,11 @@
 require('dotenv').config() //load environemnt vars
 
-const projectId = 'gke-pipeline-savelee-192517'; //https://dialogflow.com/docs/agents#settings
-const sessionId = 'leeboonstra-kubedjangodemo';
+const projectId = process.env.GCLOUD_PROJECT; //your project name
+const uuidv1 = require('uuid/v1');
+const sessionId = uuidv1(); // ⇨ '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e'
 const languageCode = 'en-US';
 const debug_mode = true;
 
-const uuidv1 = require('uuid/v1');
 const server = require('http').createServer();
 const io = require('socket.io')(server);
 io.set('origins', '*:*');
