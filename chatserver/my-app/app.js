@@ -23,12 +23,12 @@ const BQ = require('@google-cloud/bigquery');
 
 const pubsub = new PubSub({
     projectId: process.env.GCLOUD_PROJECT,
-    keyFilename: process.env.GCLOUD_KEY_FILE
+    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
 });
 
 const bigquery = new BQ({
     projectId: process.env.GCLOUD_PROJECT,
-    keyFilename: process.env.GCLOUD_KEY_FILE
+    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
 });
 
 //Make use of a dataset called: chatanalytics
