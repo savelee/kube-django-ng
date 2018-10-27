@@ -194,12 +194,12 @@ authentication:
 * Dialogflow API Admin
 * Logs Writer
 
- For testing purposes, I might add also the *Owner* role to this service account.
- Though, for production is best to make use of the least privilidges. 
+    For testing purposes, I might add also the *Owner* role to this service account.
+    Though, for production is best to make use of the least privilidges. 
 
 1. Navigate to Cloud Functions, and take a note of the service account that is used.
 
- It might the App Engine service account which is created by default.
+    It might the App Engine service account which is created by default.
 
 1. Go back to the **IAM & admin** settings, and make sure the service account used by the Cloud Function,
  has the following roles:
