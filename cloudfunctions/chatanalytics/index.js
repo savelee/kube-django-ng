@@ -1,9 +1,9 @@
 //require the google-cloud npm package
 //setup the API keyfile, so your local environment can
 //talk to the Google Cloud Platform
-const bq = require('@google-cloud/bigquery')();
-const language = require('@google-cloud/language');
-const translate = require('@google-cloud/translate')();
+const bq = require('@google-cloud/bigquery')(); //TODO I've updated the packages - this code might break
+const language = require('@google-cloud/language'); //TODO I've updated the packages - this code might break
+const dlp = require('@google-cloud/dlp')(); //TODO this feture is yet missing
 
 //Make use of a dataset called: chatanalytics
 const dataset = bq.dataset('chatanalytics');

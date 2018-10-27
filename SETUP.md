@@ -155,6 +155,22 @@ TODO
 
 . On your hard drive navigate to *chatserver/dialogflow* zip this folder, and then **Import from Zip** in the Dialogflow settings screen.
 
+### Setup Cloud Functions
+
+. Click **Create Function**
+
+. Select Trigger: **Cloud Pub/Sub**
+
+. Choose topic: **user-content**
+
+. Paste the contents of *cloudfunctions/index.js* into the **index.js** textarea
+
+. Paste the contents of *cloudfunctions/package.json* into the **package.json** textarea (tab)
+
+. The function to execute is: **subscribe**
+
+. Click **Create**
+
 ### Setup Service Account
 
 Download the Service Account Key
@@ -178,35 +194,20 @@ Download the Service Account Key
 . Pick the Dialogflow Service Account, and add the following roles to it:
 
 * Dialogflow API Admin
-* BigQuery Admin
 * Logs Writer
-* Owner
 
-### Setup BigQuery
+ For testing purposes, I might add also the *Owner* role to this service account.
+ Though, for production is best to make use of the least privilidges. 
 
-. Navigate to https://bigquery.cloud.google.com/
+. Navigate to Cloud Functions, and take a note of the service account that is used.
 
-. TODO lee fix this in the code to create the dataset and the table.
+ It might the App Engine service account which is created by default.
 
-### Setup Pub/Sub
+. Go back to the **IAM & admin** settings, and make sure the service account used by the Cloud Function,
+ has the following roles:
 
-. TODO lee fix this in the code to create the channel: user-content
-
-### Setup Cloud Functions
-
-. Click **Create Function**
-
-. Select Trigger: **Cloud Pub/Sub**
-
-. Choose topic: **user-content**
-
-. Paste the contents of *cloudfunctions/index.js* into the **index.js** textarea
-
-. Paste the contents of *cloudfunctions/package.json* into the **package.json** textarea (tab)
-
-. The function to execute is: **subscribe**
-
-. Click **Create**
+ * BigQuery Admin
+ * Pub/Sub Admin
 
 #### Run the code locally
 

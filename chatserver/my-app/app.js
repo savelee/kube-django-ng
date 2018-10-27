@@ -31,6 +31,7 @@ const bigquery = new BQ({
     keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
 });
 
+
 //Make use of a dataset called: chatanalytics
 const dataset = bigquery.dataset('chatanalytics');
 //Make use of a BigQuery table called: chatmessages
@@ -41,15 +42,27 @@ var queryIt = function(sql){
 
         if(sql){
             dataset.exists(function(err, exists) {
-                if(!exists){ reject("Can't find BQ dataset."); }
-                table.exists(function(err, exists) {
-                    if(!exists){ reject("Can't find BQ table."); }
-    
-                    //make the query
-                    bigquery.query(sql).then(function(data){
-                        resolve(data);
+                if(!exists){
+                    dataset.create({
+                      id: 'chatanalytics'
+                    }).then(function(data) {
+                      console.log("dataset created");
+                
+                      //If the table doesn't exist, let's create it.
+                      //Note the schema that we will pass in.
+                      table.exists(function(err, exists) {
+                        if(!exists){
+                          table.create({
+                            id: 'chatmessages',
+                            schema: 'TEXT, POSTED:TIMESTAMP, SCORE:FLOAT, MAGNITUDE:FLOAT, INTENT, CONFIDENCE:FLOAT, SESSION'
+                          }).then(function(data) {
+                            console.log("table created");
+                          });
+                        }
+                      });
+                
                     });
-                });
+                }
             });
         } else {
             reject("Missing sql");
@@ -60,11 +73,25 @@ var queryIt = function(sql){
     return promise;
 };
 
+var topicName = 'user-content';
 var pushIt = function(obj) {
     //var dataBuffer = Buffer.from(text, 'utf-8');
     var dataBuffer = Buffer.from(JSON.stringify(obj),'utf-8');
-    
-    const topic = pubsub.topic('user-content');
+    const topic = pubsub.topic(topicName);
+
+    //If topic is not created yet, please create.
+
+    topic.exists((err, exists) => {
+        if(!exists){
+            pubsub.createTopic(topicName).then(results => {
+                    console.log(`Topic ${topicName} created.`);
+                })
+                .catch(err => {
+                    console.error('ERROR:', err);
+            });
+        }
+    });
+
     const publisher = topic.publisher();
     publisher.publish(dataBuffer)
     .then((results) => {
