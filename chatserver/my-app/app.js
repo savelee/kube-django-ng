@@ -209,25 +209,10 @@ io.on('connection', function(client){
 
         detectIntent(request, function(botAnswer, confidence){
 
-            var analytics = {};
-            analytics.text = data;
-            analytics.posted = new Date().getTime();
-            analytics.intent = botAnswer.toString();
-            analytics.confidence = confidence;
-            analytics.session = client.id;
-            
-            //push data into pub/sub
-            console.log(analytics);
-
-            // we tell the client to execute 'agentmsg'
             io.emit('agentmsg', {
                 username: "Bot",
                 message: botAnswer
             });
-
-            
-            //pushIt(data);
-            pushIt(analytics);
         });
 
     });
@@ -264,8 +249,6 @@ io.on('connection', function(client){
                 message: botAnswer
             });
 
-            
-            //pushIt(data);
             pushIt(analytics);
         });
     });
