@@ -244,24 +244,24 @@ In case you want to run this for the first time:
 
 1. Rename the file from the command-line, and edit:
 
-```
-$ mv chatserver/my-app/env.txt chatserver/my-app/.env
-$ nano .env
-```
+   ```
+   $ mv chatserver/my-app/env.txt chatserver/my-app/.env
+   $ nano .env
+   ```
 
 1. Modify the code:
 
-```
-GCLOUD_PROJECT=<PROJECT NAME>
-GOOGLE_APPLICATION_CREDENTIALS=<LOCATION OF YOUR SERVICE ACCOUNT FILE>
-```
+   ```
+   GCLOUD_PROJECT=<PROJECT NAME>
+   GOOGLE_APPLICATION_CREDENTIALS=<LOCATION OF YOUR SERVICE ACCOUNT FILE>
+   ```
 
 1. Then run on the command-line:
 
-```
-cd chatserver/my-app
-node app.js
-```
+   ```
+   cd chatserver/my-app
+   node app.js
+   ```
 
 ## Demo flow:
 
@@ -271,15 +271,17 @@ node app.js
 
 1. Use the following chatflow:
 
-U: I would like to transfer money
-> To which bank account number?
-U: IBAN1233435
-> How much would you like to tranfer?
-U: 100 euro
-> To which country?
-U: Germany
-> Alright! I will tranfer 100 euro to IBAN1233435 Germany.
-
+   ```
+   U: I would like to transfer money
+   > To which bank account number?
+   U: IBAN1233435
+   > How much would you like to tranfer?
+   U: 100 euro
+   > To which country?
+   U: Germany
+   > Alright! I will tranfer 100 euro to IBAN1233435 Germany.
+   ```
+   
 1. Now navigate to the **Dashboard** and explain the following:
 
 * We have collected x amount of messages over time.
@@ -296,8 +298,8 @@ U: Germany
 
 1. From the root directory, run the following build script:
 
-`gcloud container builds submit --config cloud.yaml .`
+   `gcloud container builds submit --config cloud.yaml .`
 
 1. Now setup the services and loadbalancer:
 
-`kubectl expose deployment my-app --type="LoadBalancer"`
+   `kubectl expose deployment my-app --type="LoadBalancer"`
