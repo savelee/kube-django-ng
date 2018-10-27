@@ -191,11 +191,10 @@ authentication:
 
 1. Pick the Dialogflow Service Account, and add the following roles to it:
 
-* Dialogflow API Admin
-* Logs Writer
+   NOTE: For testing purposes, I might add also the *Owner* role to this service account. Though, for production is best to make use of the least privilidges. 
 
-    For testing purposes, I might add also the *Owner* role to this service account.
-    Though, for production is best to make use of the least privilidges. 
+   * Dialogflow API Admin
+   * Logs Writer
 
 1. Navigate to Cloud Functions, and take a note of the service account that is used.
 
