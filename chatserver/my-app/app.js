@@ -62,6 +62,11 @@ var queryIt = function(sql){
                       });
                 
                     });
+                } else {
+                    //make the query
+                    bigquery.query(sql).then(function(data){
+                        resolve(data);
+                    });
                 }
             });
         } else {
@@ -297,11 +302,15 @@ io.on('connection', function(client){
             data.negatives = negatives;
             data.unhandled = unhandled;
             
+            console.log(data.totals);
+            console.log("here");
             console.log(data);
 
             // we tell the client to execute 'dashboarddata'
             io.emit('dashboarddata', data);
-        });
+        }).catch(function(error) {
+            console.log(error);
+          });
     });
     // when the client sends the session id from the realtime dashboard
     client.on('getsession', function (session) {
