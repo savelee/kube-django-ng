@@ -157,13 +157,15 @@ authentication:
 
 1. Click **Create Function**
 
+1. Name: **chatanalytics**
+
 1. Select Trigger: **Cloud Pub/Sub**
 
 1. Choose topic: **user-content**
 
-1. Paste the contents of *cloudfunctions/index.js* into the **index.js** textarea
+1. Paste the contents of *cloudfunctions/chatanalytics/index.js* into the **index.js** textarea
 
-1. Paste the contents of *cloudfunctions/package.json* into the **package.json** textarea (tab)
+1. Paste the contents of *cloudfunctions/chatanalytics/package.json* into the **package.json** textarea (tab)
 
 1. The function to execute is: **subscribe**
 

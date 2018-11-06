@@ -1,0 +1,175 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+
+  <mat-grid-list cols="6" rowHeight="1:1">
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+
+          <mat-card class="dashboard-card">
+              <mat-card-header>
+                <img mat-card-avatar src="../../assets/img/logos/profile.png">
+                <mat-card-title>
+                  Total Chat Msgs
+                </mat-card-title>
+                <mat-card-subtitle>
+                  Tracked from BigQuery
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content class="dashboard-card-content totalchatmessagescounter">
+                  <span class="number">{{totals}}</span>
+              </mat-card-content>
+              <mat-card-footer>
+              </mat-card-footer>
+            </mat-card>
+
+
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+
+          <mat-card class="dashboard-card">
+              <mat-card-header>
+                <img mat-card-avatar src="../../assets/img/logos/profile.png">
+                <mat-card-title>
+                  Negative Msgs
+                </mat-card-title>
+                <mat-card-subtitle>
+                    Tracked from BigQuery
+                  </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content class="dashboard-card-content negativeresponsescounter">
+                  <span class="number">{{totalNegatives}}</span>
+              </mat-card-content>
+            </mat-card>
+
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="6" [rowspan]="3">
+
+          <mat-card class="dashboard-card">
+              <mat-card-header>
+                <mat-card-title>
+                  Negative Responses
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="dashboard-card-content negativeresponses">
+
+
+                  <table mat-table [dataSource]="negatives" class="mat-elevation-z8">
+
+                     
+                      <ng-container matColumnDef="SCORE">
+                        <th mat-header-cell *matHeaderCellDef> Score </th>
+                        <td mat-cell *matCellDef="let negative"> {{ negative.SCORE * 100 | number:'1.0-2' }}% </td>
+                      </ng-container>
+                    
+                      <ng-container matColumnDef="TEXT">
+                        <th mat-header-cell *matHeaderCellDef> Text </th>
+                        <td mat-cell *matCellDef="let negative"> {{negative.TEXT}} </td>
+                      </ng-container>
+                    
+                      <ng-container matColumnDef="SESSION">
+                        <th mat-header-cell *matHeaderCellDef> Session </th>
+                        <td mat-cell *matCellDef="let negative"> {{negative.SESSION}} </td>
+                      </ng-container>
+                                  
+                      <tr mat-header-row *matHeaderRowDef="negativeCols"></tr>
+                      <tr mat-row *matRowDef="let row; columns: negativeCols;"></tr>
+                    </table>
+
+              </mat-card-content>
+            </mat-card>
+
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="6" [rowspan]="3">
+
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                Unhandled Intents
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content unhandledintents">
+
+
+              
+                <table mat-table [dataSource]="unhandled" class="mat-elevation-z8">
+
+                    <ng-container matColumnDef="TEXT">
+                      <th mat-header-cell *matHeaderCellDef> Text </th>
+                      <td mat-cell *matCellDef="let unhandleditem"> {{ unhandleditem.TEXT }} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="INTENT">
+                      <th mat-header-cell *matHeaderCellDef> Intent </th>
+                      <td mat-cell *matCellDef="let unhandleditem"> {{ unhandleditem.INTENT }} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="SESSION">
+                      <th mat-header-cell *matHeaderCellDef> Session </th>
+                      <td mat-cell *matCellDef="let unhandleditem"> {{ unhandleditem.SESSION }} </td>
+                    </ng-container>
+                                
+                    <tr mat-header-row *matHeaderRowDef="unhandledintentsCols"></tr>
+                    <tr mat-row *matRowDef="let row; columns: unhandledintentsCols;"></tr>
+                  </table>
+
+
+            </mat-card-content>
+          </mat-card>
+
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="6" [rowspan]="4">
+
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                  Track Conversation
+              </mat-card-title>
+
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content trackconversation">
+
+                <mat-toolbar class="cardbar" fullscreen>
+                <form role="search" [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <mat-form-field class="searchbar">
+                        <mat-label>Session ID</mat-label>
+                        <input matInput id="sessionid" type="text" formControlName="sessionid" name="sessionid" placeholder="6OVkcIQg7QFvdc5EAAAs">
+                        <mat-hint>Enter the Dialogflow Session ID to track the conversation.</mat-hint>
+                      </mat-form-field>
+                      <button type="submit" mat-raised-button color="accent">Search</button>
+                </form>
+              </mat-toolbar>
+              
+
+                <table mat-table [dataSource]="searchresults" class="mat-elevation-z8">
+                  
+                    <ng-container matColumnDef="POSTED">
+                      <th mat-header-cell *matHeaderCellDef> Posted </th>
+                      <td mat-cell *matCellDef="let result"> {{ result.POSTED.value | date:'MM/dd/yyyy HH:mm:ss' }} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="TEXT">
+                      <th mat-header-cell *matHeaderCellDef> Text </th>
+                      <td mat-cell *matCellDef="let result"> {{result.TEXT}} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="INTENT">
+                      <th mat-header-cell *matHeaderCellDef> Intent </th>
+                      <td mat-cell *matCellDef="let result"> {{result.INTENT}} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="SCORE">
+                      <th mat-header-cell *matHeaderCellDef> Score </th>
+                      <td mat-cell *matCellDef="let result">{{ result.SCORE * 100 | number:'1.0-2' }}%</td>
+                    </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="trackedCols"></tr>
+                    <tr mat-row *matRowDef="let row; columns: trackedCols;"></tr>
+                  </table>
+              
+            </mat-card-content>
+          </mat-card>
+
+      </mat-grid-tile>
+
+  </mat-grid-list>
+</div>

@@ -1,0 +1,151 @@
+
+@import '~@angular/material/theming';
+
+$google-color-blue: (
+  50: lighten(#4285F4,90%),
+  100:lighten(#4285F4,80%),
+  200: lighten(#4285F4,70%),
+  300: lighten(#4285F4,60%),
+  400: lighten(#4285F4,50%),
+  500: lighten(#4285F4,40%),
+  600: lighten(#4285F4,30%),
+  700: lighten(#4285F4,20%),
+  800: lighten(#4285F4,10%),
+  900:  #4285F4,
+  A100: darken(#4285F4,20%),
+  A200: darken(#4285F4,40%),
+  A400: darken(#4285F4,60%),
+  A700: darken(#4285F4,80%),
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$google-color-red: (
+  50: lighten(#DB4437,90%),
+  100:lighten(#DB4437,80%),
+  200: lighten(#DB4437,70%),
+  300: lighten(#DB4437,60%),
+  400: lighten(#DB4437,50%),
+  500: lighten(#DB4437,40%),
+  600: lighten(#DB4437,30%),
+  700: lighten(#DB4437,20%),
+  800: lighten(#DB4437,10%),
+  900:  #DB4437,
+  A100: darken(#DB4437,20%),
+  A200: darken(#DB4437,40%),
+  A400: darken(#DB4437,60%),
+  A700: darken(#DB4437,80%),
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$google-color-green: (
+  50: lighten(#0F9D58,90%),
+  100:lighten(#0F9D58,80%),
+  200: lighten(#0F9D58,70%),
+  300: lighten(#0F9D58,60%),
+  400: lighten(#0F9D58,50%),
+  500: lighten(#0F9D58,40%),
+  600: lighten(#0F9D58,30%),
+  700: lighten(#0F9D58,20%),
+  800: lighten(#0F9D58,10%),
+  900:  #0F9D58,
+  A100: darken(#0F9D58,20%),
+  A200: darken(#0F9D58,40%),
+  A400: darken(#0F9D58,60%),
+  A700: darken(#0F9D58,80%),
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$google-color-yellow: #F4B400 !default;
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$candy-app-primary: mat-palette($google-color-blue, 900);
+$candy-app-accent:  mat-palette($google-color-green, 900);
+$candy-app-warn:     mat-palette($google-color-red, 900);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($candy-app-theme);
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('../fonts/GoogleSans-Regular.eot');
+  src: url('../fonts/GoogleSans-Regular.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/GoogleSans-Regular.woff2') format('woff2'),
+      url('../fonts/GoogleSans-Regular.woff') format('woff'),
+      url('../fonts/GoogleSans-Regular.ttf') format('truetype'),
+      url('../fonts/GoogleSans-Regular.svg#GoogleSans-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+$custom-typography: mat-typography-config(
+    $font-family: 'Google Sans'
+);
+
+@include mat-core($custom-typography);
+
+body {
+  background: #4285F4;
+}
+
+h1 {
+  color: #fff;
+  padding-left: 15px;
+}
+

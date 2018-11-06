@@ -131,9 +131,24 @@ function detectIntent(request, cb){
 
         if(result){
 
-            console.log(result);
-
-
+            var p = structjson.structProtoToJson(result.parameters);
+            if(result.action && result.action == 'spent') {
+                var spentObj = {
+                    name: 'spent',
+                    param: p['category']
+                }
+                cb(spentObj, result.intent.intentDetectionConfidence, "BalanceBot");
+                return;
+            }
+            if(result.action && result.action == 'income') {
+                var incomingObj = {
+                    name: 'salary',
+                    param: p['category']
+                }
+                cb(incomingObj, result.intent.intentDetectionConfidence, "BalanceBot");
+                return;
+            }
+            
             var dialogs = result.fulfillmentMessages;
             for (var i = 0, len = dialogs.length; i < len; i++) {
                 var messageType = dialogs[i].message; //text || payload
@@ -168,7 +183,7 @@ function detectIntent(request, cb){
 
                 if(answer){
                     //console.log(result.intent.intentDetectionConfidence);
-                    cb(answer, result.intent.intentDetectionConfidence);
+                    cb(answer, result.intent.intentDetectionConfidence, "ChatBot");
                 }
             }
         }
@@ -176,7 +191,7 @@ function detectIntent(request, cb){
     .catch(err => {
         console.error('ERROR:', err);
         io.emit('systemerror', {
-            username: "Bot",
+            username: "ChatBot",
             message: err
         });
     });
@@ -212,11 +227,13 @@ io.on('connection', function(client){
             };         
         }
 
-        detectIntent(request, function(botAnswer, confidence){
+        detectIntent(request, function(botAnswer, confidence, botName){
 
             io.emit('agentmsg', {
-                username: "Bot",
-                message: botAnswer
+                username: botName,
+                message: botAnswer,
+                confidence: confidence,
+                session: client.id
             });
         });
 
@@ -236,7 +253,7 @@ io.on('connection', function(client){
             },
         };
     
-        detectIntent(request, function(botAnswer, confidence){
+        detectIntent(request, function(botAnswer, confidence, botName){
 
             var analytics = {};
             analytics.text = data;
@@ -250,8 +267,10 @@ io.on('connection', function(client){
 
             // we tell the client to execute 'agentmsg'
             io.emit('agentmsg', {
-                username: "Bot",
-                message: botAnswer
+                username: botName,
+                message: botAnswer,
+                confidence: confidence,
+                session: client.id
             });
 
             pushIt(analytics);
@@ -301,10 +320,6 @@ io.on('connection', function(client){
             data.totalNegatives = totalNegatives;
             data.negatives = negatives;
             data.unhandled = unhandled;
-            
-            console.log(data.totals);
-            console.log("here");
-            console.log(data);
 
             // we tell the client to execute 'dashboarddata'
             io.emit('dashboarddata', data);
