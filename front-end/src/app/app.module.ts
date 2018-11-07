@@ -51,6 +51,7 @@ import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
 import { BalanceComponent } from './balance/balance.component';
 import { SupportComponent } from './support/support.component';
 import { TransferComponent } from './transfer/transfer.component';
+import { FaqComponent } from './faq/faq.component';
 
 
 @NgModule({
@@ -106,7 +107,8 @@ import { TransferComponent } from './transfer/transfer.component';
     MyDashboardComponent,
     BalanceComponent,
     SupportComponent,
-    TransferComponent
+    TransferComponent,
+    FaqComponent
   ],
   providers: [
     {

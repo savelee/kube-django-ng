@@ -36,7 +36,8 @@ export class MyDashboardComponent implements OnInit {
     
     //TODO
     var server = location.protocol+'//'+location.hostname;
-    if(location.hostname == "localhost" && location.port == "4200"){
+    if(location.hostname == "localhost" && location.port == "4200"
+  || location.hostname == "localhost" && location.port == "4000"){
       server = location.protocol+'//'+location.hostname+ ':3000'
     }
     console.log(server);

@@ -12,6 +12,7 @@ import { readFileSync } from 'fs';
 const domino = require('domino');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors')
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -37,6 +38,8 @@ global['document'] = win.document;
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/front-end-server/main');
 
 const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
+
+app.use(cors())
 
 app.engine('html', (_, options, callback) => {
   renderModuleFactory(AppServerModuleNgFactory, {

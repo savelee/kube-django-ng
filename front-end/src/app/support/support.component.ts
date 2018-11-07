@@ -17,8 +17,10 @@ export class SupportComponent implements OnInit {
   ) {
   
     var me = this;
-    var server = location.protocol+'//'+location.hostname;
-    if(location.hostname == "localhost" && location.port == "4200"){
+    var server = location.protocol+'//'+location.hostname; //TODO
+    if(location.hostname == "localhost" && location.port == "4200" ||
+    location.hostname == "localhost" && location.port == "4000"
+  ){
       server = location.protocol+'//'+location.hostname+ ':3000'
     }
 
