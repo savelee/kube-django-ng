@@ -13,7 +13,7 @@
           "styleext": "scss"
         }
       },
-      "targets": {
+      "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
@@ -54,6 +54,14 @@
             }
           }
         },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/front-end-server",
+            "main": "src/main.server.ts",
+            "tsConfig": "src/tsconfig.server.json"
+          }        
+        },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
@@ -69,14 +77,6 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "front-end:build"
-          }
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/front-end-server",
-            "main": "src/main.server.ts",
-            "tsConfig": "src/tsconfig.server.json"
           }
         },
         "test": {
