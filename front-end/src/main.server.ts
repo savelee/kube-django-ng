@@ -1,0 +1,1 @@
+export { ServerAppModule } from './app/app.server.module';
