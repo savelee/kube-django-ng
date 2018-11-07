@@ -1,45 +1,42 @@
-#gcloud container builds submit --config cloud.yaml .
 steps:
 # Build Django Container
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/gke-pipeline-savelee-192517/django-image', './server' ]
-
-# Build Angular Container
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/gke-pipeline-savelee-192517/angular-image', './client' ]
-
-
-# Build Google Bank Container
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/gke-pipeline-savelee-192517/googlebank-image', './googlebank' ]
-
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/django-image', './server' ]
 
 # Build ChatServer Container
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/gke-pipeline-savelee-192517/chatserver-image', './chatserver' ]
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/chatserver-image', './chatserver' ]
 
+# Build New Front-end Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/front-end-image', './front-end' ]
+
+# Build New Front-end Container SSR
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/front-end-server-image', '-f', 'Dockerfile_SSR', './front-end' ]
 
 # Push updated Django Container
-- id: 'Push Django image to registry'
-  name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/gke-pipeline-savelee-192517/django-image' ]
-
-# Push updated Angular Container
-- id: 'Push Angular image to registry'
-  name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/gke-pipeline-savelee-192517/angular-image' ]
-
-# Push updated GoogleBank Container
-- id: 'Push GoogleBank image to registry'
-  name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/gke-pipeline-savelee-192517/googlebank-image' ]
+#- id: 'Push Django image to registry'
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: [ 'push', 'gcr.io/$PROJECT_ID/django-image' ]
 
 # Push updated ChatServer Container
-- id: 'Push ChatServer image to registry'
-  name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/gke-pipeline-savelee-192517/chatserver-image' ]
+#- id: 'Push ChatServer image to registry'
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: [ 'push', 'gcr.io/$PROJECT_ID/chatserver-image' ]
 
-# Deploy Django in the Cloud
+# Push updated Front-end Container
+- id: 'Push Front-end image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/front-end-image' ]
+
+# Push updated Front-end Container SSR
+#- id: 'Push Front-end image to registry'
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: [ 'push', 'gcr.io/$PROJECT_ID/front-end-server-image' ]
+
+
+# Deploy all in the Cloud
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-f', 'deployment.yaml' ]
   env:
@@ -51,8 +48,7 @@ steps:
 #  args: [ 'expose', 'deployment', 'my-app', '--type="LoadBalancer"' ]
 
 images:
-- 'gcr.io/gke-pipeline-savelee-192517/django-image'
-- 'gcr.io/gke-pipeline-savelee-192517/angular-image'
-- 'gcr.io/gke-pipeline-savelee-192517/googlebank-image'
-- 'gcr.io/gke-pipeline-savelee-192517/chatserver-image'
-
+- 'gcr.io/$PROJECT_ID/django-image'
+- 'gcr.io/$PROJECT_ID/front-end-image'
+- 'gcr.io/$PROJECT_ID/chatserver-image'
+#- 'gcr.io/$PROJECT_ID/front-end-server-image'

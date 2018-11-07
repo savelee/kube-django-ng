@@ -7,7 +7,7 @@
 This demo, showcases a dummy banking portal.
 It exists of the following containers:
 
-* Web Front-end - An Angular app (**client** folder)
+* Web Front-end - An Angular app (**front-end** folder)
 * Dialogflow SDK - A Node JS app (**chatserver** folder)
 * CMS - A Python/Django app (**server** folder)
 
@@ -294,13 +294,19 @@ In case you want to run this for the first time:
 
 ## Deploy your code to GKE with Cloud Builder
 
+1. Navigate to the root of this repository.
+
+1. Set your **PROJECT_ID** variable, which points to your GCP project id. For example:
+
+      `PROJECT_ID=gke-pipeline-savelee-192517`
+
 1. TODO Steps on creating a GKE cluster
 
 1. (optional) In case you have deployed to this cluser before, remove deployment and service from the console.
 
 1. From the root directory, run the following build script:
 
-   `gcloud container builds submit --config cloud.yaml .`
+   `gcloud builds submit --config cloud.yaml .`
 
 1. Now setup the services and loadbalancer:
 
