@@ -1,0 +1,9 @@
+steps:
+# Build Django Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/django-image', './server' ]
+
+# Push updated Django Container
+- id: 'Push Django image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/django-image' ]

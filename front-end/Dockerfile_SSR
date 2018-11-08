@@ -1,6 +1,4 @@
-##Server Side Docker
-### STAGE 1: Build ###
-FROM gcr.io/cloud-builders/npm as builder
+FROM node:latest
 LABEL maintainer="Lee Boonstra"
 
 WORKDIR /my-app
@@ -9,8 +7,8 @@ COPY package.json /my-app/
 COPY angular.json /my-app/
 COPY tsconfig.json /my-app/
 COPY tslint.json /my-app/
-COPY server.ts /my-app/
 COPY webpack.server.config.js /my-app/
+COPY server.ts /my-app/
 
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 RUN npm install --force
@@ -19,13 +17,8 @@ COPY /src/ /my-app/src/
 
 RUN npm run build:ssr -- --output-path=./dist/front-end-server/
 RUN npm run webpack:server -- --output-path=./dist/
- 
-### STAGE 2: Setup ###
-FROM nginx:1.13.3-alpine
+RUN npm install pm2 -g
 
-ADD ./nginx/default.conf /etc/nginx/conf.d/
-RUN rm -rf /usr/share/nginx/html/*
+EXPOSE 4000
 
-COPY --from=builder dist/front-end-server /usr/share/nginx/html
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["pm2-runtime", "./dist/server.js"]

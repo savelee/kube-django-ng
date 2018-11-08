@@ -187,3 +187,4 @@ db.sqlite3
 *node_modules/
 *dist/
 *keys/
+master.json

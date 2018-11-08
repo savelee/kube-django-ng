@@ -74,11 +74,7 @@ authentication:
     
         gcloud auth login
 
-1. When running on App Engine or Compute Engine, credentials are already
-   set-up. However, you may need to configure your Compute Engine instance
-   with `additional scopes`_.
-
-1. You can create a `Service Account key file`_. This file can be used to
+1. You can create a `Service Account key file`. This file can be used to
    authenticate to Google Cloud Platform services from any environment. To use
    the file, set the ``GOOGLE_APPLICATION_CREDENTIALS`` environment variable to
    the path to the key file, for example:
@@ -181,7 +177,7 @@ authentication:
 
 1. Select **Dialogflow Integrations**
 
-1. Give it the name: *contact-center-demo*,  - select for now Project Owner (in production, you might want to fine tune this on least privaliges)
+1. Give it the name: *master.json*,  - select for now Project Owner (in production, you might want to fine tune this on least privaliges)
 
 1. Select **JSON**
 
@@ -294,13 +290,20 @@ In case you want to run this for the first time:
 
 ## Deploy your code to GKE with Cloud Builder
 
-1. Navigate to the root of this repository.
+1. Create a GKE Cluster:
+
+    `gcloud container clusters create futurebank --region europe-west1-c --num-nodes 1 --enable-autoscaling --min-nodes 1 --max-nodes 4`
 
 1. Set your **PROJECT_ID** variable, which points to your GCP project id. For example:
 
-      `PROJECT_ID=gke-pipeline-savelee-192517`
+      `export PROJECT_ID=gke-pipeline-savelee-192517`
 
-1. TODO Steps on creating a GKE cluster
+1. Navigate to the root of this repository.
+
+1. Create a secret from your service account **master.json** key
+
+    `kubectl create configmap dialogflow --from-literal "project-id=${PROJECT_ID}"`
+    `kubectl create secret generic dialogflow --from-file=master.json`
 
 1. (optional) In case you have deployed to this cluser before, remove deployment and service from the console.
 
@@ -308,6 +311,12 @@ In case you want to run this for the first time:
 
    `gcloud builds submit --config cloud.yaml .`
 
+1. Fix **deployment.yaml** to the container names in your Container Registry.
+
+1. In case you just want to redeploy the containers, without building;
+
+   `kubectl apply -f deployment.yaml --validate=false`
+
 1. Now setup the services and loadbalancer:
 
-   `kubectl expose deployment my-app --type="LoadBalancer"`
+   `kubectl expose deployment futurebank --type="LoadBalancer"`

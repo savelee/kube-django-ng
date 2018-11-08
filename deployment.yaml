@@ -1,35 +1,37 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: my-app
+  name: futurebank
 spec:
-  replicas: 1
+  selector:
+    matchLabels:
+      app: futurebank
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: my-app
+        app: futurebank
     spec:
       containers:
-      - image: gcr.io/gke-pipeline-savelee-192517/django-image:latest
-        name: django
-        ports:
-        - containerPort: 8080
       - image: gcr.io/gke-pipeline-savelee-192517/front-end-image:latest
         name: front-end
         ports:
         - containerPort: 80
-      #- image: gcr.io/gke-pipeline-savelee-192517/front-end-server-image:latest
-      #  name: front-end-server
-      #  ports:
-      #  - containerPort: 4000
+      - image: gcr.io/gke-pipeline-savelee-192517/front-end-server-image:latest
+        name: front-end-server
+        ports:
+        - containerPort: 4000
       - image: gcr.io/gke-pipeline-savelee-192517/chatserver-image:latest
         name: chatserver
         ports:
         - containerPort: 3000  
         env:
-          - name: "GOOGLE_APPLICATION_CREDENTIALS"
-            value: "/var/run/secret/cloud.google.com/master.json"
+            - name: "GOOGLE_APPLICATION_CREDENTIALS"
+              value: "/var/run/secret/cloud.google.com/master.json"
+            - name: "PROJECT_ID"
+              valueFrom:
+                configMapKeyRef:
+                  name: dialogflow
+                  key: project-id
         volumeMounts:
           - name: "service-account"
             mountPath: "/var/run/secret/cloud.google.com"

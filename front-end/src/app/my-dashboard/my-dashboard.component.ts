@@ -34,12 +34,15 @@ export class MyDashboardComponent implements OnInit {
   constructor(
     private http: HttpClient) {
     
-    //TODO
+    //only in localhost
     var server = location.protocol+'//'+location.hostname;
     if(location.hostname == "localhost" && location.port == "4200"
   || location.hostname == "localhost" && location.port == "4000"){
       server = location.protocol+'//'+location.hostname+ ':3000'
+    } else {
+      server = server + "/socket.io"
     }
+
     console.log(server);
 
     this.server = io(server);
