@@ -1,6 +1,9 @@
+console.log("Chatserver running...");
+
 require('dotenv').config() //load environemnt vars
 
 const projectId = process.env.GCLOUD_PROJECT; //your project name
+const topicName = 'user-content'; //TODO process.env.TOPIC
 const uuidv1 = require('uuid/v1');
 const sessionId = uuidv1(); // ⇨ '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e'
 const languageCode = 'en-US';
@@ -13,7 +16,11 @@ const structjson = require('./structjson');
 const dialogflow = require('dialogflow');
 const sessionClient = new dialogflow.SessionsClient();
 
-console.log(sessionClient);
+console.log("..." + projectId);
+console.log('...' + sessionId);
+console.log('...' + topicName);
+
+//console.log(sessionClient);
 
 //const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
@@ -30,7 +37,6 @@ const bigquery = new BQ({
     projectId: process.env.GCLOUD_PROJECT,
     keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
 });
-
 
 //Make use of a dataset called: chatanalytics
 const dataset = bigquery.dataset('chatanalytics');
@@ -78,7 +84,6 @@ var queryIt = function(sql){
     return promise;
 };
 
-var topicName = 'user-content';
 var pushIt = function(obj) {
     //var dataBuffer = Buffer.from(text, 'utf-8');
     var dataBuffer = Buffer.from(JSON.stringify(obj),'utf-8');

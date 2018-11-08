@@ -302,20 +302,20 @@ In case you want to run this for the first time:
 
 1. Create a secret from your service account **master.json** key
 
-    `kubectl create configmap dialogflow --from-literal "project-id=${PROJECT_ID}"`
-    `kubectl create secret generic dialogflow --from-file=master.json`
+    `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=user-content"`
+    `kubectl create secret generic credentials --from-file=master.json`
 
-1. (optional) In case you have deployed to this cluser before, remove deployment and service from the console.
+1. From the root directory, run the following build scripts:
 
-1. From the root directory, run the following build script:
+   `gcloud builds submit --config cloudbuilder/chatserver.yaml`
 
-   `gcloud builds submit --config cloud.yaml .`
+   `gcloud builds submit --config cloudbuilder/front-end.yaml`
 
-1. Fix **deployment.yaml** to the container names in your Container Registry.
+   `gcloud builds submit --config cloudbuilder/front-end-ssr.yaml`
 
-1. In case you just want to redeploy the containers, without building;
+   `gcloud builds submit --config cloudbuilder/django.yaml`
 
-   `kubectl apply -f deployment.yaml --validate=false`
+1. Fix **-deployment.yaml** files to the container names in your Container Registry.
 
 1. Now setup the services and loadbalancer:
 

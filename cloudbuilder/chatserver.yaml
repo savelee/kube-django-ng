@@ -7,3 +7,14 @@ steps:
 - id: 'Push ChatServer image to registry'
   name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/chatserver-image' ]
+
+# Deploy all in the Cloud
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'cloudbuilder/chatserver-deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
+
+# Expose the service
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'expose', 'deployment', 'futurebank', '--type="LoadBalancer"' ]
