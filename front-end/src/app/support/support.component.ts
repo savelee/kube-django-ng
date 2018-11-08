@@ -17,12 +17,16 @@ export class SupportComponent implements OnInit {
   ) {
   
     var me = this;
-    var server = location.protocol+'//'+location.hostname; //TODO
-    if(location.hostname == "localhost" && location.port == "4200" ||
-    location.hostname == "localhost" && location.port == "4000"
-  ){
+    //only in localhost
+    var server = location.protocol+'//'+location.hostname;
+    if(location.hostname == "localhost" && location.port == "4200"
+  || location.hostname == "localhost" && location.port == "4000"){
       server = location.protocol+'//'+location.hostname+ ':3000'
+    } else {
+      //server = location.protocol+'//'+location.hostname+ "/socket.io";
     }
+
+    console.log(server);
 
     this.server = io(server);  
   }

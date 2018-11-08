@@ -81,7 +81,7 @@ export class BalanceComponent implements OnInit {
   || location.hostname == "localhost" && location.port == "4000"){
       server = location.protocol+'//'+location.hostname+ ':3000'
     } else {
-      server = server + "/socket.io"
+      //server = location.protocol+'//'+location.hostname+ "/socket.io";
     }
 
     console.log(server);

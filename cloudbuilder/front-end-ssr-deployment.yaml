@@ -1,0 +1,21 @@
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "front-end-ssr"
+  namespace: "default"
+  labels:
+    app: "front-end-ssr"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "front-end-ssr"
+  template:
+    metadata:
+      labels:
+        app: "front-end-ssr"
+    spec:
+      containers:
+      - name: "front-end-server-image"
+        image: "gcr.io/gke-pipeline-savelee-192517/front-end-server-image:latest"
+
