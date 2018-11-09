@@ -1,0 +1,64 @@
+steps:
+# Build New Front-end Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/front-end-image', './front-end' ]
+
+# Build New Front-end Container SSR
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/front-end-server-image', '-f', './front-end/Dockerfile_SSR', './front-end' ]
+
+# Build ChatServer Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/chatserver-image', './chatserver' ]
+
+# Build Django Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/django-image', './server' ]
+
+# Push updated Front-end Container
+- id: 'Push Front-end image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/front-end-image' ]
+
+# Push updated Front-end Container SSR
+#- id: 'Push Front-end image to registry'
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: [ 'push', 'gcr.io/$PROJECT_ID/front-end-server-image' ]
+
+# Push updated ChatServer Container
+- id: 'Push ChatServer image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/chatserver-image' ]
+
+# Push updated Django Container
+- id: 'Push Django image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/django-image' ]
+
+# Deploy all in the Cloud
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'cloudbuilder/front-end-deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
+
+# Deploy all in the Cloud
+#- name: 'gcr.io/cloud-builders/kubectl'
+#  args: [ 'apply', '-f', 'cloudbuilder/front-end-ssr-deployment.yaml' ]
+#  env:
+#    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+#    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
+
+# Deploy all in the Cloud
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'cloudbuilder/chatserver-deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
+
+# Deploy all in the Cloud
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'cloudbuilder/django-deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'

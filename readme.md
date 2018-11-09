@@ -27,7 +27,6 @@ The **bq** folder contains the queries.
 
 **Disclaimer: This is not an officially supported Google product. Written code can be used as a baseline, it's not meant for production usage.**
 
-
 ### Setup
 
 #### Setup Google Cloud
@@ -296,7 +295,7 @@ In case you want to run this for the first time:
 
 1. Set your **PROJECT_ID** variable, which points to your GCP project id. For example:
 
-      `export PROJECT_ID=gke-pipeline-savelee-192517`
+    `export PROJECT_ID=gke-pipeline-savelee-192517`
 
 1. Navigate to the root of this repository.
 
@@ -305,17 +304,27 @@ In case you want to run this for the first time:
     `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=user-content"`
     `kubectl create secret generic credentials --from-file=master.json`
 
-1. From the root directory, run the following build scripts:
+1. Fix paths to your images of the **-deployment.yaml** & **setup** files (in the cloudbuilder folder) to match the container names in your Container Registry.
+
+1. When you setup your cluster for the first time, you can run this command from the root directory:
+
+    `gcloud builds submit --config cloudbuilder/setup.yaml`
+
+1. In case you want to re-deploy individual containers, run the following build scripts:
 
    `gcloud builds submit --config cloudbuilder/chatserver.yaml`
 
    `gcloud builds submit --config cloudbuilder/front-end.yaml`
 
-   `gcloud builds submit --config cloudbuilder/front-end-ssr.yaml`
-
    `gcloud builds submit --config cloudbuilder/django.yaml`
 
-1. Fix **-deployment.yaml** files to the container names in your Container Registry.
+1. To delete deployments use:
+
+   `kubectl delete deployment front-end`
+
+1. To deploy another deployment:
+
+   `kubectl apply -f cloudbuilder/front-end-deployment.yaml`
 
 1. Now setup the services and loadbalancer:
 

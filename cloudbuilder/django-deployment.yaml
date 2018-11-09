@@ -1,0 +1,20 @@
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "django"
+  namespace: "default"
+  labels:
+    app: "django"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "django"
+  template:
+    metadata:
+      labels:
+        app: "django"
+    spec:
+      containers:
+      - name: "django-image"
+        image: "gcr.io/gke-pipeline-savelee-192517/django-image:latest"

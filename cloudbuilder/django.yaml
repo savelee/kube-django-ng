@@ -7,3 +7,14 @@ steps:
 - id: 'Push Django image to registry'
   name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/django-image' ]
+
+# Delete Existing Deployment 
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'delete', 'deployment', 'django' ]
+
+# Deploy all in the Cloud
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'cloudbuilder/django-deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
