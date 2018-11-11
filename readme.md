@@ -321,7 +321,8 @@ In case you want to run this for the first time:
     If Google were to start a bank, what would it look like?
     ```
 
-*NOTE: In order to make the KB Connector work with your own FAQ pages, you will need a public available HTML website with (server generated) HTML. The website will need to allow Google Robots, and needs to be added to the Google search engine. You will need more than one Q&A pair and not more than 200.
+*NOTE: In order to make the KB Connector work with your own FAQ pages, you will need a public available HTML website with (server generated) HTML. The website will need to allow Google Robots, and needs to be added to the Google search engine. (pages.github won't work.) 
+You will need more than one Q&A pair and not more than 200.
 It helps when you use valid HTML5 markup for your Q&As, and base it on schema.org notations.
 See the markup of: https://github.com/savelee/kube-django-ng/blob/master/front-end/src/assets/html/faq/faq.html for a good overview.*
 
