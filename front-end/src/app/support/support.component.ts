@@ -46,12 +46,13 @@ export class SupportComponent implements OnInit {
     } else {    
       history.insertAdjacentHTML('beforeend', '<li class="user balloon">' + query + '</li>');
     }
-    $(".chatarea").stop().animate({ scrollTop: $(".chatarea")[0].scrollHeight}, 1000);
+    if($(".chatarea").length > 0)
+      $(".chatarea").stop().animate({ scrollTop: $(".chatarea")[0].scrollHeight}, 1000);
   }
 
   onSubmit(f: NgForm) { 
     var m = f.value.m;
-    this.intentMatching(m);
+    if(m.length > 0) this.intentMatching(m);
     f.reset();
   }
 
