@@ -268,7 +268,7 @@ In case you want to run this for the first time:
  intent matching. The user trains user trained phrases. As soon as Dialogflow detects a match
  with the intent with the highest confidence level, it returns the answer.
 
- Show the [Use Case 1 - transfer money intent] and explain how to setup:
+ Show the **Use Case 1 - transfer money intent** and explain how to setup:
 
  * Intents (User phrases & Responses)
  * Entities
@@ -294,33 +294,33 @@ In case you want to run this for the first time:
     
 1. Now navigate to the **Dashboard** and explain the following:
 
-* We have collected x amount of messages over time.
-* x amount of these messages contained negative user sentiment.
-* Explain that we will optimize our chatbot based on the feedback of our users.
-* Let's query on the session id, to figure out what went wrong, and read the transcript.
-* Explain how this was built, by showing the architecture, and mentioning all the GCP components.
+    * We have collected x amount of messages over time.
+    * x amount of these messages contained negative user sentiment.
+    * Explain that we will optimize our chatbot based on the feedback of our users.
+    * Let's query on the session id, to figure out what went wrong, and read the transcript.
+    * Explain how this was built, by showing the architecture, and mentioning all the GCP components.
 
 1. In case you want to demonstrate the Knowledge Base Connector:
 
-* Show http://localhost:4200/faq/faq.html explain you want to import these FAQs in Dialogflow
-* Make sure you enabled Beta features in Dialogflow Settings.
-* Click on the **Knowledge** menu item.
-* Create a new Knowledge Base: *Future Bank*
-* Click **Create the first one**.
-* Document name: **Bank FAQ**, Knowledge type: **FAQ**, Mime type: **text/html**
-* See the below note, or use this URL: http://www.futurebank.nl/assets/html/faq/faq.html
-* Click **Save**, Dialogflow will crawl your page, and index Question & Answer pairs.
-* Click **Add response**
-* Give it the following reponse: **$Knowledge.Answer[1]**
-* Click **Save**, wait till it got trained, and test with the following question:
+    * Show http://localhost:4200/faq/faq.html explain you want to import these FAQs in Dialogflow
+    * Make sure you enabled **Enable Beta features & API** in the Dialogflow Settings panel.
+    * Click on the **Knowledge** menu item.
+    * Create a new Knowledge Base: **Future Bank**
+    * Click **Create the first one**.
+    * Document name: **Bank FAQ**, Knowledge type: **FAQ**, Mime type: **text/html**
+    * See the below note, or use this URL: http://www.futurebank.nl/assets/html/faq/faq.html
+    * Click **Save**, Dialogflow will crawl your page, and index Question & Answer pairs.
+    * Click **Add response**
+    * Give it the following reponse: `$Knowledge.Answer[1]`
+    * Click **Save**, wait till it got trained, and test with the following question:
 
- ```
- U: When did they form the Future Bank?
- >The Future Bank is a conceptional demo project. If Google were to start a bank, what would it look like?
- ```
+    ```
+    U: When did they form the Future Bank?
+    >The Future Bank is a conceptional demo project. If Google were to start a bank, what would it look like?
+    ```
 
-NOTE: In order to make the KB Connector work with your own FAQ pages, you will need a public available HTML website with (server generated) HTML. The website will need to allow Google Robots, and needs to be added to the Google search engine. You will need more than one Q&A pair and not more than 200.
-It helps when you use valid HTML5 markup for your Q&As, and base it on schema.org notations.
+*NOTE: In order to make the KB Connector work with your own FAQ pages, you will need a public available HTML website with (server generated) HTML. The website will need to allow Google Robots, and needs to be added to the Google search engine. You will need more than one Q&A pair and not more than 200.
+It helps when you use valid HTML5 markup for your Q&As, and base it on schema.org notations.*
 
 
 ## Deploy your code to GKE with Cloud Builder
