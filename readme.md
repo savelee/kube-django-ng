@@ -326,19 +326,13 @@ In case you want to run this for the first time:
 
    `kubectl apply -f cloudbuilder/front-end-deployment.yaml`
 
-1. Get a static IP: 
+1. Get a static IP:
 
   A domain name is needed for an SSL certificate. We also want to create a fixed ‘A record’ for it on the name registrar. With an Ingress, the external IP keeps changing as it is deleted and created. We can solve this problem on GCP by reserving an external IP address which we can then assign to the Ingress each time.
 
   https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address
 
   `gcloud beta compute --project=${PROJECT_ID} addresses create futurebank --global --network-tier=PREMIUM`
-
-  If you don't want to attach a domain, edit **cloudbuilder/ingress.yaml**. And remove this line:
-    
-    annotations:
-      kubernetes.io/ingress.global-static-ip-name: "futurebank"
-    
 
 1. Now setup the services and ingress loadbalancer:
 
