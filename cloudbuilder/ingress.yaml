@@ -1,0 +1,93 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.global-static-ip-name: futurebank
+    kubernetes.io/ingress.class: "gce"
+  name: ingress
+  namespace: default
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: front-end-service
+          servicePort: 80
+        path: /
+      paths:
+      - backend:
+          serviceName: front-end-service
+          servicePort: 80
+        path: /*
+      - backend:
+          serviceName: chatserver-service
+          servicePort: 3000
+        path: /socket.io
+      - backend:
+          serviceName: chatserver-service
+          servicePort: 3000
+        path: /socket.io/*
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: chatserver
+  name: chatserver-service
+  namespace: default
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: chatserver
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: front-end
+  name: front-end-service
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: front-end
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: front-end
+  name: front-end-service
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: front-end
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: django
+  name: django-service
+  namespace: default
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: django
+  type: LoadBalancer

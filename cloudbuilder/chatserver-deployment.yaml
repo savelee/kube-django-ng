@@ -35,6 +35,8 @@ spec:
           - name: mykeys
             mountPath: /var/secrets/
             readOnly: true
+        ports:
+        - containerPort: 3000  
       volumes:
       - name: mykeys
         secret:

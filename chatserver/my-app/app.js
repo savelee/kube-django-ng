@@ -9,7 +9,13 @@ const sessionId = uuidv1(); // ⇨ '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e'
 const languageCode = 'en-US';
 const debug_mode = true;
 
-const server = require('http').createServer();
+const server = require('http').createServer((request, response) => {
+    response.writeHead(200, {"Content-Type": "text/html"});
+    response.write(`Chat Server Running`);
+    response.end();
+});
+
+
 const io = require('socket.io')(server);
 io.set('origins', '*:*');
 const structjson = require('./structjson');
