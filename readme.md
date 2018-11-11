@@ -314,9 +314,11 @@ In case you want to run this for the first time:
     * Give it the following reponse: `$Knowledge.Answer[1]`
     * Click **Save**, wait till it got trained, and test with the following question:
 
+
     ```
     U: When did they form the Future Bank?
-    >The Future Bank is a conceptional demo project. If Google were to start a bank, what would it look like?
+    >The Future Bank is a conceptional demo project. 
+    If Google were to start a bank, what would it look like?
     ```
 
 *NOTE: In order to make the KB Connector work with your own FAQ pages, you will need a public available HTML website with (server generated) HTML. The website will need to allow Google Robots, and needs to be added to the Google search engine. You will need more than one Q&A pair and not more than 200.
