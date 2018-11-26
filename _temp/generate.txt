@@ -1,0 +1,18 @@
+ng new project --routing --style=scss
+cd project/
+ng update @angular/cli --save
+npm audit fix
+ng add @angular/material
+ng generate @angular/material:material-nav --name myNav
+ng generate @angular/material:material-dashboard --name myDashboard
+
+ng generate component Support
+ng generate component Balance
+ng generate component Transfer
+ng generate component Faq --module=app.module
+
+ng generate component my-dashboard/card1 --module=app.module
+ng generate component my-dashboard/card2 --module=app.module
+ng generate component my-dashboard/card3 --module=app.module
+ng generate component my-dashboard/card4 --module=app.module
+

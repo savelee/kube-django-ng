@@ -1,3 +1,5 @@
+
+
 # Google Cloud - Dialogflow Enterprise Demo
 
 **By Lee Boonstra, Customer Engineer @ Google Cloud.**
@@ -25,7 +27,9 @@ and to BigQuery. We run the BigQuery queries in a dashboard.
 The **bq** folder contains the queries.
 
 
-**Disclaimer: This is not an officially supported Google product. Written code can be used as a baseline, it's not meant for production usage.**
+**Disclaimer: This example is made by Lee Boonstra. Written code can be used as a baseline, it's not meant for production usage.**
+
+**Copyright 2018 Google LLC. This software is provided as-is, without warranty or representation for any use or purpose. Your use of it is subject to your agreements with Google.**  
 
 ### Setup
 
@@ -260,7 +264,7 @@ In case you want to run this for the first time:
    node app.js
    ```
 
-## Demo flow:
+## Dialogflow Demo flow:
 
 1. First explain the concepts of Dialogflow: http://console.dialogflow.com
 
@@ -326,6 +330,11 @@ You will need more than one Q&A pair and not more than 200.
 It helps when you use valid HTML5 markup for your Q&As, and base it on schema.org notations.
 See the markup of: https://github.com/savelee/kube-django-ng/blob/master/front-end/src/assets/html/faq/faq.html for a good overview.*
 
+## AutoML Demo flow:
+
+
+
+
 ## Deploy your code to GKE with Cloud Builder
 
 1. Create a GKE Cluster:
@@ -376,6 +385,10 @@ See the markup of: https://github.com/savelee/kube-django-ng/blob/master/front-e
 1. Now setup the services and ingress loadbalancer:
 
     `kubectl apply -f cloudbuilder/ingress.yaml`
+
+    *NOTE: The important thing here is specifying the type of the Service as NodePort . This allocates a high port on each node in the cluster which will proxy requests to the Service.
+    Google’s Load Balancer performs health checks on the associated backend service. The service must return a status of 200. If it does not, the load balancer marks the instance as unhealthy and does not send it any traffic until the health check shows that it is healthy again.*
+
 
 1. Attach a domain name:
 
