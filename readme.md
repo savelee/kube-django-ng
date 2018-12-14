@@ -93,9 +93,10 @@ authentication:
 
 1. Install [Node](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/get-npm) if you do not already have them.
 
-1. TODO steps for Python
+1. (optional) Install Python 2.7
 
-1. TODO steps for setting up Angular / CLI
+1. Install [Angular CLI](http://cli.angular.io) - 
+`npm install -g @angular-cli`
 
 ### Enable the APIs
 
@@ -233,7 +234,8 @@ Django can be reached via http://localhost:8080
 Run on the command-line:
 
 ```
-cd client/my-app
+cd front-end
+npm install
 ng serve
 ```
 
@@ -246,8 +248,10 @@ In case you want to run this for the first time:
 1. Rename the file from the command-line, and edit:
 
    ```
-   $ mv chatserver/my-app/env.txt chatserver/my-app/.env
-   $ nano .env
+   cd ../chatserver/my-app/
+   npm install
+   mv env.txt .env
+   nano .env
    ```
 
 1. Modify the code:
@@ -260,7 +264,6 @@ In case you want to run this for the first time:
 1. Then run on the command-line:
 
    ```
-   cd chatserver/my-app
    node app.js
    ```
 
