@@ -1,0 +1,58 @@
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "fileserver"
+  namespace: "default"
+  labels:
+    app: "fileserver"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "fileserver"
+  template:
+    metadata:
+      labels:
+        app: "fileserver"
+    spec:
+      containers:
+      - name: "fileserver-image"
+        image: "gcr.io/gke-pipeline-savelee-192517/fileserver-image:latest"
+        env:
+          - name: "GOOGLE_APPLICATION_CREDENTIALS"
+            value: /var/secrets/master.json
+          - name: "GCLOUD_PROJECT"
+            valueFrom:
+              configMapKeyRef:
+                name: fileserver-config
+                key: GCLOUD_PROJECT
+          - name: "TOPIC"
+            valueFrom:
+              configMapKeyRef:
+                name: fileserver-config
+                key: TOPIC
+          - name: "GCLOUD_STORAGE_BUCKET"
+            valueFrom:
+              configMapKeyRef:
+                name: fileserver-config
+                key: GCLOUD_STORAGE_BUCKET
+          - name: "DATASET"
+            valueFrom:
+              configMapKeyRef:
+                name: fileserver-config
+                key: DATASET
+          - name: "TABLE"
+            valueFrom:
+              configMapKeyRef:
+                name: fileserver-config
+                key: TABLE
+        volumeMounts:
+          - name: mykeys
+            mountPath: /var/secrets/
+            readOnly: true
+        ports:
+        - containerPort: 3000  
+      volumes:
+      - name: mykeys
+        secret:
+          secretName: credentials

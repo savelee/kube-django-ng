@@ -1,0 +1,20 @@
+steps:
+# Build FileServer Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/fileserver-image', './fileserver' ]
+
+# Push updated FileServer Container
+- id: 'Push FileServer image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/fileserver-image' ]
+
+# Delete Existing Deployment 
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'delete', 'deployment', 'fileserver' ]
+
+# Deploy all in the Cloud
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'cloudbuilder/fileserver-deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'

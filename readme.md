@@ -196,53 +196,6 @@ DATASET=chatanalytics
 TABLE=chatmessages
 ```
 
-1. Click **Create Function**
-
-1. Name: **fileanalytics**
-
-1. Select Trigger: **Cloud Pub/Sub**
-
-1. Choose topic: **file-content**
-
-1. Runtime: Node JS 8 (beta)
-
-1. Paste the contents of *cloudfunctions/filestorage/fileanalytics/index.js* into the **index.js** textarea
-
-1. Paste the contents of *cloudfunctions/filestorage/fileanalytics/package.json* into the **package.json** textarea (tab)
-
-1. The function to execute is: **subscribe**
-
-1. Set the following environment variables:
-
-```
-DATASET=fileanalytics
-TABLE=fileresults
-```
-
-1. Click **Create Function**
-
-1. Name: **pdfcontents**
-
-1. Select Trigger: **Cloud Storage**
-
-1. Choose bucket: **myname-futurebank**
-
-1. Runtime: Node JS 8 (beta)
-
-1. Paste the contents of *cloudfunctions/filestorage/pdfcontents/index.js* into the **index.js** textarea
-
-1. Paste the contents of *cloudfunctions/filestorage/pdfcontents/package.json* into the **package.json** textarea (tab)
-
-1. The function to execute is: **onFileStorage**
-
-1. Set the following environment variables:
-
-```
-TOPIC=file-content
-GCLOUD_STORAGE_BUCKET = myname-futurebank
-```
-
-
 1. Click **Create**
 
 ### Setup Service Account
@@ -422,7 +375,6 @@ An architecture could look like this diagram:
 
 ![alt text](https://github.com/savelee/kube-django-ng/blob/master/images/fileananalytics-architecture.png "File Server")
 
-
 ### Start Fileserver Container
 
 In case you want to run this for the first time:
@@ -457,6 +409,57 @@ Navigate to **Storage** and create a new bucket.
    ```
    node app.js
    ```
+   
+### Setup Cloud Functions
+
+1. Click **Create Function**
+
+1. Name: **fileanalytics**
+
+1. Select Trigger: **Cloud Pub/Sub**
+
+1. Choose topic: **file-content**
+
+1. Runtime: Node JS 8 (beta)
+
+1. Paste the contents of *cloudfunctions/filestorage/fileanalytics/index.js* into the **index.js** textarea
+
+1. Paste the contents of *cloudfunctions/filestorage/fileanalytics/package.json* into the **package.json** textarea (tab)
+
+1. The function to execute is: **subscribe**
+
+1. Set the following environment variables:
+
+```
+DATASET=fileanalytics
+TABLE=fileresults
+```
+
+1. Click **Create**
+
+1. Click **Create Function**
+
+1. Name: **pdfcontents**
+
+1. Select Trigger: **Cloud Storage**
+
+1. Choose bucket: **myname-futurebank**
+
+1. Runtime: Node JS 8 (beta)
+
+1. Paste the contents of *cloudfunctions/filestorage/pdfcontents/index.js* into the **index.js** textarea
+
+1. Paste the contents of *cloudfunctions/filestorage/pdfcontents/package.json* into the **package.json** textarea (tab)
+
+1. The function to execute is: **onFileStorage**
+
+1. Set the following environment variables:
+
+```
+TOPIC=file-content
+GCLOUD_STORAGE_BUCKET = myname-futurebank
+```
+1. Click **Create**
 
 ### Fileserver Demo flow:
 
@@ -483,12 +486,14 @@ you should see the uploaded asset, as well a JSON representation retrieved throu
 1. Set your **PROJECT_ID** variable, which points to your GCP project id. For example:
 
     `export PROJECT_ID=gke-pipeline-savelee-192517`
+    `export GCLOUD_STORAGE_BUCKET=leeboonstra-visionocr`
 
 1. Navigate to the root of this repository.
 
 1. Create a secret from your service account **master.json** key
 
-    `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=user-content"`
+    `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=user-content" --from-literal "DATASET=chatanalytics" --from-literal "TABLE=chatmessages"`
+    `kubectl create configmap fileserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=file-content" --from-literal "DATASET=fileanalytics" --from-literal "TABLE=fileresults" --from-literal "GCLOUD_STORAGE_BUCKET=${GCLOUD_STORAGE_BUCKET}"`
     `kubectl create secret generic credentials --from-file=master.json`
 
 1. Fix paths to your images of the **-deployment.yaml** & **setup** files (in the cloudbuilder folder) to match the container names in your Container Registry.
