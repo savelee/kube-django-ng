@@ -153,7 +153,25 @@ authentication:
 
 1. On your hard drive navigate to *chatserver/dialogflow* zip this folder, and then **Import from Zip** in the Dialogflow settings screen. These are some example chatbot dialogs.
 
+
+### Setup Storage Bucket
+
+1. Choose in the left hand menu: **Storage**
+
+1. Click **Create Bucket**
+
+1. Give the bucket a unique name, for example: `myname-futurebank`
+
+1. Choose **Regional**
+
+1. Set a **location**
+
+1. Click **Create**
+
+
 ### Setup Cloud Functions
+
+1. Choose in the left hand menu: **Cloud Functions**
 
 1. Click **Create Function**
 
@@ -163,11 +181,67 @@ authentication:
 
 1. Choose topic: **user-content**
 
+1. Runtime: Node JS 8 (beta)
+
 1. Paste the contents of *cloudfunctions/chatanalytics/index.js* into the **index.js** textarea
 
 1. Paste the contents of *cloudfunctions/chatanalytics/package.json* into the **package.json** textarea (tab)
 
 1. The function to execute is: **subscribe**
+
+1. Set the following environment variables:
+
+```
+DATASET=chatanalytics
+TABLE=chatmessages
+```
+
+1. Click **Create Function**
+
+1. Name: **fileanalytics**
+
+1. Select Trigger: **Cloud Pub/Sub**
+
+1. Choose topic: **file-content**
+
+1. Runtime: Node JS 8 (beta)
+
+1. Paste the contents of *cloudfunctions/filestorage/fileanalytics/index.js* into the **index.js** textarea
+
+1. Paste the contents of *cloudfunctions/filestorage/fileanalytics/package.json* into the **package.json** textarea (tab)
+
+1. The function to execute is: **subscribe**
+
+1. Set the following environment variables:
+
+```
+DATASET=fileanalytics
+TABLE=fileresults
+```
+
+1. Click **Create Function**
+
+1. Name: **pdfcontents**
+
+1. Select Trigger: **Cloud Storage**
+
+1. Choose bucket: **myname-futurebank**
+
+1. Runtime: Node JS 8 (beta)
+
+1. Paste the contents of *cloudfunctions/filestorage/pdfcontents/index.js* into the **index.js** textarea
+
+1. Paste the contents of *cloudfunctions/filestorage/pdfcontents/package.json* into the **package.json** textarea (tab)
+
+1. The function to execute is: **onFileStorage**
+
+1. Set the following environment variables:
+
+```
+TOPIC=file-content
+GCLOUD_STORAGE_BUCKET = myname-futurebank
+```
+
 
 1. Click **Create**
 
@@ -267,43 +341,6 @@ In case you want to run this for the first time:
    node app.js
    ```
 
-### Start Fileserver Container
-
-
-TODO NEW IMAGE
-
-
-In case you want to run this for the first time:
-
-1. Go to your Google Cloud console: http://console.cloud.google.com
-Navigate to **Storage** and create a new bucket.
-
-1. Enable the Vision API: https://console.cloud.google.com/flows/enableapi?apiid=vision.googleapis.com
-
-1. Rename the file from the command-line, and edit:
-
-   ```
-   cd ../fileserver/
-   npm install
-   mv env.txt .env
-   nano .env
-   ```
-
-1. Modify the code:
-
-   ```
-   GCLOUD_PROJECT=<PROJECT NAME>
-   GOOGLE_APPLICATION_CREDENTIALS=<LOCATION OF YOUR SERVICE ACCOUNT FILE>
-   GCLOUD_STORAGE_BUCKET=<NAME_OF_MY_STORAGE_BUCKET>
-   ```
-
-1. Then run on the command-line:
-
-   ```
-   node app.js
-   ```
-
-
 ## Dialogflow Demo flow:
 
 1. First explain the concepts of Dialogflow: http://console.dialogflow.com
@@ -372,7 +409,66 @@ See the markup of: https://github.com/savelee/kube-django-ng/blob/master/front-e
 
 ## AutoML Demo flow:
 
+TODO
 
+
+
+## File Server OCR demo
+
+A common use case for every business, is the digitalization of documents.
+Scanned Documents as PDF, JPG, TIFF. To get text from these documents or images,
+and process it, we can make use of the OCR detection of the Vision API.
+An architecture could look like this diagram:
+
+![alt text](https://github.com/savelee/kube-django-ng/blob/master/images/fileananalytics-architecture.png "File Server")
+
+
+### Start Fileserver Container
+
+In case you want to run this for the first time:
+
+1. Go to your Google Cloud console: http://console.cloud.google.com
+Navigate to **Storage** and create a new bucket.
+
+1. Enable the Vision API: https://console.cloud.google.com/flows/enableapi?apiid=vision.googleapis.com
+
+1. Rename the file from the command-line, and edit:
+
+   ```
+   cd ../fileserver/
+   npm install
+   mv env.txt .env
+   nano .env
+   ```
+
+1. Modify the code:
+
+   ```
+   GCLOUD_PROJECT=<PROJECT NAME>
+   GOOGLE_APPLICATION_CREDENTIALS=<LOCATION OF YOUR SERVICE ACCOUNT FILE>
+   GCLOUD_STORAGE_BUCKET=<NAME_OF_MY_STORAGE_BUCKET>
+   ```
+
+1. Then run on the command-line:
+
+   ```
+   node app.js
+   ```
+
+### Fileserver Demo flow:
+
+1. In the front-end website, navigate to the **Transfer** tab
+
+1. Choose: **Upload Receipt**
+
+1. Upload, PDF, TIFF or JPEG files. (See the *fileserver/testfiles/* folder for example files)
+
+1. After the upload process, have a look into the Cloud Storage bucket **myname-futurebank**,
+you should see the uploaded asset, as well a JSON representation retrieved through the DOCUMENT DETECTION of the Vision API.
+
+1. Navigate to https://bigquery.cloud.google.com and query the fileresults table, to get the insights:
+
+`SELECT * from `fileanalytics.fileresults` where PATH filename LIMIT 10`
 
 
 ## Deploy your code to GKE with Cloud Builder
