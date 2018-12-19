@@ -1,5 +1,5 @@
 {
-    "name": "fileanalytics",
+    "name": "pdfcontents",
     "version": "1.0.0",
     "dependencies": {
       "@google-cloud/storage": "^2.3.1",

@@ -4,6 +4,10 @@ require('dotenv').config() //load environemnt vars
 
 const projectId = process.env.GCLOUD_PROJECT; //your project name
 const topicName = process.env.TOPIC;
+const bqDataSetName = process.env.DATASET;
+const bqTableName = process.env.TABLE;
+const bqSchema = 'TEXT, POSTED:TIMESTAMP, SCORE:FLOAT, MAGNITUDE:FLOAT, INTENT, CONFIDENCE:FLOAT, SESSION';
+
 const uuidv1 = require('uuid/v1');
 const sessionId = uuidv1(); // ⇨ '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e'
 const languageCode = 'en-US';
@@ -31,93 +35,101 @@ console.log('...' + topicName);
 //const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
-const PubSub = require('@google-cloud/pubsub');
-const BQ = require('@google-cloud/bigquery');
+const {PubSub} = require('@google-cloud/pubsub');
+const {BigQuery} = require('@google-cloud/bigquery');
 
 const pubsub = new PubSub({
     projectId: process.env.GCLOUD_PROJECT,
     keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
 });
 
-const bigquery = new BQ({
-    projectId: process.env.GCLOUD_PROJECT,
-    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
+const bigquery = new BigQuery({
+    projectId: process.env.GCLOUD_PROJECT
 });
 
 //Make use of a dataset called: chatanalytics
-const dataset = bigquery.dataset('chatanalytics');
+const dataset = bigquery.dataset(bqDataSetName);
 //Make use of a BigQuery table called: chatmessages
-const table = dataset.table('chatmessages');
+const table = dataset.table(bqTableName);
+//If BQ dataset and table don't exist, create it.
+dataset.exists(function(err, exists) {
+    if(!exists){
+        dataset.create({
+          id: bqDataSetName
+        }).then(function(data) {
+          console.log("dataset created");
+    
+          //If the table doesn't exist, let's create it.
+          //Note the schema that we will pass in.
+          table.exists(function(err, exists) {
+            if(!exists){
+              table.create({
+                id: bqTableName,
+                schema: bqSchema
+              }).then(function(data) {
+                console.log("table created");
+              });
+            }
+          });
+    
+        });
+    }
+});
+//If the table doesn't exist, let's create it.
+//Note the schema that we will pass in.
+table.exists(function(err, exists) {
+    if(!exists){
+        table.create({
+            id: bqTableName,
+            schema: bqSchema
+        }).then(function(data) {
+            console.log("table created");
+        });
+    }
+});
+
+
+//If topic is not created yet, please create.
+const topic = pubsub.topic(`projects/${projectId}/topics/${topicName}`);
+topic.exists((err, exists) => {
+    if(!exists){
+        pubsub.createTopic(topicName).then(results => {
+                console.log(`Topic ${topicName} created.`);
+            })
+            .catch(err => {
+                console.error('ERROR:', err);
+        });
+    }
+});
 
 var queryIt = function(sql){
     var promise = new Promise(function(resolve, reject){
-
         if(sql){
-            dataset.exists(function(err, exists) {
-                if(!exists){
-                    dataset.create({
-                      id: 'chatanalytics'
-                    }).then(function(data) {
-                      console.log("dataset created");
-                
-                      //If the table doesn't exist, let's create it.
-                      //Note the schema that we will pass in.
-                      table.exists(function(err, exists) {
-                        if(!exists){
-                          table.create({
-                            id: 'chatmessages',
-                            schema: 'TEXT, POSTED:TIMESTAMP, SCORE:FLOAT, MAGNITUDE:FLOAT, INTENT, CONFIDENCE:FLOAT, SESSION'
-                          }).then(function(data) {
-                            console.log("table created");
-                          });
-                        }
-                      });
-                
-                    });
-                } else {
-                    //make the query
-                    bigquery.query(sql).then(function(data){
-                        resolve(data);
-                    });
-                }
+            //make the query
+            bigquery.query(sql).then(function(data){
+                resolve(data);
             });
+ 
         } else {
             reject("Missing sql");
         }
-
-
     });
     return promise;
 };
 
-var pushIt = function(obj) {
-    //var dataBuffer = Buffer.from(text, 'utf-8');
-    var dataBuffer = Buffer.from(JSON.stringify(obj),'utf-8');
-    const topic = pubsub.topic(topicName);
-
-    //If topic is not created yet, please create.
-
-    topic.exists((err, exists) => {
-        if(!exists){
-            pubsub.createTopic(topicName).then(results => {
-                    console.log(`Topic ${topicName} created.`);
-                })
-                .catch(err => {
-                    console.error('ERROR:', err);
-            });
-        }
-    });
-
+var pushIt = async function(obj) {
+    var data = Buffer.from(JSON.stringify(obj),'utf-8');
+    //console.log("PUSH IT!");
     const publisher = topic.publisher();
-    publisher.publish(dataBuffer)
-    .then((results) => {
-        console.log('Message published.');
-        return results;
-    }).catch((e) => {
-        console.log('Something went wrong with Pub/Sub');
-        console.log(e);
-    });
-
+    const callback = (err, messageId) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(messageId);
+      }
+    };
+    
+    publisher.publish(data, callback);
 };
 
 function detectIntent(request, cb){

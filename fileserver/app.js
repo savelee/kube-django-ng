@@ -57,7 +57,6 @@ const bucket = storage.bucket(bucketName);
 
 
 //If topic is not created yet, please create.
-
 const topic = pubsub.topic(`projects/${projectId}/topics/${topicName}`);
 topic.exists((err, exists) => {
     if(!exists){
@@ -290,9 +289,7 @@ var detectOCR = function(files, res) {
 
 var pushIt = async function(obj, cb) {
     var data = Buffer.from(JSON.stringify(obj),'utf-8');
-    
-    console.log("PUSH IT!");
-
+    //console.log("PUSH IT!");
     const publisher = topic.publisher();
     const callback = (err, messageId) => {
       if (err) {
