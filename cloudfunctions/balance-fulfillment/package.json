@@ -1,9 +1,0 @@
-{
-  "name": "balancefulfillment",
-  "version": "1.0.0",
-  "dependencies": {
-    "request": "^2.88.0",
-    "dialogflow-fulfillment": "^0.6.1",
-    "actions-on-google": "^2.2.0"
-  }
-}

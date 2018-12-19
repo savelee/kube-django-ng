@@ -1,0 +1,9 @@
+{
+    "name": "fileanalytics",
+    "version": "1.0.0",
+    "dependencies": {
+      "@google-cloud/bigquery": "^2.0.3",
+      "@google-cloud/pubsub": "^0.22.0"
+    }
+  }
+  

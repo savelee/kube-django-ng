@@ -267,6 +267,43 @@ In case you want to run this for the first time:
    node app.js
    ```
 
+### Start Fileserver Container
+
+
+TODO NEW IMAGE
+
+
+In case you want to run this for the first time:
+
+1. Go to your Google Cloud console: http://console.cloud.google.com
+Navigate to **Storage** and create a new bucket.
+
+1. Enable the Vision API: https://console.cloud.google.com/flows/enableapi?apiid=vision.googleapis.com
+
+1. Rename the file from the command-line, and edit:
+
+   ```
+   cd ../fileserver/
+   npm install
+   mv env.txt .env
+   nano .env
+   ```
+
+1. Modify the code:
+
+   ```
+   GCLOUD_PROJECT=<PROJECT NAME>
+   GOOGLE_APPLICATION_CREDENTIALS=<LOCATION OF YOUR SERVICE ACCOUNT FILE>
+   GCLOUD_STORAGE_BUCKET=<NAME_OF_MY_STORAGE_BUCKET>
+   ```
+
+1. Then run on the command-line:
+
+   ```
+   node app.js
+   ```
+
+
 ## Dialogflow Demo flow:
 
 1. First explain the concepts of Dialogflow: http://console.dialogflow.com

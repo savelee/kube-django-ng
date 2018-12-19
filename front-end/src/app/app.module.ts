@@ -15,6 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyNavComponent } from './my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 
+import { FileDropModule } from 'ngx-file-drop';
+
 //Angular Material Components
 import {MatCheckboxModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
@@ -97,9 +99,8 @@ import { FaqComponent } from './faq/faq.component';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
-
-
+    MatPaginatorModule,
+    FileDropModule
   ],
   declarations: [
     AppComponent,
