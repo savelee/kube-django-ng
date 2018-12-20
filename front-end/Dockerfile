@@ -14,7 +14,9 @@ RUN npm install --force
 
 COPY /src/ /my-app/src/
 
-RUN npm run build -- --output-path=./dist/front-end/
+RUN npm install typescript@">=3.1.1 <3.2"
+
+RUN npm run build
 
 ### STAGE 2: Setup ###
 FROM nginx:1.15

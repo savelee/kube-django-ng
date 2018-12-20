@@ -11,6 +11,9 @@ steps:
 # Delete Existing Deployment 
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'delete', 'deployment', 'front-end' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
 
 # Deploy all in the Cloud
 - name: 'gcr.io/cloud-builders/kubectl'

@@ -4,8 +4,8 @@ LABEL maintainer="Lee Boonstra"
 
 WORKDIR .
 
-COPY /my-app/package.json .
-COPY /my-app/app.js .
+COPY package.json .
+COPY app.js .
 
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 RUN npm install grpc --build-from-source

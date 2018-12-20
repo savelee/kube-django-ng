@@ -61,6 +61,8 @@ The **bq** folder contains the queries.
         #number-of-choice
         y
 
+1. Install Kubectl: `gcloud components install kubectl`
+
 #### Authentication
 
 Authentication is typically done through `Application Default Credentials`,
@@ -409,7 +411,7 @@ Navigate to **Storage** and create a new bucket.
    ```
    node app.js
    ```
-   
+
 ### Setup Cloud Functions
 
 1. Click **Create Function**
@@ -483,6 +485,8 @@ you should see the uploaded asset, as well a JSON representation retrieved throu
 
     `gcloud container clusters create futurebank --region europe-west1-c --num-nodes 1 --enable-autoscaling --min-nodes 1 --max-nodes 4`
 
+    (when you already have a cluster, and you get the error **The connection to the server localhost:8080 was refused - did you specify the right host or port?**, type: `gcloud container clusters get-credentials "futurebank" --zone europe-west1-c`)
+
 1. Set your **PROJECT_ID** variable, which points to your GCP project id. For example:
 
     `export PROJECT_ID=gke-pipeline-savelee-192517`
@@ -505,6 +509,8 @@ you should see the uploaded asset, as well a JSON representation retrieved throu
 1. In case you want to re-deploy individual containers, run the following build scripts:
 
    `gcloud builds submit --config cloudbuilder/chatserver.yaml`
+
+   `gcloud builds submit --config cloudbuilder/fileserver.yaml`
 
    `gcloud builds submit --config cloudbuilder/front-end.yaml`
 
