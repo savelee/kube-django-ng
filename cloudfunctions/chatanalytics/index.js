@@ -1,9 +1,10 @@
 //require the google-cloud npm package
 //setup the API keyfile, so your local environment can
 //talk to the Google Cloud Platform
+
 const {BigQuery} = require('@google-cloud/bigquery');
 const language = require('@google-cloud/language');
-const dlp = require('@google-cloud/dlp')(); //TODO this feture is yet missing
+//const dlp = require('@google-cloud/dlp')(); //TODO this feture is yet missing
 
 const bqDataSetName = process.env.DATASET;
 const bqTableName = process.env.TABLE;
