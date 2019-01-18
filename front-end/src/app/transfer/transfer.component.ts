@@ -32,7 +32,18 @@ export class TransferComponent implements OnInit {
             'security-token': 'mytoken'
           })
  
-          this.http.post('http://localhost:3200/upload', formData, { 
+
+          var server = location.protocol+'//'+location.hostname;
+          if(location.hostname == "localhost" && location.port == "4200"
+        || location.hostname == "localhost" && location.port == "4000"){
+            server = location.protocol+'//'+location.hostname+ ':3200'
+          } else {
+            //server = location.protocol+'//'+location.hostname+ "/socket.io";
+          }
+      
+          console.log(server);
+
+          this.http.post(server + '/upload', formData, { 
             headers: headers, 
             responseType: 'blob' 
           }).subscribe(data => {

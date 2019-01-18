@@ -1,5 +1,7 @@
 
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 # Google Cloud - Dialogflow Enterprise Demo
 
 **By Lee Boonstra, Customer Engineer @ Google Cloud.**
@@ -18,7 +20,6 @@ It also pushes the contents to Pub/Sub.
 
 ![alt text](https://github.com/savelee/kube-django-ng/blob/master/images/architecture2.png "Cloud Function")
 
-
 A cloud function has a subscription on the Pub/Sub channel.
 See also the **cloudfunctions** folder.
 
@@ -31,7 +32,13 @@ The **bq** folder contains the queries.
 
 **Copyright 2018 Google LLC. This software is provided as-is, without warranty or representation for any use or purpose. Your use of it is subject to your agreements with Google.**  
 
-### Setup
+### Automatic Setup on Google Cloud Platform:
+
+[![Open in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https%3A%2F%2Fgithub.com%2Fsavelee%2Fkube-django-ng&cloudshell_working_dir=cloudbuilder&cloudshell_tutorial=TUTORIAL.md)
+
+Guided one click installation from Google Cloud Shell. No client tooling required.
+
+### Manual Setup
 
 #### Setup Google Cloud
 
@@ -114,8 +121,92 @@ authentication:
 * Cloud Functions API
 * Cloud Natural Language API
 * Cloud Pub/Sub API
-* Cloud Data Loss Protection API
+* Kubernetes Engine
 * Dialogflow API
+
+* Cloud Data Loss Protection API
+* Cloud Vision API
+* Cloud Translation API
+* Cloud Auto ML API
+
+Or via gcloud:
+
+```
+gcloud services enable \
+  bigquery-json.googleapis.com \
+  cloudfunctions.googleapis.com \
+  language.googleapis.com \
+  pubsub.googleapis.com \
+  container.googleapis.com \
+  dlp.googleapis.com \
+  dialogflow.googleapis.com \
+  vision.googleapis.com \
+  automl.googleapis.com \
+  translate.googleapis.com \
+  cloudbuild.googleapis.com \
+  sourcerepo.googleapis.com \
+  cloudtrace.googleapis.com \
+  logging.googleapis.com \
+  monitoring.googleapis.com
+```
+
+### Setup Service Account
+
+1. Download the Service Account Key
+
+1. Open http://console.cloud.google.com, and navigate to *APIs & Services > Credentials*.
+
+1. Click **Create Credentials**
+
+1. Select **Dialogflow Integrations**
+
+1. Give it the name: *master.json*,  - select for now Project Owner (in production, you might want to fine tune this on least privaliges)
+
+1. Select **JSON**
+
+1. **Create**
+
+1. Download the key, and store it somewhere on your hard drive, and remember the path.
+
+1. In the cloud console, click on **IAM & admin**
+
+1. Pick the Dialogflow Service Account, and add the following roles to it:
+
+   NOTE: For testing purposes, I might add also the *Owner* role to this service account. Though, for production is best to make use of the least privilidges. 
+
+   * Dialogflow Console Agent Editor
+   * Dialogflow Reader
+   * Logs Writer
+   * Storage Object Creator
+   * Storage Object Viewer
+
+1. Navigate to Cloud Functions, and take a note of the service account that is used.
+
+    It might the App Engine service account which is created by default.
+
+1. Go back to the **IAM & admin** settings, and make sure the service account used by the Cloud Function,
+ has the following roles:
+
+ * BigQuery Data Viewer
+ * BigQuery Job User
+ * Pub/Sub Editor
+ * Pub/Sub Viewer
+
+See also: https://cloud.google.com/iam/docs/permissions-reference
+
+### Setup Storage Bucket
+
+1. Choose in the left hand menu: **Storage**
+
+1. Click **Create Bucket**
+
+1. Give the bucket a unique name, for example: `futurebank-gcs-bucket-myname`
+
+1. Choose **Regional**
+
+1. Set a **location** (for example: `europe-west4`)
+
+1. Click **Create**
 
 ### Setup the Dialogflow Agent
 
@@ -125,9 +216,9 @@ authentication:
 
 1. Click on **Open or Create Agent at dialogflow.com**
 
-1.  Select your google account
+1. Select your google account
 
-1.  Allow the terms & conditions
+1. Allow the terms & conditions
 
 1. Give your agent the name **ContactCenterDemo**
 
@@ -154,22 +245,6 @@ authentication:
 1. Click on **Export & Import**
 
 1. On your hard drive navigate to *chatserver/dialogflow* zip this folder, and then **Import from Zip** in the Dialogflow settings screen. These are some example chatbot dialogs.
-
-
-### Setup Storage Bucket
-
-1. Choose in the left hand menu: **Storage**
-
-1. Click **Create Bucket**
-
-1. Give the bucket a unique name, for example: `myname-futurebank`
-
-1. Choose **Regional**
-
-1. Set a **location**
-
-1. Click **Create**
-
 
 ### Setup Cloud Functions
 
@@ -199,43 +274,6 @@ TABLE=chatmessages
 ```
 
 1. Click **Create**
-
-### Setup Service Account
-
-1. Download the Service Account Key
-
-1. Open http://console.cloud.google.com, and navigate to *APIs & Services > Credentials*.
-
-1. Click **Create Credentials**
-
-1. Select **Dialogflow Integrations**
-
-1. Give it the name: *master.json*,  - select for now Project Owner (in production, you might want to fine tune this on least privaliges)
-
-1. Select **JSON**
-
-1. **Create**
-
-1. Download the key, and store it somewhere on your hard drive, and remember the path.
-
-1. In the cloud console, click on **IAM & admin**
-
-1. Pick the Dialogflow Service Account, and add the following roles to it:
-
-   NOTE: For testing purposes, I might add also the *Owner* role to this service account. Though, for production is best to make use of the least privilidges. 
-
-   * Dialogflow API Admin
-   * Logs Writer
-
-1. Navigate to Cloud Functions, and take a note of the service account that is used.
-
-    It might the App Engine service account which is created by default.
-
-1. Go back to the **IAM & admin** settings, and make sure the service account used by the Cloud Function,
- has the following roles:
-
- * BigQuery Admin
- * Pub/Sub Admin
 
 ## Run the code locally
 
@@ -367,7 +405,6 @@ See the markup of: https://github.com/savelee/kube-django-ng/blob/master/front-e
 TODO
 
 
-
 ## File Server OCR demo
 
 A common use case for every business, is the digitalization of documents.
@@ -380,11 +417,6 @@ An architecture could look like this diagram:
 ### Start Fileserver Container
 
 In case you want to run this for the first time:
-
-1. Go to your Google Cloud console: http://console.cloud.google.com
-Navigate to **Storage** and create a new bucket.
-
-1. Enable the Vision API: https://console.cloud.google.com/flows/enableapi?apiid=vision.googleapis.com
 
 1. Rename the file from the command-line, and edit:
 
@@ -483,9 +515,9 @@ you should see the uploaded asset, as well a JSON representation retrieved throu
 
 1. Create a GKE Cluster:
 
-    `gcloud container clusters create futurebank --region europe-west1-c --num-nodes 1 --enable-autoscaling --min-nodes 1 --max-nodes 4`
+    `gcloud container clusters create futurebank --region europe-west4-a --num-nodes 1 --enable-autoscaling --min-nodes 1 --max-nodes 4`
 
-    (when you already have a cluster, and you get the error **The connection to the server localhost:8080 was refused - did you specify the right host or port?**, type: `gcloud container clusters get-credentials "futurebank" --zone europe-west1-c`)
+    (when you already have a cluster, and you get the error **The connection to the server localhost:8080 was refused - did you specify the right host or port?**, type: `gcloud container clusters get-credentials "futurebank" --zone europe-west4-a`)
 
 1. Set your **PROJECT_ID** variable, which points to your GCP project id. For example:
 
@@ -514,6 +546,7 @@ you should see the uploaded asset, as well a JSON representation retrieved throu
 
    `gcloud builds submit --config cloudbuilder/front-end.yaml`
 
+    (optional)
    `gcloud builds submit --config cloudbuilder/django.yaml`
 
 1. To delete deployments use:
@@ -524,13 +557,18 @@ you should see the uploaded asset, as well a JSON representation retrieved throu
 
    `kubectl apply -f cloudbuilder/front-end-deployment.yaml`
 
+   `kubectl apply -f cloudbuilder/chatserver-deployment.yaml`
+
+   `kubectl apply -f cloudbuilder/fileserver-deployment.yaml`
+
+
 1. Get a static IP:
 
   A domain name is needed for an SSL certificate. We also want to create a fixed ‘A record’ for it on the name registrar. With an Ingress, the external IP keeps changing as it is deleted and created. We can solve this problem on GCP by reserving an external IP address which we can then assign to the Ingress each time.
 
   https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address
 
-  `gcloud beta compute --project=${PROJECT_ID} addresses create futurebank --global --network-tier=PREMIUM`
+  `gcloud compute --project=${PROJECT_ID} addresses create futurebank --global --network-tier=PREMIUM`
 
 1. Now setup the services and ingress loadbalancer:
 

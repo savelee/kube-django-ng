@@ -115,10 +115,12 @@ table.exists(function(err, exists) {
 var uploadToStorage = function(assets, cb){
     var i = 0;
     var counter = 0;
+
+    console.log(assets); //TODO this doesn't work in a production container yet. IAM issue? GKE secrets issue?
     
     for(i; i<assets.length; i++){
 
-        //console.log(assets[i]);
+        console.log(assets[i] + 'to ' + bucketName);
 
         const gcsname = assets[i].originalname;
         const file = bucket.file(gcsname);
