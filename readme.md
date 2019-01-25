@@ -27,7 +27,7 @@ Everytime a message comes in, the message will be passed to the NLP API to detec
 and to BigQuery. We run the BigQuery queries in a dashboard.
 The **bq** folder contains the queries.
 
-[![Banking Portal Demo](https://img.youtube.com/vi/KhB0hwlyZkg/3.jpg =250x)](https://www.youtube.com/watch?v=KhB0hwlyZkg)
+[![Banking Portal Demo](https://img.youtube.com/vi/KhB0hwlyZkg/3.jpg)](https://www.youtube.com/watch?v=KhB0hwlyZkg)
 
 **Disclaimer: This example is made by Lee Boonstra. Written code can be used as a baseline, it's not meant for production usage.**
 
