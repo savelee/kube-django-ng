@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-# Google Cloud - Dialogflow Enterprise Demo
+# Google Cloud / Dialogflow - Banking Portal Demo
 
 **By Lee Boonstra, Customer Engineer @ Google Cloud.**
 
@@ -27,6 +27,7 @@ Everytime a message comes in, the message will be passed to the NLP API to detec
 and to BigQuery. We run the BigQuery queries in a dashboard.
 The **bq** folder contains the queries.
 
+[![Banking Portal Demo](https://img.youtube.com/vi/KhB0hwlyZkg/3.jpg =250x)](https://www.youtube.com/watch?v=KhB0hwlyZkg)
 
 **Disclaimer: This example is made by Lee Boonstra. Written code can be used as a baseline, it's not meant for production usage.**
 
@@ -38,7 +39,7 @@ The **bq** folder contains the queries.
 
 Guided one click installation from Google Cloud Shell. No client tooling required.
 
-### Manual Setup
+### Manual Setup / Run Locally
 
 #### Setup Google Cloud
 
@@ -46,18 +47,18 @@ Guided one click installation from Google Cloud Shell. No client tooling require
     SDK](https://cloud.google.com/sdk/docs/), which includes the
     [gcloud](https://cloud.google.com/sdk/gcloud/) command-line tool.
 
-1. Open the Google Cloud Console: http://console.cloud.google.com
+2. Open the Google Cloud Console: http://console.cloud.google.com
 
-1. Make sure a Billing Account is setup & linked. (Select Billing in Main Menu)
+3. Make sure a Billing Account is setup & linked. (Select Billing in Main Menu)
 
-1.  Create a [new Google Cloud Platform project from the Cloud
+4.  Create a [new Google Cloud Platform project from the Cloud
     Console](https://console.cloud.google.com/project) or use an existing one.
 
     Click the + icon in the top bar.
     Enter an unique project name. For example: *yourname-examples*.
     It will take a few minutes till everything is ready.
 
-1. Initialize the Cloud SDK:
+5. Initialize the Cloud SDK:
     
 
         $ gcloud init
@@ -68,7 +69,7 @@ Guided one click installation from Google Cloud Shell. No client tooling require
         #number-of-choice
         y
 
-1. Install Kubectl: `gcloud components install kubectl`
+6. Install Kubectl: `gcloud components install kubectl`
 
 #### Authentication
 
