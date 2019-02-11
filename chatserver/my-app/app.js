@@ -41,16 +41,14 @@ const io = require('socket.io')(server);
 io.set('origins', '*:*');
 const structjson = require('./structjson');
 const dialogflow = require('dialogflow');
+const chatbase = require('@google/chatbase'); // Your Chatbase API Key
+
 const sessionClient = new dialogflow.SessionsClient();
+const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 console.log("..." + projectId);
 console.log('...' + sessionId);
 console.log('...' + topicName);
-
-//console.log(sessionClient);
-
-//const sessionClient = new dialogflow.SessionsClient();
-const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 const {PubSub} = require('@google-cloud/pubsub');
 const {BigQuery} = require('@google-cloud/bigquery');
@@ -164,8 +162,56 @@ function detectIntent(request, cb){
             if (result.intent) {
                 console.log(`  Intent: ${result.intent.displayName}`);
                 console.log(result.fulfillmentMessages);
+
+                console.log(result.intent.displayName);
+                console.log(result.queryText);
+                
+                if(result.queryText != "websitewelcome"){
+                    chatbase.newMessage(process.env.MY_CHATBASE_KEY)
+                    .setPlatform('Web')
+                    .setAsTypeUser()
+                    .setMessage(result.queryText)
+                    .setUserId('user-' + sessionId)
+                    .setVersion('1.0')
+                    .setCustomSessionId(sessionId)
+                    .setAsHandled()
+                    .setIntent(result.intent.displayName)
+                    .setAsFeedback()
+                    .setTimestamp(Date.now().toString())
+                    .send()
+                    .then(msg => {
+                        console.log("user text sent to chatbase");
+                        console.log(msg);
+                        console.log(msg.getCreateResponse());
+                    })
+                    .catch(function(err){
+                        console.log("user text something went wrong");
+                        console.log(err);
+                    })
+                }
             } else {
                 console.log(`  No intent matched.`);
+
+                chatbase.newMessage(process.env.MY_CHATBASE_KEY)
+                .setPlatform('Web')
+                .setAsTypeUser()
+                .setVersion('1.0')
+                .setUserId('user-' + sessionId)
+                .setMessage(result.queryText)
+                .setCustomSessionId(sessionId)
+                .setAsNotHandled()
+                .setTimestamp(Date.now().toString())
+                .send()
+                .then(msg => {
+                    console.log("unhandled user text sent to chatbase");
+                    console.log(msg);
+                    console.log(msg.getCreateResponse());
+                })
+                .catch(function(err){
+                    console.log("unhandled user text something went wrong");
+                    console.log(err);
+                })
+
             }
         }
 
@@ -224,12 +270,55 @@ function detectIntent(request, cb){
                 if(answer){
                     //console.log(result.intent.intentDetectionConfidence);
                     cb(answer, result.intent.intentDetectionConfidence, "ChatBot");
+                
+                    console.log(answer[0]);
+
+                    chatbase.newMessage(process.env.MY_CHATBASE_KEY, 'babsthebankingbot')
+                    .setPlatform("Web")
+                    .setAsTypeAgent()
+                    .setNotAsFeedback()
+                    .setVersion('1.0')
+                    .setMessage(answer[0])
+                    .setUserId('user-' + sessionId)
+                    .setCustomSessionId(sessionId)
+                    .setTimestamp(Date.now().toString())
+                    .setIntent(result.intent.displayName)
+                    .send()
+                    .then(msg => {
+                        console.log("bot text sent to chatbase");
+                        console.log(msg);
+                    })
+                    .catch(function(err){
+                        console.log("error bot send");
+                        console.log(err);
+                    });
+
+  
                 }
             }
         }
     })
     .catch(err => {
         console.error('ERROR:', err);
+
+        chatbase.newMessage(process.env.MY_CHATBASE_KEY, 'babsthebankingbot')
+        .setPlatform("Web")
+        .setAsTypeAgent()
+        .setMessage(error)
+        .setVersion('1.0')
+        .setCustomSessionId(sessionId)
+        .setUserId('user-' + sessionId)
+        .setAsNotHandled()
+        .setNotAsFeedback()
+        .setTimestamp(Date.now().toString())
+        .send()
+        .then(msg => {
+            console.log("bot text sent to chatbase");
+            console.log(msg);
+        })
+        .catch(err => console.error(err));
+
+
         io.emit('systemerror', {
             username: "ChatBot",
             message: err
@@ -292,7 +381,7 @@ io.on('connection', function(client){
             },
             },
         };
-    
+
         detectIntent(request, function(botAnswer, confidence, botName){
 
             var analytics = {};
