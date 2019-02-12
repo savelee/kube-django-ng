@@ -62,7 +62,7 @@ var insertInBq = function(row){
     });
 };
 
-exports.subscribe = (data, context, callback) => {
+exports.subscribe = (data, context) => {
     const pubSubMessage = data;
     const buffer = Buffer.from(pubSubMessage.data, 'base64').toString();
     var buf = JSON.parse(buffer);
@@ -72,7 +72,4 @@ exports.subscribe = (data, context, callback) => {
     console.log(buf.TEXT);
 
     insertInBq(buf);
-
-    // Don't forget to call the callback.
-    callback();
-  };
+};

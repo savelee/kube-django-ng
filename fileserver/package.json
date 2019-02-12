@@ -6,6 +6,9 @@
   "engines": {
     "node": ">=8"
   },
+  "scripts": {
+    "start": "node app.js"
+  },
   "author": "Lee Boonstra",
   "license": "Apache-2.0",
   "devDependencies": {

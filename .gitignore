@@ -25,6 +25,8 @@ parts/
 sdist/
 var/
 googlebank/
+testfiles/
+GoogleC.pdf
 keys/
 *.egg-info/
 .installed.cfg
