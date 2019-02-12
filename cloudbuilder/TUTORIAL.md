@@ -67,6 +67,7 @@
    nano env.txt
    mv env.txt .env
    ```
+   
 ### Run Setup Script
 
 1. Make sure `$PROJECT_ID` is set: `gcloud config set project $PROJECT_ID`
