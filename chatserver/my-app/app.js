@@ -166,8 +166,6 @@ function detectIntent(request, cb){
                 console.log(result.intent.displayName);
                 console.log(result.queryText);
                 
-                console.log(results)
-
                 if(result.queryText != "websitewelcome"){
                     chatbase.newMessage(process.env.MY_CHATBASE_KEY)
                     .setPlatform('Web')
