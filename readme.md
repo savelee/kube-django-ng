@@ -249,6 +249,12 @@ See also: https://cloud.google.com/iam/docs/permissions-reference
 
 1. On your hard drive navigate to *chatserver/dialogflow* zip this folder, and then **Import from Zip** in the Dialogflow settings screen. These are some example chatbot dialogs.
 
+### Setup Chatbase
+
+1. Navigate to http://www.chatbase.com/bots and login
+2. Create a new bot
+3. Copy the API_KEY to *env.txt* into the **MY_CHATBASE_KEY** variable.
+
 ### Setup Cloud Functions
 
 1. Choose in the left hand menu: **Cloud Functions**
@@ -522,16 +528,19 @@ you should see the uploaded asset, as well a JSON representation retrieved throu
 
     (when you already have a cluster, and you get the error **The connection to the server localhost:8080 was refused - did you specify the right host or port?**, type: `gcloud container clusters get-credentials "futurebank" --zone europe-west4-a`)
 
-1. Set your **PROJECT_ID** variable, which points to your GCP project id. For example:
+1. Set your **PROJECT_ID**, **GCLOUD_STORAGE_BUCKET** and **MY_CHATBASE_KEY** variables, which points to your GCP project id. For example:
 
     `export PROJECT_ID=gke-pipeline-savelee-192517`
     `export GCLOUD_STORAGE_BUCKET=leeboonstra-visionocr`
+    `export MY_CHATBASE_KEY=123...`
+    `export MY_CHATBASE_VERSION=1.0`
 
 1. Navigate to the root of this repository.
 
 1. Create a secret from your service account **master.json** key
 
-    `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=user-content" --from-literal "DATASET=chatanalytics" --from-literal "TABLE=chatmessages"`
+    `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=user-content" --from-literal "DATASET=chatanalytics" --from-literal "TABLE=chatmessages" --from-literal "MY_CHATBASE_KEY=${MY_CHATBASE_KEY}" --from-literal "MY_CHATBASE_VERSION=${MY_CHATBASE_VERSION}"`
+
     `kubectl create configmap fileserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=file-content" --from-literal "DATASET=fileanalytics" --from-literal "TABLE=fileresults" --from-literal "GCLOUD_STORAGE_BUCKET=${GCLOUD_STORAGE_BUCKET}"`
     `kubectl create secret generic credentials --from-file=master.json`
 

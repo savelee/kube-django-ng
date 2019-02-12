@@ -31,6 +31,16 @@ spec:
               configMapKeyRef:
                 name: chatserver-config
                 key: TOPIC
+          - name: "MY_CHATBASE_KEY"
+            valueFrom:
+              configMapKeyRef:
+                name: chatserver-config
+                key: MY_CHATBASE_KEY
+          - name: "MY_CHATBASE_VERSION"
+            valueFrom:
+              configMapKeyRef:
+                name: chatserver-config
+                key: MY_CHATBASE_VERSION
         volumeMounts:
           - name: mykeys
             mountPath: /var/secrets/

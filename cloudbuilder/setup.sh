@@ -9,6 +9,8 @@ err() {
 }
 
 source ./properties
+source ./chatserver/.env
+source ./fileserver/.env
 
 if [ -z "$PROJECT_ID" ]; then
   err "Not running in a GCP project. Please run gcloud config set project $PROJECT_ID."
@@ -146,6 +148,9 @@ kubectl create configmap chatserver-config \
     --from-literal "TOPIC=$TOPIC_ANALYTICS" \
     --from-literal "DATASET=$DATASET_ANALYTICS" \ 
     --from-literal "TABLE=$TABLE_ANALYTICS" 
+    --from-literal "MY_CHATBASE_KEY=$MY_CHATBASE_KEY" \ 
+    --from-literal "MY_CHATBASE_VERSION=$MY_CHATBASE_VERSION" 
+    
 kubectl create configmap fileserver-config \
     --from-literal "GCLOUD_PROJECT=$PROJECT_ID" \
     --from-literal "TOPIC=$TOPIC_FILES" \

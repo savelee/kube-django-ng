@@ -4,33 +4,25 @@
 
 ## Setup Steps
 
-- Make sure `$PROJECT_ID` is set: `gcloud config set project $PROJECT_ID`
-
-- Set application version: `VERSION` in `properties` if required (default is 1.0.0)
-
-- To start installation: `./setup.sh`
-
-Check for the endpoint address after deployment finishes (can take 10-15 mins)
-
 ### Setup the Dialogflow Agent
 
 1. (optional) In the cloud console, search for Dialogflow API
 
-1. On the left hand side, select **Dialogflow Agent**
+2. On the left hand side, select **Dialogflow Agent**
 
-1. Click on **Open or Create Agent at dialogflow.com**
+3. Click on **Open or Create Agent at dialogflow.com**
 
-1. Select your google account
+4. Select your google account
 
-1. Allow the terms & conditions
+5. Allow the terms & conditions
 
-1. Give your agent the name **ContactCenterDemo**
+6. Give your agent the name **ContactCenterDemo**
 
-1. For language choose: **English**
+7. For language choose: **English**
 
-1. For time zone choose: **Europe/Madrid**
+8. For time zone choose: **Europe/Madrid**
 
-1. Click **Create**
+9. Click **Create**
  
 ### Configure Dialogflow
 
@@ -49,6 +41,41 @@ Check for the endpoint address after deployment finishes (can take 10-15 mins)
 1. Click on **Export & Import**
 
 1. On your hard drive navigate to *chatserver/dialogflow* zip this folder, and then **Import from Zip** in the Dialogflow settings screen. These are some example chatbot dialogs.
+
+### Setup Chatbase
+
+1. Navigate to http://www.chatbase.com/bots and login
+
+1. Create a new bot
+
+1. Copy the API_KEY to *env.txt* into the **MY_CHATBASE_KEY** variable.
+
+### Prepare the environement variables.
+
+1. Modify Chat Container environment variables
+
+   ```
+   cd ../chatserver/my-app/
+   nano env.txt
+   mv env.txt .env
+   ```
+
+1. Modify File Server  Container environment variables
+
+   ```
+   cd ../fileserver/my-app/
+   nano env.txt
+   mv env.txt .env
+   ```
+### Run Setup Script
+
+1. Make sure `$PROJECT_ID` is set: `gcloud config set project $PROJECT_ID`
+
+2. Set application version: `VERSION` in `properties` if required (default is 1.0.0)
+
+3. To start installation: `./setup.sh`
+
+Check for the endpoint address after deployment finishes (can take 10-15 mins)
 
 ## Uninstall
 

@@ -166,13 +166,15 @@ function detectIntent(request, cb){
                 console.log(result.intent.displayName);
                 console.log(result.queryText);
                 
+                console.log(results)
+
                 if(result.queryText != "websitewelcome"){
                     chatbase.newMessage(process.env.MY_CHATBASE_KEY)
                     .setPlatform('Web')
                     .setAsTypeUser()
                     .setMessage(result.queryText)
                     .setUserId('user-' + sessionId)
-                    .setVersion('1.0')
+                    .setVersion(process.env.MY_CHATBASE_VERSION)
                     .setCustomSessionId(sessionId)
                     .setAsHandled()
                     .setIntent(result.intent.displayName)
@@ -189,13 +191,36 @@ function detectIntent(request, cb){
                         console.log(err);
                     })
                 }
+            } if (result.intent.is_fallback == true) {
+                
+                chatbase.newMessage(process.env.MY_CHATBASE_KEY)
+                .setPlatform('Web')
+                .setAsTypeUser()
+                .setMessage(result.queryText)
+                .setUserId('user-' + sessionId)
+                .setVersion(process.env.MY_CHATBASE_VERSION)
+                .setCustomSessionId(sessionId)
+                .setAsUnHandled()
+                .setIntent(result.intent.displayName)
+                .setTimestamp(Date.now().toString())
+                .send()
+                .then(msg => {
+                    console.log("user text sent to chatbase");
+                    console.log(msg);
+                    console.log(msg.getCreateResponse());
+                })
+                .catch(function(err){
+                    console.log("user text something went wrong");
+                    console.log(err);
+                })
+            
             } else {
                 console.log(`  No intent matched.`);
 
                 chatbase.newMessage(process.env.MY_CHATBASE_KEY)
                 .setPlatform('Web')
                 .setAsTypeUser()
-                .setVersion('1.0')
+                .setVersion(process.env.MY_CHATBASE_VERSION)
                 .setUserId('user-' + sessionId)
                 .setMessage(result.queryText)
                 .setCustomSessionId(sessionId)
@@ -277,7 +302,7 @@ function detectIntent(request, cb){
                     .setPlatform("Web")
                     .setAsTypeAgent()
                     .setNotAsFeedback()
-                    .setVersion('1.0')
+                    .setVersion(process.env.MY_CHATBASE_VERSION)
                     .setMessage(answer[0])
                     .setUserId('user-' + sessionId)
                     .setCustomSessionId(sessionId)
@@ -305,7 +330,7 @@ function detectIntent(request, cb){
         .setPlatform("Web")
         .setAsTypeAgent()
         .setMessage(error)
-        .setVersion('1.0')
+        .setVersion(process.env.MY_CHATBASE_VERSION)
         .setCustomSessionId(sessionId)
         .setUserId('user-' + sessionId)
         .setAsNotHandled()
