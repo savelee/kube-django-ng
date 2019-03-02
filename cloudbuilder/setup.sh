@@ -9,7 +9,7 @@ err() {
 }
 
 source ./properties
-source ./chatserver/.env
+source ./chatserver/my-app/.env
 source ./fileserver/.env
 
 if [ -z "$PROJECT_ID" ]; then
@@ -77,7 +77,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --role roles/storage.objectViewer
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
-  --role roles/dialogflow.editor
+  --role roles/dialogflow.admin
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/dialogflow.reader

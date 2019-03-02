@@ -11,12 +11,7 @@ CF_ANALYTICS=chatanalytics
 CF_FILES=fileanalytics
 CF_PDF=pdfcontents
 
-if [ -f account.txt ]; then
-  SERVICE_ACCOUNT_NAME=$(cat account.txt)
-else
-  SERVICE_ACCOUNT_NAME="futurebank-app-$(date +"%s")"
-  echo $SERVICE_ACCOUNT_NAME > account.txt
-fi
+SERVICE_ACCOUNT_NAME="futurebank-app-$(date +"%s")"
   
 SA_EMAIL=$(gcloud iam service-accounts list \
   --filter="displayName:$SERVICE_ACCOUNT_NAME" \
