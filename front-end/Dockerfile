@@ -14,7 +14,7 @@ RUN npm install --force
 
 COPY /src/ /my-app/src/
 
-RUN npm install typescript@">=3.1.1 <3.2"
+RUN npm install typescript@">=3.2.2"
 
 RUN npm run build
 
