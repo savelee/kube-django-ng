@@ -17,7 +17,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 
 import { FileDropModule } from 'ngx-file-drop';
 
-//Angular Material Components
+// Angular Material Components
 import {MatCheckboxModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
@@ -49,11 +49,13 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
-import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
 import { BalanceComponent } from './balance/balance.component';
 import { SupportComponent } from './support/support.component';
-import { TransferComponent } from './transfer/transfer.component';
 import { FaqComponent } from './faq/faq.component';
+import { AdminConfigComponent } from './admin-config/admin-config.component';
+import { AdminTestComponent } from './admin-test/admin-test.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+
 
 
 @NgModule({
@@ -105,11 +107,12 @@ import { FaqComponent } from './faq/faq.component';
   declarations: [
     AppComponent,
     MyNavComponent,
-    MyDashboardComponent,
     BalanceComponent,
     SupportComponent,
-    TransferComponent,
-    FaqComponent
+    FaqComponent,
+    AdminConfigComponent,
+    AdminTestComponent,
+    AdminDashboardComponent
   ],
   providers: [
     {

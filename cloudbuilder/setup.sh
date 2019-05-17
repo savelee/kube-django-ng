@@ -10,7 +10,6 @@ err() {
 
 source ./properties
 source ./chatserver/my-app/.env
-source ./fileserver/.env
 
 if [ -z "$PROJECT_ID" ]; then
   err "Not running in a GCP project. Please run gcloud config set project $PROJECT_ID."
@@ -31,7 +30,6 @@ gcloud services enable \
   pubsub.googleapis.com \
   language.googleapis.com \
   dlp.googleapis.com \
-  vision.googleapis.com \
   automl.googleapis.com \
   translate.googleapis.com \
   dialogflow.googleapis.com \
@@ -71,12 +69,6 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --role roles/pubsub.viewer
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
-  --role roles/storage.objectCreator
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/storage.objectViewer
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
   --role roles/dialogflow.admin
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
@@ -91,9 +83,6 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/logging.logWriter
 
-bold "Creating Bucket..."
-gsutil mb -c regional -l europe-west4 $BUCKET_URI
-
 bold "Creating Cloud Functions..."
 gcloud functions deploy $CF_ANALYTICS \ 
 --region=europe-west1 \
@@ -106,28 +95,6 @@ gcloud functions deploy $CF_ANALYTICS \
 --timeout=60s \ 
 --entry-point=subscribe \
 --update-labels=[DATASET=$DATASET_ANALYTICS,TABLE=$TABLE_ANALYTICS]] 
-gcloud functions deploy $CF_FILES \ 
---region=europe-west1 \
---memory=256MB \
---trigger-topic=$TOPIC_FILES
---retry \ 
---runtime=nodejs8 \ 
---source=./cloudfunctions/filestorage/fileanalytics \ 
---stage-bucket=$BUCKET_NAME \ 
---timeout=60s \ 
---entry-point=subscribe \
---update-labels=[DATASET=$DATASET_FILES,TABLE=$TABLE_FILES]] 
-gcloud functions deploy $CF_PDF \ 
---region=europe-west1 \
---memory=256MB \
---trigger-bucket=$BUCKET_NAME
---retry \ 
---runtime=nodejs8 \ 
---source=./cloudfunctions/filestorage/pdfcontents \ 
---stage-bucket=$BUCKET_NAME \ 
---timeout=60s \ 
---entry-point=onFileStorage \
---update-labels=[TOPIC=$TOPIC_FILES,GCLOUD_STORAGE_BUCKET=$BUCKET_NAME]] 
 
 bold "Creating cluster..."
 gcloud container clusters create $GKE_CLUSTER \ 
@@ -151,14 +118,6 @@ kubectl create configmap chatserver-config \
     --from-literal "MY_CHATBASE_KEY=$MY_CHATBASE_KEY" \ 
     --from-literal "MY_CHATBASE_VERSION=$MY_CHATBASE_VERSION" 
     
-kubectl create configmap fileserver-config \
-    --from-literal "GCLOUD_PROJECT=$PROJECT_ID" \
-    --from-literal "TOPIC=$TOPIC_FILES" \
-    --from-literal "DATASET=$DATASET_FILES" \ 
-    --from-literal "TABLE=$TABLE_FILES"  \
-    --from-literal "GCLOUD_STORAGE_BUCKET=$BUCKET_NAME" 
-kubectl create secret generic credentials --from-file=master.json
-
 bold "Starting deployments..."
 gcloud builds submit --config cloudbuilder/setup.yaml
 kubectl apply -f cloudbuilder/ingress.yaml

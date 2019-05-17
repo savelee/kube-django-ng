@@ -28,10 +28,6 @@ fi
 bold "Deleting Cloud Functions"
 gcloud functions delete $CF_ANALYTICS \ 
 --region=europe-west1
-gcloud functions delete $CF_FILES \ 
---region=europe-west1
-gcloud functions delete $CF_PDF \ 
---region=europe-west1
 
 bold "Deleting service account $SERVICE_ACCOUNT_NAME..."
 gcloud iam service-accounts delete $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com --quiet
@@ -47,15 +43,10 @@ gcloud container images delete gcr.io/$PROJECT_ID/chatserver-image --force-delet
 bold "Remove network addresses"
 gcloud compute --project=$PROJECT_ID addresses delete $GKE_CLUSTER
 
-bold "Deleting GCS bucket $BUCKET_URI"
-gsutil rm -r $BUCKET_URI
-
 bold "Deleting Pub/Sub Topics"
-gcloud pubsub topics delete $TOPIC_FILES
 gcloud pubsub topics delete $TOPIC_ANALYTICS
 
 bold "Deleting BigQuery dataset futurebank..."
-bq rm -r --force $DATASET_FILES
 bq rm -r --force $DATASET_ANALYTICS
 
 bold "Removing Kuberentes Admin role from $CLOUD_BUILD_EMAIL..."
@@ -79,12 +70,6 @@ gcloud projects remove-iam-policy-binding $PROJECT_ID \
 gcloud projects remove-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/pubsub.viewer
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/storage.objectCreator
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/storage.objectViewer
 gcloud projects remove-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/dialogflow.editor

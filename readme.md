@@ -128,7 +128,6 @@ authentication:
 * Dialogflow API
 
 * Cloud Data Loss Protection API
-* Cloud Vision API
 * Cloud Translation API
 * Cloud Auto ML API
 
@@ -143,7 +142,6 @@ gcloud services enable \
   container.googleapis.com \
   dlp.googleapis.com \
   dialogflow.googleapis.com \
-  vision.googleapis.com \
   automl.googleapis.com \
   translate.googleapis.com \
   cloudbuild.googleapis.com \
@@ -157,23 +155,23 @@ gcloud services enable \
 
 1. Download the Service Account Key
 
-1. Open http://console.cloud.google.com, and navigate to *APIs & Services > Credentials*.
+2. Open http://console.cloud.google.com, and navigate to *APIs & Services > Credentials*.
 
-1. Click **Create Credentials**
+3. Click **Create Credentials**
 
-1. Select **Dialogflow Integrations**
+4. Select **Dialogflow Integrations**
 
-1. Give it the name: *master.json*,  - select for now Project Owner (in production, you might want to fine tune this on least privaliges)
+5. Give it the name: *master.json*,  - select for now Project Owner (in production, you might want to fine tune this on least privaliges)
 
-1. Select **JSON**
+6. Select **JSON**
 
-1. **Create**
+7. **Create**
 
-1. Download the key, and store it somewhere on your hard drive, and remember the path.
+8. Download the key, and store it somewhere on your hard drive, and remember the path.
 
-1. In the cloud console, click on **IAM & admin**
+9. In the cloud console, click on **IAM & admin**
 
-1. Pick the Dialogflow Service Account, and add the following roles to it:
+10. Pick the Dialogflow Service Account, and add the following roles to it:
 
    NOTE: For testing purposes, I might add also the *Owner* role to this service account. Though, for production is best to make use of the least privilidges. 
 
@@ -183,11 +181,11 @@ gcloud services enable \
    * Storage Object Creator
    * Storage Object Viewer
 
-1. Navigate to Cloud Functions, and take a note of the service account that is used.
+11. Navigate to Cloud Functions, and take a note of the service account that is used.
 
     It might the App Engine service account which is created by default.
 
-1. Go back to the **IAM & admin** settings, and make sure the service account used by the Cloud Function,
+12. Go back to the **IAM & admin** settings, and make sure the service account used by the Cloud Function,
  has the following roles:
 
  * BigQuery Data Viewer
@@ -197,39 +195,25 @@ gcloud services enable \
 
 See also: https://cloud.google.com/iam/docs/permissions-reference
 
-### Setup Storage Bucket
-
-1. Choose in the left hand menu: **Storage**
-
-1. Click **Create Bucket**
-
-1. Give the bucket a unique name, for example: `futurebank-gcs-bucket-myname`
-
-1. Choose **Regional**
-
-1. Set a **location** (for example: `europe-west4`)
-
-1. Click **Create**
-
 ### Setup the Dialogflow Agent
 
 1. (optional) In the cloud console, search for Dialogflow API
 
-1. On the left hand side, select **Dialogflow Agent**
+2. On the left hand side, select **Dialogflow Agent**
 
-1. Click on **Open or Create Agent at dialogflow.com**
+3. Click on **Open or Create Agent at dialogflow.com**
 
-1. Select your google account
+4. Select your google account
 
-1. Allow the terms & conditions
+5. Allow the terms & conditions
 
-1. Give your agent the name **ContactCenterDemo**
+6. Give your agent the name **ContactCenterDemo**
 
-1. For language choose: **English**
+7. For language choose: **English**
 
-1. For time zone choose: **Europe/Madrid**
+8. For time zone choose: **Europe/Madrid**
 
-1. Click **Create**
+9. Click **Create**
  
 ### Configure Dialogflow
 
@@ -340,7 +324,7 @@ In case you want to run this for the first time:
 1. Then run on the command-line:
 
    ```
-   node app.js
+   npm start
    ```
 
 ## Dialogflow Demo flow:
@@ -413,113 +397,6 @@ See the markup of: https://github.com/savelee/kube-django-ng/blob/master/front-e
 
 TODO
 
-
-## File Server OCR demo
-
-A common use case for every business, is the digitalization of documents.
-Scanned Documents as PDF, JPG, TIFF. To get text from these documents or images,
-and process it, we can make use of the OCR detection of the Vision API.
-An architecture could look like this diagram:
-
-![alt text](https://github.com/savelee/kube-django-ng/blob/master/images/fileananalytics-architecture.png "File Server")
-
-### Start Fileserver Container
-
-In case you want to run this for the first time:
-
-1. Rename the file from the command-line, and edit:
-
-   ```
-   cd ../fileserver/
-   npm install
-   mv env.txt .env
-   nano .env
-   ```
-
-1. Modify the code:
-
-   ```
-    GCLOUD_PROJECT=<PROJECT NAME>
-    GOOGLE_APPLICATION_CREDENTIALS=<LOCATION OF YOUR SERVICE ACCOUNT FILE>
-    GCLOUD_STORAGE_BUCKET=<NAME_OF_MY_STORAGE_BUCKET>
-    TOPIC=file-content
-    DATASET=fileanalytics
-    TABLE=fileresults
-   ```
-
-1. Then run on the command-line:
-
-   ```
-   node app.js
-   ```
-
-### Setup Cloud Functions
-
-1. Click **Create Function**
-
-1. Name: **fileanalytics**
-
-1. Select Trigger: **Cloud Pub/Sub**
-
-1. Choose topic: **file-content**
-
-1. Runtime: Node JS 8 (beta)
-
-1. Paste the contents of *cloudfunctions/filestorage/fileanalytics/index.js* into the **index.js** textarea
-
-1. Paste the contents of *cloudfunctions/filestorage/fileanalytics/package.json* into the **package.json** textarea (tab)
-
-1. The function to execute is: **subscribe**
-
-1. Set the following environment variables:
-
-```
-DATASET=fileanalytics
-TABLE=fileresults
-```
-
-1. Click **Create**
-
-1. Click **Create Function**
-
-1. Name: **pdfcontents**
-
-1. Select Trigger: **Cloud Storage**
-
-1. Choose bucket: **myname-futurebank**
-
-1. Runtime: Node JS 8 (beta)
-
-1. Paste the contents of *cloudfunctions/filestorage/pdfcontents/index.js* into the **index.js** textarea
-
-1. Paste the contents of *cloudfunctions/filestorage/pdfcontents/package.json* into the **package.json** textarea (tab)
-
-1. The function to execute is: **onFileStorage**
-
-1. Set the following environment variables:
-
-```
-TOPIC=file-content
-GCLOUD_STORAGE_BUCKET = myname-futurebank
-```
-1. Click **Create**
-
-### Fileserver Demo flow:
-
-1. In the front-end website, navigate to the **Transfer** tab
-
-1. Choose: **Upload Receipt**
-
-1. Upload, PDF, TIFF or JPEG files. (See the *fileserver/testfiles/* folder for example files)
-
-1. After the upload process, have a look into the Cloud Storage bucket **myname-futurebank**,
-you should see the uploaded asset, as well a JSON representation retrieved through the DOCUMENT DETECTION of the Vision API.
-
-1. Navigate to https://bigquery.cloud.google.com and query the fileresults table, to get the insights:
-
-`SELECT * from `fileanalytics.fileresults` where PATH filename LIMIT 10`
-
-
 ## Deploy your code to GKE with Cloud Builder
 
 1. Create a GKE Cluster:
@@ -528,53 +405,44 @@ you should see the uploaded asset, as well a JSON representation retrieved throu
 
     (when you already have a cluster, and you get the error **The connection to the server localhost:8080 was refused - did you specify the right host or port?**, type: `gcloud container clusters get-credentials "futurebank" --zone europe-west4-a`)
 
-1. Set your **PROJECT_ID**, **GCLOUD_STORAGE_BUCKET** and **MY_CHATBASE_KEY** variables, which points to your GCP project id. For example:
+2. Set your **PROJECT_ID**, **GCLOUD_STORAGE_BUCKET** and **MY_CHATBASE_KEY** variables, which points to your GCP project id. For example:
 
     `export PROJECT_ID=gke-pipeline-savelee-192517`
-    `export GCLOUD_STORAGE_BUCKET=leeboonstra-visionocr`
     `export MY_CHATBASE_KEY=123...`
     `export MY_CHATBASE_VERSION=1.0`
 
-1. Navigate to the root of this repository.
+3. Navigate to the root of this repository.
 
-1. Create a secret from your service account **master.json** key
+4. Create a secret from your service account **master.json** key
 
     `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=user-content" --from-literal "DATASET=chatanalytics" --from-literal "TABLE=chatmessages" --from-literal "MY_CHATBASE_KEY=${MY_CHATBASE_KEY}" --from-literal "MY_CHATBASE_VERSION=${MY_CHATBASE_VERSION}"`
 
-    `kubectl create configmap fileserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=file-content" --from-literal "DATASET=fileanalytics" --from-literal "TABLE=fileresults" --from-literal "GCLOUD_STORAGE_BUCKET=${GCLOUD_STORAGE_BUCKET}"`
-    `kubectl create secret generic credentials --from-file=master.json`
+5. Fix paths to your images of the **-deployment.yaml** & **setup** files (in the cloudbuilder folder) to match the container names in your Container Registry.
 
-1. Fix paths to your images of the **-deployment.yaml** & **setup** files (in the cloudbuilder folder) to match the container names in your Container Registry.
-
-1. When you setup your cluster for the first time, you can run this command from the root directory:
+6. When you setup your cluster for the first time, you can run this command from the root directory:
 
     `gcloud builds submit --config cloudbuilder/setup.yaml`
 
-1. In case you want to re-deploy individual containers, run the following build scripts:
+7. In case you want to re-deploy individual containers, run the following build scripts:
 
    `gcloud builds submit --config cloudbuilder/chatserver.yaml`
-
-   `gcloud builds submit --config cloudbuilder/fileserver.yaml`
 
    `gcloud builds submit --config cloudbuilder/front-end.yaml`
 
     (optional)
    `gcloud builds submit --config cloudbuilder/django.yaml`
 
-1. To delete deployments use:
+8. To delete deployments use:
 
    `kubectl delete deployment front-end`
 
-1. To deploy another deployment:
+9. To deploy another deployment:
 
    `kubectl apply -f cloudbuilder/front-end-deployment.yaml`
 
    `kubectl apply -f cloudbuilder/chatserver-deployment.yaml`
 
-   `kubectl apply -f cloudbuilder/fileserver-deployment.yaml`
-
-
-1. Get a static IP:
+10. Get a static IP:
 
   A domain name is needed for an SSL certificate. We also want to create a fixed ‘A record’ for it on the name registrar. With an Ingress, the external IP keeps changing as it is deleted and created. We can solve this problem on GCP by reserving an external IP address which we can then assign to the Ingress each time.
 

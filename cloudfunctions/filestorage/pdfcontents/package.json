@@ -1,9 +1,0 @@
-{
-    "name": "pdfcontents",
-    "version": "1.0.0",
-    "dependencies": {
-      "@google-cloud/storage": "^2.3.1",
-      "@google-cloud/pubsub": "^0.22.2"
-    }
-  }
-  
