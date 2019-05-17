@@ -43,12 +43,10 @@ export class Dialogflow {
             session: this.sessionPath,
             queryInput: queryInput
         }
-        // Recognizes the speech in the audio and detects its intent.
         const responses = await this.sessionClient.detectIntent(request);
         let result = responses[0].queryResult;
 
         if(result) {
-           //result = structJson.structProtoToJson(result);
            cb(this.getBotResults(result));
         } else {
             console.log('something went wrong with the response');

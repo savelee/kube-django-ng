@@ -1,0 +1,86 @@
+{
+  "id": "c7be0275-2d9f-4268-a95f-dc5693d4cebd",
+  "name": "[usercase1] transfer money",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [
+        {
+          "name": "usercase1transfermoney-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [
+        {
+          "id": "6833a8f7-c651-4f54-b528-bf502e4676e5",
+          "required": true,
+          "dataType": "@sys.any",
+          "name": "account",
+          "value": "$account",
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "To which bank account number?"
+            },
+            {
+              "lang": "nl",
+              "value": "Naar welk rekening nummer?"
+            }
+          ],
+          "isList": false
+        },
+        {
+          "id": "bff66dc5-3932-4827-a4dc-94d15ca1f325",
+          "required": true,
+          "dataType": "@sys.unit-currency",
+          "name": "amount",
+          "value": "$amount",
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "How much do you want to transfer?"
+            }
+          ],
+          "isList": true
+        },
+        {
+          "id": "1f46822e-ad54-447b-8efe-65bb38be84d4",
+          "required": true,
+          "dataType": "@sys.geo-country",
+          "name": "destination",
+          "value": "$destination",
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "To which country?"
+            }
+          ],
+          "isList": true
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "speech": "Alright, I will transfer $amount to bank account $account $destination."
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "speech": "Ok! Ik ga $valuta overmaken naar $land."
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1521205309,
+  "fallbackIntent": false,
+  "events": []
+}

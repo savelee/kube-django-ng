@@ -41,8 +41,8 @@
     "start": "npm run build && nodemon dist/main.js"
   },
   "dependencies": {
-    "@google-cloud/bigquery": "^2.0.3",
-    "@google-cloud/pubsub": "^0.22.2",
+    "@google-cloud/bigquery": "^3.0.0",
+    "@google-cloud/pubsub": "^0.29.0",
     "@google/chatbase": "^1.1.2",
     "cors": "^2.8.5",
     "debug": "^4.1.0",

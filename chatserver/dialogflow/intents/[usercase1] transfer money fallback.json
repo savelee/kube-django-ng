@@ -1,0 +1,38 @@
+{
+  "id": "007bb658-10e4-4cbc-a970-969e097b088a",
+  "parentId": "c7be0275-2d9f-4268-a95f-dc5693d4cebd",
+  "rootParentId": "c7be0275-2d9f-4268-a95f-dc5693d4cebd",
+  "name": "[usercase1] transfer money fallback",
+  "auto": false,
+  "contexts": [
+    "usercase1transfermoney-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "usercase1transfermoney.usercase1transfermoney-fallback",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "speech": "I am sorry, I did not understand this. Do you want to transfer more money?"
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1520523149,
+  "fallbackIntent": true,
+  "events": []
+}

@@ -1,0 +1,40 @@
+{
+  "id": "4e6f5a42-24ff-4fa6-92f1-2f207968bac8",
+  "name": "[payload] What\u0027s your location",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [
+        {
+          "name": "payloadWhatsyourlocation-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 4,
+          "lang": "en",
+          "payload": {
+            "web": {
+              "type": "map",
+              "function": "var today \u003d new Date(); var curHr \u003d today.getHours(); var greet \u003d \"\"; if (curHr \u003c 12) { greet \u003d \"Good morning!\"; } else if (curHr \u003c 18) { greet \u003d \"Good afternoon!\"; } else { greet \u003d \"Good evening!\"; } return greet;",
+              "link": "https://www.google.com/maps/embed?pb\u003d!1m18!1m12!1m3!1d2437.7995043017927!2d4.869772751476948!3d52.33778327968087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle+Amsterdam!5e0!3m2!1sen!2snl!4v1520965060384"
+            }
+          }
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1521294936,
+  "fallbackIntent": false,
+  "events": []
+}

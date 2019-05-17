@@ -1,0 +1,46 @@
+{
+  "id": "fcc2530c-cf2e-4b5d-8012-ea7675236eac",
+  "name": "[bot-first-greeting] Introduction",
+  "auto": false,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "nl",
+          "speech": [
+            "Hoi! Ik ben Babs de BankingBot. Hoe kan ik je helpen?",
+            "Hallo, ik ben Babs de BankingBot. Wat kan ik voor je doen?"
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "speech": [
+            "Hi there! I\u0027m Babs the Bankingbot. How can I help you today?",
+            "Hallo. I am Babs the Bankingbot. I\u0027m here to help. What can I do for you?"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1520935290,
+  "fallbackIntent": false,
+  "events": [
+    {
+      "name": "websitewelcome"
+    },
+    {
+      "name": "GOOGLE_ASSISTANT_WELCOME"
+    }
+  ]
+}

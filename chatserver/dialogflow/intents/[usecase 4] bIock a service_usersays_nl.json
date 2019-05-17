@@ -1,0 +1,165 @@
+[
+  {
+    "id": "2e9837ce-23bb-46a9-ab30-7299d98732e5",
+    "data": [
+      {
+        "text": "Ik wil ",
+        "userDefined": false
+      },
+      {
+        "text": "pas",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "rekening",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "123456",
+        "alias": "account",
+        "meta": "@sys.any",
+        "userDefined": true
+      },
+      {
+        "text": " blokkeren als mijn partner al ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "account",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " heeft",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "5d25c368-4c7a-4e9c-97f4-0e720efc5f1e",
+    "data": [
+      {
+        "text": "Ik wil mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "pas",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      },
+      {
+        "text": " blokkeren voor ",
+        "userDefined": false
+      },
+      {
+        "text": "rekening",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "123456",
+        "alias": "account",
+        "meta": "@sys.any",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "328d7f5c-c203-49dc-8844-822eed3e8e2c",
+    "data": [
+      {
+        "text": "Ik wil graag mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "pas",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": false
+      },
+      {
+        "text": " blokkeren",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  },
+  {
+    "id": "654e4cef-a30e-4ac8-9a3d-b9113809e82b",
+    "data": [
+      {
+        "text": "Ik ",
+        "userDefined": false
+      },
+      {
+        "text": "heb",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "pas",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "rekening",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      },
+      {
+        "text": " gekregen die ik wil blokkeren",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0
+  }
+]

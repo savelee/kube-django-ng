@@ -1,0 +1,14 @@
+[
+  {
+    "action": "smalltalk.confirmation.cancel",
+    "customAnswers": [
+      "Okay."
+    ]
+  },
+  {
+    "action": "smalltalk.emotions.ha_ha",
+    "customAnswers": [
+      "Smiling is good for you!"
+    ]
+  }
+]
