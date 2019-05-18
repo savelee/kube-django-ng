@@ -1,5 +1,8 @@
 {
-  "extends": "tslint:recommended",
+  "extends": [
+    "tslint-microsoft-contrib/recommended",
+    "tslint-config-prettier"
+  ],
   "rulesDirectory": [
     "codelyzer"
   ],
@@ -9,6 +12,7 @@
     "deprecation": {
       "severity": "warn"
     },
+    "export-name": false,
     "import-blacklist": [
       true,
       "rxjs/Rx"
@@ -31,6 +35,8 @@
         ]
       }
     ],
+    "mocha-no-side-effect-code": false,
+    "missing-jsdoc": false,
     "no-consecutive-blank-lines": false,
     "no-console": [
       true,
@@ -46,7 +52,10 @@
       "ignore-params"
     ],
     "no-non-null-assertion": true,
+    "only-arrow-functions": false,
+    "no-function-expression": false,
     "no-redundant-jsdoc": true,
+    "no-relative-imports": false,
     "no-switch-case-fall-through": true,
     "no-use-before-declare": true,
     "no-var-requires": false,
@@ -56,6 +65,7 @@
     ],
     "object-literal-sort-keys": false,
     "ordered-imports": false,
+    "prefer-type-cast": false,
     "quotemark": [
       true,
       "single"
@@ -71,5 +81,12 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true
-  }
+  },
+  "typedef": [
+    true,
+    "parameter",
+    "property-declaration",
+    "member-variable-declaration"
+  ]
 }
+

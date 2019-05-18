@@ -1,29 +1,91 @@
-/**
- * This starter project recommended using Microsoft TSLint rules.
- * Please see https://github.com/Microsoft/tslint-microsoft-contrib for more details.
- */
-
 {
   "extends": [
     "tslint-microsoft-contrib/recommended",
     "tslint-config-prettier"
   ],
+  "rulesDirectory": [
+    "codelyzer"
+  ],
   "rules": {
+    "array-type": false,
+    "arrow-parens": false,
+    "deprecation": {
+      "severity": "warn"
+    },
+    "export-name": false,
+    "import-blacklist": [
+      true,
+      "rxjs/Rx"
+    ],
+    "interface-name": false,
+    "max-classes-per-file": false,
+    "max-line-length": [
+      true,
+      140
+    ],
+    "member-access": false,
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "static-field",
+          "instance-field",
+          "static-method",
+          "instance-method"
+        ]
+      }
+    ],
     "mocha-no-side-effect-code": false,
     "missing-jsdoc": false,
-    "no-relative-imports": false,
-    "export-name": false,
-    "promise-function-async": false,
-    "no-void-expression": false,
-    "no-redundant-jsdoc": false,
+    "no-consecutive-blank-lines": false,
+    "no-console": [
+      true,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "no-empty": false,
+    "no-inferrable-types": [
+      true,
+      "ignore-params"
+    ],
+    "no-non-null-assertion": true,
     "only-arrow-functions": false,
     "no-function-expression": false,
-    "prefer-type-cast": false,
-    "typedef": [
+    "no-redundant-jsdoc": true,
+    "no-relative-imports": false,
+    "no-switch-case-fall-through": true,
+    "no-use-before-declare": true,
+    "no-var-requires": false,
+    "object-literal-key-quotes": [
       true,
-      "parameter",
-      "property-declaration",
-      "member-variable-declaration"
-    ]
-  }
+      "as-needed"
+    ],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "prefer-type-cast": false,
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "trailing-comma": false,
+    "no-output-on-prefix": true,
+    "use-input-property-decorator": true,
+    "use-output-property-decorator": true,
+    "use-host-property-decorator": true,
+    "no-input-rename": true,
+    "no-output-rename": true,
+    "use-life-cycle-interface": true,
+    "use-pipe-transform-interface": true,
+    "component-class-suffix": true,
+    "directive-class-suffix": true
+  },
+  "typedef": [
+    true,
+    "parameter",
+    "property-declaration",
+    "member-variable-declaration"
+  ]
 }

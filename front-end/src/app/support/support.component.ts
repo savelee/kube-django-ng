@@ -86,7 +86,9 @@ export class SupportComponent implements OnInit {
     // When we receive a customer message, display it
     this.server.on('agentmsg', function(data){
       console.log(data);
-      me.updateChatBox(null, data.message);
+      if (data.username === 'Chatbot') {
+        me.updateChatBox(null, data.message);
+      }
     });
     // When we receive a system error, display it
     this.server.on('systemerror', function(error) {

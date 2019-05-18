@@ -56,7 +56,7 @@ export class Dialogflow {
 
     public getBotResults(result: any) {
         let botResults = {};
-        // console.log(result);
+        console.log(result);
 
         botResults['botAnswer'] = [];
         botResults['sessionId'] = this.sessionId;
@@ -77,14 +77,14 @@ export class Dialogflow {
             botResults['botName'] = 'BalanceBot';
             if (result.action === 'spent') {
                 let spentObj = {
-                    name: 'spent',
+                    action: 'spent',
                     param: p['category']
                 }
                 botResults['botAnswer'] = spentObj;
             }
             if (result.action === 'income') {
                 let incomingObj = {
-                    name: 'salary',
+                    action: 'income',
                     param: p['category']
                 }
                 botResults['botAnswer'] = incomingObj;
