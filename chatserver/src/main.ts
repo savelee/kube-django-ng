@@ -27,7 +27,7 @@ import * as cors from 'cors';
 
 import { analytics } from './analytics';
 import { dashboard } from './dashboard';
-// import { chatbase } from './chatbase';
+import { chatbase } from './chatbase';
 // import { chatconfig } from './chatconfig';
 import { dialogflow } from './dialogflow';
 
@@ -94,8 +94,6 @@ export class App {
           }
 
           dialogflow.detectIntent(queryInput, function(result: any) {
-            //analytics.pushToChannel(result);
-
             client.emit('agentmsg', {
               username: result.botName,
               message: result.botAnswer,
@@ -114,6 +112,8 @@ export class App {
             }
 
             dialogflow.detectIntent(queryInput, function(result: any) {
+              console.log(result);
+
               client.emit('agentmsg', {
                 username: result.botName,
                 message: result.botAnswer,
@@ -125,9 +125,26 @@ export class App {
                 text: txt,
                 posted: new Date().getTime(),
                 intent: result.botAnswer.toString(),
+                //isFallback: result.botAnswer.isFallback,
                 confidence: result.confidence,
                 session: client.id
               }, process.env.TOPIC);
+
+              chatbase.logUserChatbase({
+                text: txt,
+                posted: new Date().getTime(),
+                intentName: result.intentName,
+                isFallback: result.isFallback,
+                confidence: result.confidence,
+                session: result.sessionId
+              });
+
+              chatbase.logBotChatbase({
+                posted: new Date().getTime(),
+                intent: result.botAnswer.toString(),
+                confidence: result.confidence,
+                session: result.sessionId
+              });
             });
         });
 

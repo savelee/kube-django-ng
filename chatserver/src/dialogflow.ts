@@ -56,9 +56,19 @@ export class Dialogflow {
 
     public getBotResults(result: any) {
         let botResults = {};
-        
+        // console.log(result);
+
         botResults['botAnswer'] = [];
-        botResults['confidence'] = result.intentDetectionConfidence;
+        botResults['sessionId'] = this.sessionId;
+        botResults['confidence'] = result.intentDetectionConfidence;        
+  
+        if (result.intent) {
+            botResults['isFallback'] = result.intent.isFallback;
+            botResults['intentName'] = result.intent.displayName;
+        } else {
+            botResults['isFallback'] = false;
+            botResults['intentName'] = '';
+        }
 
         // get special actions
         if (result.action === 'spent' || result.action === 'income') {

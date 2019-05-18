@@ -114,9 +114,12 @@ kubectl create configmap chatserver-config \
     --from-literal "GCLOUD_PROJECT=$PROJECT_ID" \
     --from-literal "TOPIC=$TOPIC_ANALYTICS" \
     --from-literal "DATASET=$DATASET_ANALYTICS" \ 
-    --from-literal "TABLE=$TABLE_ANALYTICS" 
+    --from-literal "TABLE=$TABLE_ANALYTICS" \
+    --from-literal "LANGUAGE_CODE=$LANGUAGE_CODE" \
     --from-literal "MY_CHATBASE_KEY=$MY_CHATBASE_KEY" \ 
-    --from-literal "MY_CHATBASE_VERSION=$MY_CHATBASE_VERSION" 
+    --from-literal "MY_CHATBASE_VERSION=$MY_CHATBASE_VERSION" \
+    --from-literal "MY_CHATBASE_NAME=$MY_CHATBASE_NAME" 
+    
     
 bold "Starting deployments..."
 gcloud builds submit --config cloudbuilder/setup.yaml
