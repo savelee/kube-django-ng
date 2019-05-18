@@ -87,7 +87,11 @@ export class SupportComponent implements OnInit {
     this.server.on('agentmsg', function(data){
       console.log(data);
       if (data.username === 'Chatbot') {
-        me.updateChatBox(null, data.message);
+        if (data.message[0][0] === '') {
+          me.updateChatBox(null, "I'm sorry, I can't find the answer right now.");
+        } else {
+          me.updateChatBox(null, data.message);
+        }
       }
     });
     // When we receive a system error, display it

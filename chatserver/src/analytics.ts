@@ -35,10 +35,20 @@ const id = process.env.GCLOUD_PROJECT;
 const datasetChatMessages = process.env.DATASET;
 const tableChatMessages = process.env.TABLE;
 // tslint:disable-next-line:no-suspicious-comment
-// TODO add schema for TP,TN,FP,FN,ACCURACY,PRESISION,RECALL,F1
-const schemaChatMessages = 'TEXT, POSTED:TIMESTAMP, SCORE:FLOAT, MAGNITUDE:FLOAT, INTENT, CONFIDENCE:FLOAT, SESSION';
+const schemaChatMessages = `
+    BOT_NAME,
+    TEXT, 
+    POSTED:TIMESTAMP, 
+    SCORE:FLOAT, 
+    MAGNITUDE:FLOAT, 
+    INTENT,
+    INTENT_NAME,
+    CONFIDENCE:FLOAT,
+    IS_FALLBACK: BOOLEAN, 
+    IS_FULFILLMENT: BOOLEAN,
+    IS_END_INTERACTION: BOOLEAN,
+    SESSION`;
 const topicChatbotMessages = process.env.TOPIC;
-
 
 export class Analytics {
 

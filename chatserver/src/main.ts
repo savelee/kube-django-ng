@@ -125,7 +125,10 @@ export class App {
                 text: txt,
                 posted: timestamp,
                 intent: result.botAnswer.toString(),
-                //isFallback: result.botAnswer.isFallback,
+                //intentName: result.intentName,
+                //isFallback: result.isFallback,
+                //isFulfillment: result.isFulfillment,
+                //isEndInteraction: result.isEndInteraction,
                 confidence: result.confidence,
                 session: client.id
               }, process.env.TOPIC);

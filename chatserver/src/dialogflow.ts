@@ -44,7 +44,8 @@ export class Dialogflow {
             queryInput: queryInput
         }
         const responses = await this.sessionClient.detectIntent(request);
-        let result = responses[0].queryResult;
+        console.log(responses);
+        let result = responses[0];
 
         if(result) {
            cb(this.getBotResults(result));
@@ -56,8 +57,12 @@ export class Dialogflow {
 
     public getBotResults(result: any) {
         let botResults = {};
-        console.log(result);
-
+        if (result.webhookStatus) {
+            botResults['isFulfillment'] = true;
+        } else {
+            botResults['isFulfillment'] = false;
+        }
+        result = result.queryResult;
         botResults['botAnswer'] = [];
         botResults['sessionId'] = this.sessionId;
         botResults['confidence'] = result.intentDetectionConfidence;        
@@ -65,8 +70,10 @@ export class Dialogflow {
         if (result.intent) {
             botResults['isFallback'] = result.intent.isFallback;
             botResults['intentName'] = result.intent.displayName;
+            botResults['isEndInteraction'] = result.intent.endInteraction;
         } else {
             botResults['isFallback'] = false;
+            botResults['isEndInteraction'] = false;
             botResults['intentName'] = '';
         }
 
