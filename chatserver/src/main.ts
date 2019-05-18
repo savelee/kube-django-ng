@@ -106,14 +106,14 @@ export class App {
 
         client.on('msg', (txt: String) => {
             let queryInput = {};
+            let timestamp = new Date().getTime();
+              
             queryInput['text'] = {
               text: txt,
               languageCode: langCode
             }
 
-            dialogflow.detectIntent(queryInput, function(result: any) {
-              console.log(result);
-
+            dialogflow.detectIntent(queryInput, function(result: any) {              
               client.emit('agentmsg', {
                 username: result.botName,
                 message: result.botAnswer,
@@ -123,7 +123,7 @@ export class App {
 
               analytics.pushToChannel({
                 text: txt,
-                posted: new Date().getTime(),
+                posted: timestamp,
                 intent: result.botAnswer.toString(),
                 //isFallback: result.botAnswer.isFallback,
                 confidence: result.confidence,
@@ -132,7 +132,7 @@ export class App {
 
               chatbase.logUserChatbase({
                 text: txt,
-                posted: new Date().getTime(),
+                posted: timestamp.toString(),
                 intentName: result.intentName,
                 isFallback: result.isFallback,
                 confidence: result.confidence,
@@ -140,7 +140,7 @@ export class App {
               });
 
               chatbase.logBotChatbase({
-                posted: new Date().getTime(),
+                posted: timestamp.toString(),
                 intent: result.botAnswer.toString(),
                 confidence: result.confidence,
                 session: result.sessionId

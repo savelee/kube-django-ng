@@ -32,6 +32,10 @@ export class Chatbase {
         this.chatbaseVersion = process.env.MY_CHATBASE_VERSION;
         this.chatbasePlatform = 'Web';
         this.chatbaseName = process.env.MY_CHATBASE_BOT_NAME;
+
+        c.setVersion(this.chatbaseVersion);
+        c.setPlatform(this.chatbasePlatform);
+        c.setApiKey(this.chatbaseApiKey, this.chatbaseName);
     }
 
     /**
@@ -40,10 +44,8 @@ export class Chatbase {
      */
     public logUserChatbase(response: any) {
         if (response.isFallback) {
-            c.newMessage(this.chatbaseApiKey, this.chatbaseName)
-            .setVersion(this.chatbaseVersion)
-            .setPlatform(this.chatbasePlatform)
-            .setTimestamp(Date.now().toString())
+            c.newMessage()
+            .setTimestamp(response.posted)
             .setAsTypeUser()
             .setMessage(response.text)
             .setIntent(response.intentName)
@@ -54,10 +56,8 @@ export class Chatbase {
             .then(msg => console.log(msg.getCreateResponse()))
             .catch(err => console.error('user', err));
         } else {
-            c.newMessage(this.chatbaseApiKey, this.chatbaseName)
-            .setVersion(this.chatbaseVersion)
-            .setPlatform(this.chatbasePlatform)
-            .setTimestamp(Date.now().toString())
+            c.newMessage()
+            .setTimestamp(response.posted)
             .setAsTypeUser()
             .setMessage(response.text)
             .setIntent(response.intentName)
@@ -74,15 +74,13 @@ export class Chatbase {
      * @param {Object} Finetuned response object retrieved from Dialogflow
      */
     public logBotChatbase(response: any) {
-        c.newMessage(this.chatbaseApiKey, this.chatbaseName)
-        .setPlatform(this.chatbasePlatform)
+        c.newMessage()
+        .setTimestamp(response.posted)
         .setAsTypeAgent()
         .setMessage(response.intent)
-        .setVersion(this.chatbaseVersion)
         .setCustomSessionId(response.session)
         .setUserId('user-' + response.session)
         .setAsHandled()
-        .setTimestamp(Date.now().toString())
         .send()
         .then(msg => {
             console.log(msg);
