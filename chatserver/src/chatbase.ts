@@ -51,7 +51,7 @@ export class Chatbase {
             .setIntent(response.intentName)
             .setUserId('user-' + response.session)
             .setCustomSessionId(response.session)
-            .setAsHandled()
+            .setAsNotHandled()
             .send()
             .then(msg => console.log(msg.getCreateResponse()))
             .catch(err => console.error('user', err));
@@ -63,7 +63,7 @@ export class Chatbase {
             .setIntent(response.intentName)
             .setUserId('user-' + response.session)
             .setCustomSessionId(response.session)
-            .setAsNotHandled()
+            .setAsHandled()
             .send()
             .then(msg => console.log(msg.getCreateResponse()))
             .catch(err => console.error('user', err));
