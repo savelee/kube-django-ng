@@ -3,7 +3,67 @@
 
     <mat-card class="transfer-card">
     <mat-card-content class="transfer-content">
-      TODO
+      
+      <h2>Deploy Dev to Acceptance</h2>
+      <p>
+        Deploy Dev version on Acceptance.
+        Download the latest Dialogflow agent <b>Dev</b> version, to run unit tests
+        on the intents.
+      </p>
+      <button mat-raised-button color="primary" (click)="onClickDeployDevtoTest($event, item)">Deploy Dev to Acceptance</button>
+      
+      <hr>
+
+      <h2>Get all agent changes</h2>
+      <p>
+        Display the differences between current <b>Dev</b> and latest <b>Test</b> version.
+      </p>
+      <button mat-raised-button color="primary" (click)="onClickRunDiff($event, item)">Run Diff</button>
+      
+      <table mat-table [dataSource]="changes" class="difftable">
+        <ng-container matColumnDef="name1">
+          <th mat-header-cell *matHeaderCellDef> File </th>
+          <td mat-cell *matCellDef="let changes"> {{ changes.name1 }} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="relativePath">
+            <th mat-header-cell *matHeaderCellDef> Path </th>
+            <td mat-cell *matCellDef="let changes"> {{changes.relativePath}} </td>
+          </ng-container>
+
+        <ng-container matColumnDef="type2">
+          <th mat-header-cell *matHeaderCellDef> State </th>
+          <td mat-cell *matCellDef="let changes"> {{changes.type2}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="diffCols"></tr>
+        <tr mat-row *matRowDef="let row; columns: diffCols;"></tr>
+      </table>
+
+  
+      <hr>
+      
+      <h2>Test agent</h2>
+      <p>
+        Create unit tests, to run on diff.
+      </p>
+      <button mat-raised-button color="primary" type="submit">Run unit tests</button>
+      
+      <p>
+        Run regression tests.
+      </p>
+      <button mat-raised-button color="primary" type="submit">Run regression tests</button>
+      <hr>
+      
+      <h2>Deploy agent</h2>
+      <p>
+        Deploy Dev to Production or rollback
+      </p>
+      <button mat-raised-button color="primary" type="submit">Deploy Dev to Production</button>
+      &nbsp;
+      <button mat-raised-button color="primary" type="submit">Rollback Production to Acceptance</button>
+
+
     </mat-card-content>
 </mat-card>
 

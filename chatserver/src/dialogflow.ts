@@ -25,17 +25,32 @@ const structJson = require('./structjson');
 dotenv.config();
 
 export class Dialogflow {
-    private sessionClient: any;
-    private sessionPath: any;
+    private sessionClient: df.v2beta1.sessionClient;
+    private agentClient: df.v2beta1.agentClient;
+    private sessionPath: df.v2beta1.sessionClient.sessionPath;
     private projectId: string;
     private sessionId: string;
 
     constructor() {
         this.projectId = process.env.GCLOUD_PROJECT;
         this.sessionId = uuid.v4();
+        this.agentClient = new df.v2beta1.AgentsClient();
         this.sessionClient = new df.v2beta1.SessionsClient();
         this.sessionPath = this.sessionClient.sessionPath(
             this.projectId, this.sessionId);
+    }
+
+    public async exportAgent(projectId:string, bucket) {
+        return this.agentClient.exportAgent({parent: 'projects/' + projectId,
+            agentUri: bucket});
+    }
+
+    public async importAgent(projectId:string) {
+        return this.agentClient.importAgent({parent: 'projects/' + projectId});
+    }
+
+    public async restoreAgent(to: Object) {
+        return this.agentClient.restoreAgent(to);
     }
 
     public async detectIntent(queryInput:any, cb:Function) {
@@ -44,7 +59,7 @@ export class Dialogflow {
             queryInput: queryInput
         }
         const responses = await this.sessionClient.detectIntent(request);
-        console.log(responses);
+        // console.log(responses);
         let result = responses[0];
 
         if(result) {

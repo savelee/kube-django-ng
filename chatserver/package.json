@@ -38,19 +38,22 @@
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "start": "npm run build && nodemon dist/main.js"
+    "start": "npm run build && nodemon dist/main.js --ignore tmp/"
   },
   "dependencies": {
     "@google-cloud/bigquery": "^3.0.0",
     "@google-cloud/pubsub": "^0.29.0",
+    "@google-cloud/storage": "^2.5.0",
     "@google/chatbase": "^1.1.2",
     "cors": "^2.8.5",
     "debug": "^4.1.0",
-    "dotenv": "^6.2.0",
     "dialogflow": "^0.8.0",
+    "dir-compare": "^1.7.2",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "socket.io": "^2.2.0",
-    "uuid": "^3.3.2",
-    "source-map-support": "^0.5.11"
+    "source-map-support": "^0.5.11",
+    "tmp": "^0.1.0",
+    "uuid": "^3.3.2"
   }
 }

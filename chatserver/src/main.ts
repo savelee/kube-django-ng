@@ -28,6 +28,7 @@ import * as cors from 'cors';
 import { analytics } from './analytics';
 import { dashboard } from './dashboard';
 import { chatbase } from './chatbase';
+import { acceptance } from './acceptance';
 // import { chatconfig } from './chatconfig';
 import { dialogflow } from './dialogflow';
 
@@ -165,7 +166,20 @@ export class App {
           dashboard.queryTranscript(sessionId, function(data: Object) {
             client.emit('dashboardsearch', data);
           });
-      });
+        });
+
+        client.on('acceptanceInput', (methodName) => {
+          switch (methodName) {
+            case 'deployDevToTest':
+              acceptance.deployDevToTest();
+              break;
+            case 'runDiff':
+              acceptance.runDiff(function(changes){
+                client.emit('acceptanceOutput', changes);
+              });
+              break;
+          }
+        });
 
         client.on('disconnect', () => {
           console.log('Client disconnected');

@@ -181,11 +181,13 @@ gcloud services enable \
    * Storage Object Creator
    * Storage Object Viewer
 
-11. Navigate to Cloud Functions, and take a note of the service account that is used.
+11. Write down the name of the service account email address. (We will use it, in one of the later steps). The format will look like [service account name]@[projectId].iam.gserviceaccount.com
+
+12. Navigate to Cloud Functions, and take a note of the service account that is used.
 
     It might the App Engine service account which is created by default.
 
-12. Go back to the **IAM & admin** settings, and make sure the service account used by the Cloud Function,
+13. Go back to the **IAM & admin** settings, and make sure the service account used by the Cloud Function,
  has the following roles:
 
  * BigQuery Data Viewer
@@ -225,13 +227,44 @@ See also: https://cloud.google.com/iam/docs/permissions-reference
 
 1. Enter the following agent description: **Contact Center Demo**
 
+1. Click **Languages** add Additional Language **NL**
+
 1. Click: **Enable beta features & APIs**
 
 1. Click **Save**
 
 1. Click on **Export & Import**
 
-1. On your hard drive navigate to *chatserver/dialogflow* zip this folder, and then **Import from Zip** in the Dialogflow settings screen. These are some example chatbot dialogs.
+5. On your hard drive navigate to *chatserver/dialogflow* zip this folder, and then **Import from Zip** in the Dialogflow settings screen. These are some example chatbot dialogs.
+
+### Create Dev and Test Dialogflow Agents
+
+To create automated Dev & Test environments, we will create 2 more Dialogflow agents.
+Both enviroments can be created with the Standard edition of Dialogflow.
+
+1. Open http://console.dialogflow.com
+
+1. In the top left drop down box; select: **Create new agent**
+
+1. Give your agent the name **ContactCenterDemo-Dev**
+
+1. Click **Languages** add Additional Language **NL**
+
+1. Click: **Enable beta features & APIs**
+
+1. Click **Save**
+
+1. Repeat this process, but name the agent: **ContactCenterDemo-Test**
+
+1. Visit https://pantheon.corp.google.com/iam-admin/iam?project=ContactCenterDemo-Dev 
+and add the email address (written down earlier - [service account name]@[projectId].iam.gserviceaccount.com) from your production service account to this list with **Dialogflow API Admin** rights.
+
+1. Visit https://pantheon.corp.google.com/iam-admin/iam?project=ContactCenterDemo-Test 
+and add the email address (written down earlier - [service account name]@[projectId].iam.gserviceaccount.com) from your production service account to this list with **Dialogflow API Admin** rights.
+
+1. Add the two new projectIds to *env.txt*:
+DEV_AGENT_PROJECT_ID=
+TEST_AGENT_PROJECT_ID=
 
 ### Setup Chatbase
 
@@ -415,15 +448,19 @@ TODO
 
 4. Create a secret from your service account **master.json** key
 
+    `kubectl create secret generic credentials --from-file=./master.json`
+
+5. Create a config map:
+   
     `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=user-content" --from-literal "DATASET=chatanalytics" --from-literal "TABLE=chatmessages" --from-literal "MY_CHATBASE_KEY=${MY_CHATBASE_KEY}" --from-literal "MY_CHATBASE_VERSION=${MY_CHATBASE_VERSION}"`
 
-5. Fix paths to your images of the **-deployment.yaml** & **setup** files (in the cloudbuilder folder) to match the container names in your Container Registry.
+6. Fix paths to your images of the **-deployment.yaml** & **setup** files (in the cloudbuilder folder) to match the container names in your Container Registry.
 
-6. When you setup your cluster for the first time, you can run this command from the root directory:
+7. When you setup your cluster for the first time, you can run this command from the root directory:
 
     `gcloud builds submit --config cloudbuilder/setup.yaml`
 
-7. In case you want to re-deploy individual containers, run the following build scripts:
+8. In case you want to re-deploy individual containers, run the following build scripts:
 
    `gcloud builds submit --config cloudbuilder/chatserver.yaml`
 
@@ -432,17 +469,17 @@ TODO
     (optional)
    `gcloud builds submit --config cloudbuilder/django.yaml`
 
-8. To delete deployments use:
+9.  To delete deployments use:
 
    `kubectl delete deployment front-end`
 
-9. To deploy another deployment:
+11. To deploy another deployment:
 
    `kubectl apply -f cloudbuilder/front-end-deployment.yaml`
 
    `kubectl apply -f cloudbuilder/chatserver-deployment.yaml`
 
-10. Get a static IP:
+12. Get a static IP:
 
   A domain name is needed for an SSL certificate. We also want to create a fixed ‘A record’ for it on the name registrar. With an Ingress, the external IP keeps changing as it is deleted and created. We can solve this problem on GCP by reserving an external IP address which we can then assign to the Ingress each time.
 

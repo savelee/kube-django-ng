@@ -66,7 +66,6 @@ export class AdminDashboardComponent implements OnInit {
     this.server.emit('dashboardload');
 
     this.connection = this.inComming().subscribe(values => {
-      console.log('connection');
       this.totals = values.totals;
       this.totalNegatives = values.totalNegatives;
       this.negatives = new NegativesSource(values.negatives[0]);
@@ -90,7 +89,6 @@ export class AdminDashboardComponent implements OnInit {
       // When we receive a customer message, display it
       this.server.on('dashboarddata', function(values) {
         observer.next(values);
-        console.log(values);
       });
 
       return () => {
