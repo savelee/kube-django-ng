@@ -168,7 +168,10 @@ export class App {
           });
         });
 
-        client.on('acceptanceInput', (methodName) => {
+        client.on('acceptanceInput', (methodName, item) => {
+          console.log(methodName);
+          console.log(item);
+
           switch (methodName) {
             case 'deployDevToTest':
               acceptance.deployDevToTest();
@@ -181,6 +184,11 @@ export class App {
               break;
             case 'rollbackDev':
               acceptance.rollbackDev();
+              break;
+            case 'loadUserPhrases':
+              acceptance.loadUserPhrases(item, function(result) {
+                client.emit('loadUserPhrases', result);
+              });
               break;
             case 'runDiff':
               acceptance.runDiff(function(changes){

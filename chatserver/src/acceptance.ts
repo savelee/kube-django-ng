@@ -65,9 +65,34 @@ export class Acceptance {
         this._rollback(this.dev, this.test);
     }
 
+
     public runDiff(cb: Function){
         this._runDiff(this.dev, this.test).then((changes)=> {
             cb(changes);
+        });
+    }
+
+    public loadUserPhrases(item:string, cb: Function) {
+        let intentName = item['name1'].replace('/','').replace('.json', '');
+        console.log(intentName);
+
+        dialogflow._getAllIntents().then(responses => {
+            const intents = responses[0];
+            for (let intent of intents) {
+                if (intent.displayName == intentName) {
+                    let userphrases = intent.trainingPhrases;
+                    let phrases = [];
+                    for (let phrase of userphrases) {
+                        let texts = [];
+                        for (let part of phrase.parts) {
+                            texts.push(part.text);
+                        }
+                        phrases.push(texts.join(' '));
+                    }
+                    cb(phrases);
+                    return;
+                }
+            }
         });
     }
 

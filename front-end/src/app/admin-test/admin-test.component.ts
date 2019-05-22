@@ -29,10 +29,10 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class AdminTestComponent implements OnInit {
   server: any;
-  connection;
-  
-  diffCols: string[] = ['name1', 'relativePath', 'type2'];
-
+  public connectionDifferences;
+  public connectionUserPhrases;
+  public userphrases: string[];
+  public diffCols: string[] = ['name1', 'relativePath', 'type2', 'action'];
   public changes: DiffDataSource;
 
   constructor() { }
@@ -51,16 +51,22 @@ export class AdminTestComponent implements OnInit {
     console.log(server);
 
     this.server = io(server);
-    this.server.on('acceptanceOutput', function(data) {
-      console.log(data);
+ 
+    this.server.on('loadUserPhrases', function(data) {
+      this.userphrases = data;
     });
+
     // When we receive a system error, display it
     this.server.on('systemerror', function(error) {
         console.log(error.type + ' - ' + error.message);
     });
 
-    this.connection = this.updateRunDiff().subscribe(changes => {
+    this.connectionDifferences = this.updateRunDiff().subscribe(changes => {
       this.changes = new DiffDataSource(changes);
+    });
+
+    this.connectionUserPhrases = this.updateUserPhrases().subscribe(phrases => {
+      this.userphrases = phrases;
     });
   }
 
@@ -79,10 +85,28 @@ export class AdminTestComponent implements OnInit {
   onClickRunDiff() {
     this.server.emit('acceptanceInput', 'runDiff');
   }
+  onClickLoadUserPhrases(e, item) {
+    this.server.emit('acceptanceInput', 'loadUserPhrases', item);
+  }
+
   updateRunDiff() {
+      const observable = new Observable<any>(observer => {
+        // When we receive a customer message, display it
+        this.server.on('acceptanceOutput', function(values) {
+          observer.next(values);
+        });
+
+        return () => {
+          this.server.disconnect();
+        };
+      });
+      return observable;
+  }
+
+  updateUserPhrases() {
     const observable = new Observable<any>(observer => {
       // When we receive a customer message, display it
-      this.server.on('acceptanceOutput', function(values) {
+      this.server.on('loadUserPhrases', function(values) {
         observer.next(values);
       });
 
@@ -92,10 +116,9 @@ export class AdminTestComponent implements OnInit {
     });
     return observable;
   }
-
 }
 
-export interface Data {
+export interface ChangeData {
   date1: any;
   level: number;
   name1: string;
@@ -108,11 +131,11 @@ export interface Data {
 }
 
 export class DiffDataSource extends DataSource<any> {
-  constructor(private data: Data[]) {
+  constructor(private data: ChangeData[]) {
     super();
   }
    /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Data[]> {
+  connect(): Observable<ChangeData[]> {
     return of(this.data);
   }
 

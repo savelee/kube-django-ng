@@ -27,15 +27,19 @@ dotenv.config();
 export class Dialogflow {
     private sessionClient: df.v2beta1.sessionClient;
     private agentClient: df.v2beta1.agentClient;
+    private intentClient: df.v2beta1.IntentsClient;
     private sessionPath: df.v2beta1.sessionClient.sessionPath;
     private projectId: string;
+    private testProjectId: string;
     private sessionId: string;
 
     constructor() {
         this.projectId = process.env.GCLOUD_PROJECT;
+        this.testProjectId = process.env.TEST_AGENT_PROJECT_ID;
         this.sessionId = uuid.v4();
         this.agentClient = new df.v2beta1.AgentsClient();
         this.sessionClient = new df.v2beta1.SessionsClient();
+        this.intentClient = new df.v2beta1.IntentsClient();
         this.sessionPath = this.sessionClient.sessionPath(
             this.projectId, this.sessionId);
     }
@@ -67,7 +71,18 @@ export class Dialogflow {
         } else {
             console.log('something went wrong with the response');
         }
-        
+    }
+
+    public async _getAllIntents() {
+        const formattedParent = this.intentClient.projectAgentPath(this.testProjectId);
+        return this.intentClient.listIntents({
+            parent: formattedParent,
+            intentView : 'INTENT_VIEW_FULL'
+        });
+    }
+
+    public async getIntent(formattedName: string) {
+        return this.intentClient.getIntent({name: formattedName});
     }
 
     public getBotResults(result: any) {
