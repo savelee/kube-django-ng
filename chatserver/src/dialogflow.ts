@@ -45,8 +45,8 @@ export class Dialogflow {
             agentUri: bucket});
     }
 
-    public async importAgent(projectId:string) {
-        return this.agentClient.importAgent({parent: 'projects/' + projectId});
+    public async importAgent(to: Object) {
+        return this.agentClient.importAgent(to);
     }
 
     public async restoreAgent(to: Object) {

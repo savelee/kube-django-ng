@@ -21,8 +21,7 @@ import { exec } from 'child_process';
 import { dialogflow } from './dialogflow';
 import { Storage } from '@google-cloud/storage';
 import { compare, Options } from "dir-compare";
-
-// import * as fs from 'fs';
+import * as fs from 'fs';
 // const tmp = require('tmp');
 
 dotenv.config();
@@ -93,8 +92,8 @@ export class Acceptance {
 
         // run a diff
         this._runDiff(from, to).then(changes => {
-            this._prepareZip(changes).then(() => {
-                this._importAgent(changes, to);
+            this._makeZip(changes).then((path) => {
+                this._importAgent(path, to);
             });
         });
     }
@@ -111,8 +110,7 @@ export class Acceptance {
         return compare(path1, path2, options).then(res => {
             let changes = [], i = 0;
             for (i; i < res.diffSet.length; i++) {
-                if (res.diffSet[i].path1 && 
-                    res.diffSet[i].state !== 'equal' && 
+                if (res.diffSet[i].state !== 'equal' && 
                     res.diffSet[i].state !== 'distinct')
                 {
                     changes.push(res.diffSet[i]);
@@ -122,65 +120,61 @@ export class Acceptance {
         })
     }
 
-    private async _prepareZip(changeList: Array<Object>) {
-        console.log(changeList.length);
-        console.log(changeList);
-
-        // loop through all the changes
-        // copy the new intents & entities in a new folder
-        // zip the folder
-        // return zip
+    private async _makeZip(changeList: Array<Object>): Promise<any> {
+        let i = 0;
+        let folder = `${this.directory}prepare`;
+        
+        return new Promise((resolve, reject) => {
+            console.log('Create a temp folder.');
+            exec(`rm -rf ${folder} && mkdir ${folder}`, (err) => {
+                // create intent folder
+                // create entities folder
+                if (err) reject(err);
+                else resolve();
+            });
+        }).then(() => {
+            return new Promise((resolve, reject) => {
+                console.log(`Copy new files to ${folder}`);
+                for (i; i < changeList.length; i++) {
+                    if (changeList[i]['path1']) {
+                        if (changeList[i]['name1'] !== '.DS_Store') {
+                            let name = changeList[i]['name1'].replace(/ /g,"\\ ");
+                            console.log(name);
+                            console.log(`./${changeList[i]['path1']}/${name}`);
+                            exec(`cp ./${changeList[i]['path1']}/${name} ${folder}`, (err) => {
+                                if (err) reject(err);
+                                else resolve();
+                            });
+                        }
+                    } else {
+                        // TODO intent will need to be removed.
+                        // dialogflow.removeIntent();
+                    }
+                }
+            });
+        }).then(() => {
+            return new Promise((resolve, reject) => {
+                console.log(`Zipping newAgent.zip`);
+                exec(`cd ${folder}; zip -r newAgent.zip *`, (err) => {
+                    if (err) reject(err);
+                    else resolve(`${folder}/newAgent.zip`);
+                });
+            });
+        }).catch(err => {
+            console.error(err);
+        });
     }
 
-    private _importAgent(changeList: Array<Object>, to: Object) {
-        console.log(changeList);
-        console.log(to['name']);
-        /*const tmpDir = tmp.dirSync({unsafeCleanup: true}).name;
-
-        console.log('Copying files to tmp dir: ' + tmpDir);
-        new Promise((resolve, reject) => {
-          exec('cp -r ' + this.directory + '/* ' + tmpDir, (err) => {
-            if (err) reject(err);
-            else resolve();
-          });
-        }).then(() => {
-          console.log('Reading agent.json');
-          return new Promise((resolve, reject) => {
-            fs.readFile(tmpDir + '/agent.json', 'utf8', (err, data) => {
+    private _importAgent(zipPath: string, to: Object) {
+        return new Promise((resolve, reject) => {
+            console.log(`Reading ${zipPath}`);
+            fs.readFile((zipPath), (err, data) => {
               if (err) reject(err);
               else resolve(data);
             });
-          });
-        }).then(file => {
-          console.log('Setting agent.json project and webhook url');
-          const agent = JSON.parse(file.toString());
-          agent.webhook.url = to['webhook'];
-          return new Promise((resolve, reject) => {
-            fs.writeFile(tmpDir + '/agent.json', JSON.stringify(agent), (err) => {
-              if (err) reject(err);
-              else resolve();
-            });
-          });
-        }).then(() => {
-          const importZip = to['name'] + '.zip';
-          console.log('Zipping to ' + importZip);
-          return new Promise((resolve, reject) => {
-            exec('cd ' + tmpDir + '; zip -r ' + importZip + ' *', (err) => {
-              if (err) reject(err);
-              else resolve(importZip);
-            });
-          });
-        }).then((contents) => {
-          console.log('Reading zip');
-          return new Promise((resolve, reject) => {
-            fs.readFile((contents as Buffer), (err, data) => {
-              if (err) reject(err);
-              else resolve(data);
-            });
-          });
         }).then(data => {
           console.log('Restoring to project ' + to['projectId']);
-          return dialogflow.restoreAgent({
+          return dialogflow.importAgent({
             parent: 'projects/' + to['projectId'],
             agentContent: (data as Buffer).toString('base64')
           });
@@ -190,7 +184,7 @@ export class Acceptance {
           return operation.promise();
         }).catch(err => {
           console.error(err);
-        });*/
+        });
     }
 
     private async _exportAgent(from: Object) {

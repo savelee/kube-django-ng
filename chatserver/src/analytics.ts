@@ -47,6 +47,7 @@ const schemaChatMessages = `
     IS_FALLBACK: BOOLEAN, 
     IS_FULFILLMENT: BOOLEAN,
     IS_END_INTERACTION: BOOLEAN,
+    PLATFORM,
     SESSION`;
 const topicChatbotMessages = process.env.TOPIC;
 
