@@ -22,7 +22,6 @@ import { dialogflow } from './dialogflow';
 import { Storage } from '@google-cloud/storage';
 import { compare, Options } from "dir-compare";
 import * as fs from 'fs';
-// const tmp = require('tmp');
 
 dotenv.config();
 
@@ -33,7 +32,7 @@ export class Acceptance {
     private prod: Object;
     private directory: string;
     private bucket: string;
-    private previous: string;
+    private fileDate: string;
    
     constructor() {
         this.dev = {};
@@ -41,19 +40,16 @@ export class Acceptance {
         this.prod = {};
         this.dev['name'] = 'devAgent';
         this.dev['projectId'] = process.env.DEV_AGENT_PROJECT_ID;
-        this.dev['webhook'] = 'http://devurl';
         this.test['name'] = 'testAgent';
         this.test['projectId'] = process.env.TEST_AGENT_PROJECT_ID;
-        this.test['webhook'] = 'http://testurl';
         this.prod['name'] = 'prodAgent';
         this.prod['projectId'] = process.env.GCLOUD_PROJECT;
-        this.prod['webhook'] = 'http://produrl';
         this.directory = 'tmp/';
         this.bucket = process.env.GCLOUD_STORAGE_BUCKET_NAME;
-        this.previous = '';
 
         this.storage = new Storage();
         this._setupBucket();
+        this._setFileDate();
     }
 
     public deployDevToTest() {
@@ -63,7 +59,10 @@ export class Acceptance {
         this._deployAgentToAgent(this.test, this.prod);
     }
     public rollback(){
-        this._deployAgentToAgent(this.previous, this.prod);
+        this._rollback(this.prod, this.test);
+    }
+    public rollbackDev(){
+        this._rollback(this.dev, this.test);
     }
 
     public runDiff(cb: Function){
@@ -85,6 +84,10 @@ export class Acceptance {
     }
     
     private async _deployAgentToAgent(from: Object, to: Object) {
+        this._setFileDate();
+
+        console.log(this.fileDate);
+
         // download devAgent files
         await this._exportAgent(from);
         // download testAgent files
@@ -92,11 +95,50 @@ export class Acceptance {
 
         // run a diff
         this._runDiff(from, to).then(changes => {
-            this._makeZip(changes).then((path) => {
+            this._makeZip(changes, to).then((path) => {
                 this._importAgent(path, to);
             });
         });
     }
+
+    private _setFileDate(): void {
+        let dateObj = new Date(),
+        month = dateObj.getUTCMonth() + 1,
+        day = dateObj.getUTCDate(),
+        year = dateObj.getUTCFullYear(),
+        hours = dateObj.getUTCHours(),
+        min = dateObj.getUTCMinutes();
+
+        this.fileDate = `${year}-${month}-${day}-${hours}-${min}`;
+    }
+
+    private async _rollback(from: Object, to: Object) {
+        this._setFileDate();
+
+        // download prod files
+        await this._exportAgent(from);
+        // download testAgent files
+        await this._exportAgent(to);
+
+        let zipPath = `${this.directory}${from['name']}-${this.fileDate}.zip`;
+
+        return new Promise((resolve, reject) => {
+            console.log(`Reading ${zipPath}`);
+            fs.readFile((zipPath), (err, data) => {
+              if (err) reject(err);
+              else resolve(data);
+            });
+        }).then(data => {
+          console.log(`Restoring ${from['name']} to ${to['projectId']}`);
+          return dialogflow.restoreAgent({
+            parent: 'projects/' + to['projectId'],
+            agentContent: (data as Buffer).toString('base64')
+        });
+        }).catch(err => {
+          console.error(err);
+        });
+    }
+
 
     private async _runDiff(from, to) {
         let path1 = `${this.directory}${from['name']}`;
@@ -120,7 +162,7 @@ export class Acceptance {
         })
     }
 
-    private async _makeZip(changeList: Array<Object>): Promise<any> {
+    private async _makeZip(changeList: Array<Object>, destination: Object): Promise<any> {
         let i = 0;
         let folder = `${this.directory}prepare`;
         
@@ -137,9 +179,7 @@ export class Acceptance {
                     if (changeList[i]['path1']) {
                         if (changeList[i]['name1'] !== '.DS_Store') {
                             let name = changeList[i]['name1'].replace(/ /g,"\\ ");
-                            console.log(name);
-                            console.log(`./${changeList[i]['path1']}/${name}`);
-                            exec(`cp ./${changeList[i]['path1']}/${name} ${folder}${changeList[i]['relativePath']} && cp ./tmp/testAgent/agent.json ${folder}`, (err) => {
+                            exec(`cp ./${changeList[i]['path1']}/${name} ${folder}${changeList[i]['relativePath']} && cp ./tmp/${destination['name']}/agent.json ${folder} && cp ./tmp/${destination['name']}/package.json ${folder}`, (err) => {
                                 if (err) reject(err);
                                 else resolve();
                             });
@@ -171,32 +211,24 @@ export class Acceptance {
               else resolve(data);
             });
         }).then(data => {
-          console.log('Restoring to project ' + to['projectId']);
+          console.log(`Importing project to ${to['projectId']}`);
           return dialogflow.importAgent({
             parent: 'projects/' + to['projectId'],
             agentContent: (data as Buffer).toString('base64')
           });
-        }).then(([operation]) => {
-          // Operation#promise starts polling for the completion 
-          // of the Long Running Operation:
-          return operation.promise();
         }).catch(err => {
           console.error(err);
         });
     }
 
     private async _exportAgent(from: Object) {
-        let dateObj = new Date(),
-            month = dateObj.getUTCMonth() + 1,
-            day = dateObj.getUTCDate(),
-            year = dateObj.getUTCFullYear(),
-            fileName = `${from['name']}-${year}-${month}-${day}.zip`;
+        let fileName = `${from['name']}-${this.fileDate}.zip`;
         
         return dialogflow.exportAgent(from['projectId'], `gs://${this.bucket}/${fileName}`)
           .then(responses => {
             const [operation] = responses;
             // Operation#promise starts polling for the completion of the LRO.
-            console.log(`Export ${fileName} to ${this.bucket}.`);
+            console.log(`Export ${fileName} to gs://${this.bucket}.`);
             return operation.promise();
           })
           .then(() => {

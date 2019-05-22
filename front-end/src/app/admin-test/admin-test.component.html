@@ -59,10 +59,11 @@
       <p>
         Deploy Dev to Production or rollback
       </p>
-      <button mat-raised-button color="primary" type="submit">Deploy Dev to Production</button>
+      <button mat-raised-button color="primary" (click)="onClickDeployTesttoProd($event, item)">Deploy Test to Production</button>
       &nbsp;
-      <button mat-raised-button color="primary" type="submit">Rollback Production to Acceptance</button>
-
+      <button mat-raised-button color="primary" (click)="onClickRollback($event, item)">Rollback Production to Acceptance</button>
+      &nbsp;
+      <button mat-raised-button color="primary" (click)="onClickRollbackDev($event, item)">Rollback Dev to Test</button>
 
     </mat-card-content>
 </mat-card>

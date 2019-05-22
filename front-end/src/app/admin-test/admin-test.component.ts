@@ -67,6 +67,15 @@ export class AdminTestComponent implements OnInit {
   onClickDeployDevtoTest() {
     this.server.emit('acceptanceInput', 'deployDevToTest');
   }
+  onClickDeployTestoProd() {
+    this.server.emit('acceptanceInput', 'deployTestToProduction');
+  }
+  onClickRollback() {
+    this.server.emit('acceptanceInput', 'rollback');
+  }
+  onClickRollbackDev() {
+    this.server.emit('acceptanceInput', 'rollbackDev');
+  }
   onClickRunDiff() {
     this.server.emit('acceptanceInput', 'runDiff');
   }

@@ -173,6 +173,15 @@ export class App {
             case 'deployDevToTest':
               acceptance.deployDevToTest();
               break;
+            case 'deployTestToProduction':
+              acceptance.deployTestToProduction();
+              break;
+            case 'rollback':
+              acceptance.rollback();
+              break;
+            case 'rollbackDev':
+              acceptance.rollbackDev();
+              break;
             case 'runDiff':
               acceptance.runDiff(function(changes){
                 client.emit('acceptanceOutput', changes);
