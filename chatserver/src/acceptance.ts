@@ -126,9 +126,7 @@ export class Acceptance {
         
         return new Promise((resolve, reject) => {
             console.log('Create a temp folder.');
-            exec(`rm -rf ${folder} && mkdir ${folder}`, (err) => {
-                // create intent folder
-                // create entities folder
+            exec(`rm -rf ${folder} && mkdir ${folder} && mkdir ${folder}/entities && mkdir ${folder}/intents`, (err) => {
                 if (err) reject(err);
                 else resolve();
             });
@@ -141,7 +139,7 @@ export class Acceptance {
                             let name = changeList[i]['name1'].replace(/ /g,"\\ ");
                             console.log(name);
                             console.log(`./${changeList[i]['path1']}/${name}`);
-                            exec(`cp ./${changeList[i]['path1']}/${name} ${folder}`, (err) => {
+                            exec(`cp ./${changeList[i]['path1']}/${name} ${folder}${changeList[i]['relativePath']} && cp ./tmp/testAgent/agent.json ${folder}`, (err) => {
                                 if (err) reject(err);
                                 else resolve();
                             });
