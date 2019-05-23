@@ -41,7 +41,7 @@ export class Dialogflow {
         this.sessionClient = new df.v2beta1.SessionsClient();
         this.intentClient = new df.v2beta1.IntentsClient();
         this.sessionPath = this.sessionClient.sessionPath(
-            this.projectId, this.sessionId);
+            this.projectId, this.sessionId);  
     }
 
     public async exportAgent(projectId:string, bucket) {
@@ -73,13 +73,18 @@ export class Dialogflow {
         }
     }
 
-    public async _getAllIntents(languageCode: string) {
+    public async getAllTestIntents(languageCode?: string) {
         const formattedParent = this.intentClient.projectAgentPath(this.testProjectId);
         return this.intentClient.listIntents({
             parent: formattedParent,
             languageCode: languageCode,
             intentView : 'INTENT_VIEW_FULL'
         });
+    }
+
+    public async getTestAgents() {
+        const formattedParent = this.agentClient.projectPath(this.testProjectId);
+        return this.agentClient.getAgent({parent: formattedParent});
     }
 
     public async getIntent(formattedName: string) {

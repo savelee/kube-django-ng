@@ -71,6 +71,66 @@
       <p>
         Create unit tests, to run on diff. 
       </p>
+
+      <table class="testtable">
+        <thead>
+        <tr>
+          <th width="45%">Test Phrase</th>
+          <th width="20">Language</th>
+          <th>Intent</th>
+          <th>Matched Intent</th>
+          <th width="50">Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>My transaction from yesterday I want to cancel this.</td>
+          <td>en</td>
+          <td>[usecase 5] Cancel transaction</td>
+          <td>[usecase 5] Cancel transaction</td>
+          <td class="green center">TP</td>
+        </tr>
+        <tr>
+            <td>I want to undo my edits from yesterday.</td>
+            <td>en</td>
+            <td>Fallback</td>
+            <td>[usecase 5] Cancel transaction</td>
+            <td class="red center">FN</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>
+              <mat-form-field class="full-width">
+                  <input matInput id="testcase" name="testcase" type="text" autocomplete="off">
+              </mat-form-field>
+          </td>
+          <td>
+              <mat-form-field class="small">
+                  <mat-select>
+                      <mat-option *ngFor="let lang of testLanguages" [value]="lang">
+                          {{lang}}
+                        </mat-option>
+                  </mat-select>
+                </mat-form-field>
+          </td>
+          <td colspan="2">
+              <mat-form-field class="full-width">
+                  <mat-select>
+                    <mat-option *ngFor="let intent of testIntents" [value]="intent.displayName">
+                      {{intent.displayName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+          </td>
+          <td class="center">
+              <button mat-raised-button color="primary" (click)="onClickAddTestCase($event, item)">Add</button>
+          </td>
+        </tr>
+      </tfoot>
+      </table>
+
+
       <button mat-raised-button color="primary" type="submit">Run unit tests</button>
       
       <p>

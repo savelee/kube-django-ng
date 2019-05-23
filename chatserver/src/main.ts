@@ -47,12 +47,25 @@ export class App {
   private app: express.Application;
   private server: any;
   private io: SocketIO.Server;
+  public testIntents: [];
+  public testSupportedLanguages: string[];
 
   constructor() {
-      this.createApp();
-      this.createServer();
-      this.sockets();
-      this.listen();
+    let me = this;
+    this.createApp();
+    this.createServer();
+    this.sockets();
+    this.listen();
+
+    dialogflow.getAllTestIntents().then(results => {
+      this.testIntents = results;
+    });
+
+    me.testSupportedLanguages = [];
+    dialogflow.getTestAgents().then(agents => {
+      this.testSupportedLanguages = agents[0].supportedLanguageCodes;
+      me.testSupportedLanguages.push(agents[0].defaultLanguageCode)
+    });
   }
 
   private createApp(): void {
@@ -169,8 +182,8 @@ export class App {
         });
 
         client.on('acceptanceInput', (methodName, item) => {
-          console.log(methodName);
-          console.log(item);
+          client.emit('loadIntents', this.testIntents);
+          client.emit('loadSupportedLanguages', this.testSupportedLanguages);
 
           switch (methodName) {
             case 'deployDevToTest':

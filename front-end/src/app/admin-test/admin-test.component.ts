@@ -31,6 +31,9 @@ export class AdminTestComponent implements OnInit {
   server: any;
   public connectionDifferences;
   public connectionUserPhrases;
+  public testIntents: string[];
+  public testLanguages: string[];
+
   public userphrases: string[];
   public diffCols: string[] = ['name1', 'relativePath', 'type2', 'action'];
   public changes: DiffDataSource;
@@ -54,6 +57,14 @@ export class AdminTestComponent implements OnInit {
  
     this.server.on('loadUserPhrases', function(data) {
       this.userphrases = data;
+    });
+
+    this.server.on('loadIntents', function(data) {
+      me.testIntents = data[0];
+    });
+    this.server.on('loadSupportedLanguages', function(data) {
+      me.testLanguages = data;
+      console.log(data);
     });
 
     // When we receive a system error, display it

@@ -50,6 +50,7 @@ export class Acceptance {
         this.storage = new Storage();
         this._setupBucket();
         this._setFileDate();
+
     }
 
     public deployDevToTest() {
@@ -78,13 +79,12 @@ export class Acceptance {
         let languageCode = intentName.split('_usersays_')[1];
         let intentNameShort = intentName.split('_usersays_')[0];
 
-        dialogflow._getAllIntents(languageCode).then(responses => {
+        dialogflow.getAllTestIntents(languageCode).then(responses => {
             const intents = responses[0];
             for (let intent of intents) {
                 if (intent.displayName == intentNameShort) {
                     let userphrases = intent.trainingPhrases;
                     let phrases = [];
-                    console.log(intent);
                     for (let phrase of userphrases) {
                         let texts = [];
                         for (let part of phrase.parts) {
@@ -113,8 +113,6 @@ export class Acceptance {
     
     private async _deployAgentToAgent(from: Object, to: Object) {
         this._setFileDate();
-
-        console.log(this.fileDate);
 
         // download devAgent files
         await this._exportAgent(from);

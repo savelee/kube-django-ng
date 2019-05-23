@@ -33,3 +33,49 @@ iframe {
     background: green;
     color: #fff;
 }
+
+.testtable {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.testtable thead th {
+    background : #a0a0a0;
+    color: #fff;
+}
+
+.testtable tbody td, .testtable th {
+    border: 1px solid #ccc;
+    line-height: 28px;
+    padding: 5px;
+}
+
+.testtable thead th {
+    font-weight: 500;
+}
+
+.testtable td {
+    text-align: left;
+}
+
+.small {
+    width: 60px;
+}
+
+.full-width,
+.testtable td select,
+.testtable td input {
+    width: 98%;
+}
+
+.testtable .center {
+    text-align: center;
+}
+
+.testtable .red {
+    color: red;
+}
+.testtable .green {
+    color: green;
+}
