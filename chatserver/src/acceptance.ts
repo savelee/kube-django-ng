@@ -73,15 +73,18 @@ export class Acceptance {
     }
 
     public loadUserPhrases(item:string, cb: Function) {
+        if (!item) return;
         let intentName = item['name1'].replace('/','').replace('.json', '');
-        console.log(intentName);
+        let languageCode = intentName.split('_usersays_')[1];
+        let intentNameShort = intentName.split('_usersays_')[0];
 
-        dialogflow._getAllIntents().then(responses => {
+        dialogflow._getAllIntents(languageCode).then(responses => {
             const intents = responses[0];
             for (let intent of intents) {
-                if (intent.displayName == intentName) {
+                if (intent.displayName == intentNameShort) {
                     let userphrases = intent.trainingPhrases;
                     let phrases = [];
+                    console.log(intent);
                     for (let phrase of userphrases) {
                         let texts = [];
                         for (let part of phrase.parts) {

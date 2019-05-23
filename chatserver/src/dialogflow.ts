@@ -73,10 +73,11 @@ export class Dialogflow {
         }
     }
 
-    public async _getAllIntents() {
+    public async _getAllIntents(languageCode: string) {
         const formattedParent = this.intentClient.projectAgentPath(this.testProjectId);
         return this.intentClient.listIntents({
             parent: formattedParent,
+            languageCode: languageCode,
             intentView : 'INTENT_VIEW_FULL'
         });
     }

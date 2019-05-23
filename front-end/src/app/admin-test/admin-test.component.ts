@@ -90,6 +90,7 @@ export class AdminTestComponent implements OnInit {
   }
 
   updateRunDiff() {
+      this.server.emit('acceptanceInput', 'loadUserPhrases', null);
       const observable = new Observable<any>(observer => {
         // When we receive a customer message, display it
         this.server.on('acceptanceOutput', function(values) {
