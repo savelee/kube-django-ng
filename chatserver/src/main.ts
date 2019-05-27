@@ -18,7 +18,7 @@
 
 
 import * as sourceMapSupport from 'source-map-support';
-import { createServer } from 'http';
+import * as http from 'http';
 import * as socketIo from 'socket.io';
 import * as express from 'express';
 import * as dotenv from 'dotenv';
@@ -28,10 +28,9 @@ import * as cors from 'cors';
 import { analytics } from './analytics';
 import { dashboard } from './dashboard';
 import { chatbase } from './chatbase';
-import { acceptance } from './acceptance';
-// import { chatconfig } from './chatconfig';
+import { acceptance } from './acceptance';;
 import { dialogflow } from './dialogflow';
-
+// import { chatconfig } from './chatconfig'
 dotenv.config();
 sourceMapSupport.install();
 
@@ -45,7 +44,7 @@ export class App {
 
   public static readonly PORT:number = 3000;
   private app: express.Application;
-  private server: any;
+  private server: http.Server;
   private io: SocketIO.Server;
   public testIntents: [];
   public testSupportedLanguages: string[];
@@ -81,7 +80,7 @@ export class App {
   }
 
   private createServer(): void {
-      this.server = createServer(this.app);
+      this.server = http.createServer(this.app);
   }
 
   private sockets(): void {
@@ -107,62 +106,64 @@ export class App {
             queryInput['event']['parameters'] = { user: data.username };
           }
 
-          dialogflow.detectIntent(queryInput, function(result: any) {
+          dialogflow.detectIntent(queryInput).then(result => {
             client.emit('agentmsg', {
-              username: result.botName,
-              message: result.botAnswer,
-              confidence: result.confidence,
-              session: client.id
+              username: result['botName'],
+              message: result['botAnswer'],
+              confidence: result['confidence'],
+              session: client['id']
             });
           });
 
         });
 
         client.on('msg', (txt: String) => {
-            let queryInput = {};
-            let timestamp = new Date().getTime();
-              
-            queryInput['text'] = {
-              text: txt,
-              languageCode: langCode
-            }
+          let queryInput = {};
+          let timestamp = new Date().getTime();
+            
+          queryInput['text'] = {
+            text: txt,
+            languageCode: langCode
+          }
 
-            dialogflow.detectIntent(queryInput, function(result: any) {              
-              client.emit('agentmsg', {
-                username: result.botName,
-                message: result.botAnswer,
-                confidence: result.confidence,
-                session: client.id
-              });
-
-              analytics.pushToChannel({
-                text: txt,
-                posted: timestamp,
-                intent: result.botAnswer.toString(),
-                //intentName: result.intentName,
-                //isFallback: result.isFallback,
-                //isFulfillment: result.isFulfillment,
-                //isEndInteraction: result.isEndInteraction,
-                confidence: result.confidence,
-                session: client.id
-              }, process.env.TOPIC);
-
-              chatbase.logUserChatbase({
-                text: txt,
-                posted: timestamp.toString(),
-                intentName: result.intentName,
-                isFallback: result.isFallback,
-                confidence: result.confidence,
-                session: result.sessionId
-              });
-
-              chatbase.logBotChatbase({
-                posted: timestamp.toString(),
-                intent: result.botAnswer.toString(),
-                confidence: result.confidence,
-                session: result.sessionId
-              });
+          dialogflow.detectIntent(queryInput).then(result => {              
+            client.emit('agentmsg', {
+              username: result['botName'],
+              message: result['botAnswer'],
+              confidence: result['confidence'],
+              session: client['id']
             });
+
+            analytics.pushToChannel({
+              text: txt,
+              posted: timestamp,
+              intent: result['botAnswer'].toString(),
+              //intentName: result['intentName'],
+              //isFallback: result['isFallback'],
+              //isFulfillment: result['isFulfillment'],
+              //isEndInteraction: result['isEndInteraction'],
+              confidence: result['confidence'],
+              session: client['id']
+            }, process.env.TOPIC);
+
+            chatbase.logUserChatbase({
+              text: txt,
+              posted: timestamp.toString(),
+              intentName: result['intentName'],
+              isFallback: result['isFallback'],
+              confidence: result['confidence'],
+              session: result['sessionId']
+            });
+
+            chatbase.logBotChatbase({
+              posted: timestamp.toString(),
+              intent: result['botAnswer'].toString(),
+              confidence: result['confidence'],
+              session: result['sessionId']
+            });
+          }).catch(err => {
+            console.log(err);
+          });
         });
 
         // client.on('typing', function () {
@@ -199,8 +200,16 @@ export class App {
               acceptance.rollbackDev();
               break;
             case 'loadUserPhrases':
-              acceptance.loadUserPhrases(item, function(result) {
+              acceptance.fetchUserPhrases(item, function(result) {
                 client.emit('loadUserPhrases', result);
+              });
+              break;
+            case 'addTestCase':
+              acceptance.addExecTestCase(item).then(result => {
+                console.log(result);
+                client.emit('testresults', result);
+              }).catch(e => {
+                console.error(e);
               });
               break;
             case 'runDiff':

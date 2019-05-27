@@ -51,10 +51,8 @@
               </mat-card-header>
               <mat-card-content class="dashboard-card-content negativeresponses">
 
-
                   <table mat-table [dataSource]="negatives" class="mat-elevation-z8">
 
-                     
                       <ng-container matColumnDef="SCORE">
                         <th mat-header-cell *matHeaderCellDef> Score </th>
                         <td mat-cell *matCellDef="let negative"> {{ negative.SCORE * 100 | number:'1.0-2' }}% </td>
@@ -88,8 +86,6 @@
             </mat-card-header>
             <mat-card-content class="dashboard-card-content unhandledintents">
 
-
-              
                 <table mat-table [dataSource]="unhandled" class="mat-elevation-z8">
 
                     <ng-container matColumnDef="TEXT">

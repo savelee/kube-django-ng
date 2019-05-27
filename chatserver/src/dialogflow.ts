@@ -57,20 +57,20 @@ export class Dialogflow {
         return this.agentClient.restoreAgent(to);
     }
 
-    public async detectIntent(queryInput:any, cb:Function) {
+    public async detectIntent(queryInput:any) {
         let request = {
             session: this.sessionPath,
             queryInput: queryInput
         }
-        const responses = await this.sessionClient.detectIntent(request);
-        // console.log(responses);
-        let result = responses[0];
 
-        if(result) {
-           cb(this.getBotResults(result));
-        } else {
-            console.log('something went wrong with the response');
-        }
+        return new Promise((resolve, reject) => {
+           this.sessionClient.detectIntent(request).then(responses => {
+            let result = responses[0];
+            resolve(this.getBotResults(result));
+           }).catch(err => {
+               reject(err)
+           });
+        });
     }
 
     public async getAllTestIntents(languageCode?: string) {

@@ -19,63 +19,118 @@
 import * as dotenv from 'dotenv';
 import { exec } from 'child_process';
 import { dialogflow } from './dialogflow';
+import { analytics } from './analytics';
 import { Storage } from '@google-cloud/storage';
 import { compare, Options } from "dir-compare";
 import * as fs from 'fs';
 
 dotenv.config();
 
+const datasetTestMetrics = process.env.DATASET_TEST_METRICS;
+const tableTestMetrics = process.env.TABLE_TEST_METRICS;
+
+type queryRow = {
+    TEST_DATE: number,
+    TEST_QUERY: string,
+    TEST_LANGUAGE: string,
+    DETECTED_INTENT: string,
+    EXPECTED_INTENT: string,
+    IS_FALLBACK: boolean
+}
+
+/**
+ * Environment Class
+ * @param {string} name - Name of the environment
+ * @param {string} projectId - Google Cloud project id
+ */
+export class Environment {
+    private name: string;
+    private projectId: string;
+    constructor(name: string, projectId: string) {
+        this.name = name;
+        this.projectId = projectId;
+    }
+}
+
+/**
+ * Acceptance Class
+ * Create the Acceptance Environment
+ */
 export class Acceptance {
+    private dev: Environment;
+    private test: Environment;
+    private prod: Environment;
     private storage: Storage;
-    private dev: Object;
-    private test: Object;
-    private prod: Object;
     private directory: string;
     private bucket: string;
     private fileDate: string;
    
     constructor() {
-        this.dev = {};
-        this.test = {};
-        this.prod = {};
-        this.dev['name'] = 'devAgent';
-        this.dev['projectId'] = process.env.DEV_AGENT_PROJECT_ID;
-        this.test['name'] = 'testAgent';
-        this.test['projectId'] = process.env.TEST_AGENT_PROJECT_ID;
-        this.prod['name'] = 'prodAgent';
-        this.prod['projectId'] = process.env.GCLOUD_PROJECT;
+        this.dev = new Environment('devAgent', 
+            process.env.DEV_AGENT_PROJECT_ID);
+        this.test = new Environment('testAgent',
+            process.env.TEST_AGENT_PROJECT_ID);
+        this.prod = new Environment('prodAgent',
+            process.env.GCLOUD_PROJECT);
+        
         this.directory = 'tmp/';
         this.bucket = process.env.GCLOUD_STORAGE_BUCKET_NAME;
 
         this.storage = new Storage();
         this._setupBucket();
         this._setFileDate();
-
     }
 
-    public deployDevToTest() {
-        this._deployAgentToAgent(this.dev, this.test);
+    /**
+     * Deploy Dev Dialogflow agent to Test agent
+     */
+    public deployDevToTest(): Promise<void> {
+        return this._deployAgentToAgent(this.dev, this.test);
     }
-    public deployTestToProduction() {
-        this._deployAgentToAgent(this.test, this.prod);
+
+    /**
+     * Deploy Test Dialogflow agent to Production agent
+     */
+    public deployTestToProduction(): Promise<void> {
+        return this._deployAgentToAgent(this.test, this.prod);
     }
-    public rollback(){
-        this._rollback(this.prod, this.test);
+
+    /**
+     * Rollback Production Dialogflow agent to Test agent
+     */
+    public rollback(): Promise<void>{
+        return this._rollback(this.prod, this.test);
     }
-    public rollbackDev(){
-        this._rollback(this.dev, this.test);
+
+    /**
+     * Rollback Dev Dialogflow agent to Test agent
+     */
+    public rollbackDev(): Promise<void>{
+        return this._rollback(this.dev, this.test);
     }
 
 
-    public runDiff(cb: Function){
-        this._runDiff(this.dev, this.test).then((changes)=> {
+    /**
+     * Find the Differences between Dev and Test
+     * environment.
+     * @param {Function} cb - Callback function to execute.
+     */
+    public runDiff(cb: Function): Promise<void> {
+        return this._runDiff(this.dev, this.test).then((changes)=> {
             cb(changes);
         });
     }
 
-    public loadUserPhrases(item:string, cb: Function) {
-        if (!item) return;
-        let intentName = item['name1'].replace('/','').replace('.json', '');
+    /**
+     * Fetch Dialogflow Model Training Phrases
+     * that belongs to an intent, execute callback
+     * function and pass in array with phrases.
+     * @param {string} intentName - the name of the intent
+     * @param {Function} cb - Callback function to execute.
+     */
+    public fetchUserPhrases(intentName:string, cb: Function): void {
+        if (!intentName) return;
+        intentName = intentName['name1'].replace('/','').replace('.json', '');
         let languageCode = intentName.split('_usersays_')[1];
         let intentNameShort = intentName.split('_usersays_')[0];
 
@@ -99,9 +154,75 @@ export class Acceptance {
         });
     }
 
-    private async _setupBucket() {
+    /**
+     * Add & Execute TestCase
+     * @param {queryRow} row
+     * @return {Promise<queryRow>} resultsRow new row with test results
+     */
+    public async addExecTestCase(row: queryRow): Promise<queryRow> {
+        return new Promise((resolve, reject) => {
+            this._runTestForMetrics(row).then((resultsRow) => {
+                analytics.insertInBQ(datasetTestMetrics, tableTestMetrics, resultsRow).then(() => {
+                    resolve(resultsRow);
+                });
+                
+            }).catch(e => { reject(e) });
+        });
+    }
+
+
+    /**
+     * Run test to get metrics
+     * Detect Intent based on queryRow.TEST_QUERY
+     * Figure out if its a True Positive, True Negative
+     * False Positive or False Negative
+     * 
+     * TP - Test Query = Expected Query
+     * TN - Test Query = Expected Fallback
+     * FP - Test Query != Expected Query
+     * FN - Test Query != Expected Query but Fallback
+     *  
+     * @param {queryRow} row 
+     * @returns {Promise<queryRow} resultRow - queryRow which includes results
+     */
+    private async _runTestForMetrics(row: queryRow): Promise<queryRow>{
+        let queryInput = {};
+        queryInput['text'] = {
+            text: row['TEST_QUERY'],
+            languageCode: row['TEST_LANGUAGE']
+        }
+        return new Promise((resolve, reject) => {
+            dialogflow.detectIntent(queryInput).then(results => {
+                row['DETECTED_INTENT'] = results['intentName'];
+                row['IS_FALLBACK'] = results['isFallback'];
+
+                if (row['EXPECTED_INTENT'] === row['DETECTED_INTENT'] 
+                    && row['IS_FALLBACK'] === false) {
+                        row['TEST_RESULT'] = 'TP';
+                } else if (row['EXPECTED_INTENT'] === row['DETECTED_INTENT']
+                    && row['IS_FALLBACK'] === true) {
+                        row['TEST_RESULT'] = 'TN';
+                } else if (row['EXPECTED_INTENT'] !== row['DETECTED_INTENT'] 
+                    && row['IS_FALLBACK'] === false) {
+                        row['TEST_RESULT'] = 'FP';
+                } else if (row['EXPECTED_INTENT'] !== row['DETECTED_INTENT'] 
+                    && row['IS_FALLBACK'] === true) {
+                        row['TEST_RESULT'] = 'FN';
+                }
+                resolve(row);
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
+    /**
+     * Create Storage Bucket when it doesn't exists.
+     * @return {Promise<void>}
+     */
+    private async _setupBucket(): Promise<void> {
         let me = this;
-        this.storage.bucket(this.bucket).exists().then(function(data) {
+        return this.storage.bucket(this.bucket).exists().then(function(data) {
             const exists = data[0];
             if (exists === false) {
                 me.storage.createBucket(me.bucket).then(() => {
@@ -111,7 +232,14 @@ export class Acceptance {
           });
     }
     
-    private async _deployAgentToAgent(from: Object, to: Object) {
+    /**
+     * Deploy From one Dialogflow Agent to another Dialogflow Agent
+     * Run Difference, Zip it and import in the other agent.
+     * @param {Environment} from  - Download to file system from Dialogflow Agent
+     * @param {Environment} to - Download to file system to Dialogflow Agent
+     * @return {Promise<void>} - Import in the other agent.
+     */
+    private async _deployAgentToAgent(from: Environment, to: Environment): Promise<void> {
         this._setFileDate();
 
         // download devAgent files
@@ -127,6 +255,9 @@ export class Acceptance {
         });
     }
 
+    /**
+     * Set nice file date YYYY-MM-DD-HH-MM
+     */
     private _setFileDate(): void {
         let dateObj = new Date(),
         month = dateObj.getUTCMonth() + 1,
@@ -138,7 +269,13 @@ export class Acceptance {
         this.fileDate = `${year}-${month}-${day}-${hours}-${min}`;
     }
 
-    private async _rollback(from: Object, to: Object) {
+    /**
+     * Rollback environments from one agent to another
+     * @param {Environment} from agent 
+     * @param {Environment} to destination agent
+     * @return {Promise<void>}
+     */
+    private async _rollback(from: Environment, to: Environment): Promise<void> {
         this._setFileDate();
 
         // download prod files
@@ -166,7 +303,13 @@ export class Acceptance {
     }
 
 
-    private async _runDiff(from, to) {
+    /**
+     * Compare 2 environment folders on the file system
+     * @param {Environment} from 
+     * @param {Environment} to 
+     * @return {Promise<object[]>} changes array
+     */
+    private async _runDiff(from: Environment, to: Environment): Promise<object[]> {
         let path1 = `${this.directory}${from['name']}`;
         let path2 = `${this.directory}${to['name']}`;
         let options: Partial<Options> = {
@@ -188,7 +331,16 @@ export class Acceptance {
         })
     }
 
-    private async _makeZip(changeList: Array<Object>, destination: Object): Promise<any> {
+    /**
+     * Build the zip to upload to Dialogflow
+     * First create a temp prepare folder.
+     * Then copy files over from the destination folder
+     * to the prepare folder. Then zip it to newAgent.zip.
+     * @param {object[]} changeList - array with change objects
+     * @param {Environment} destination - to environment
+     * @return {Promise<any>} - make the zip
+     */
+    private async _makeZip(changeList: object[], destination: Environment): Promise<any> {
         let i = 0;
         let folder = `${this.directory}prepare`;
         
@@ -229,7 +381,13 @@ export class Acceptance {
         });
     }
 
-    private _importAgent(zipPath: string, to: Object) {
+    /**
+     * Import Agent from a certain path to the destination environment.
+     * @param {string} zipPath 
+     * @param {Environment} to destination
+     * @return {Promise<void>}
+     */
+    private _importAgent(zipPath: string, to: Environment): Promise<void> {
         return new Promise((resolve, reject) => {
             console.log(`Reading ${zipPath}`);
             fs.readFile((zipPath), (err, data) => {
@@ -247,7 +405,12 @@ export class Acceptance {
         });
     }
 
-    private async _exportAgent(from: Object) {
+    /**
+     * Export agent from destination to file system
+     * @param {Environment} from
+     * @return {Promise<any>}
+     */
+    private async _exportAgent(from: Environment): Promise<any> {
         let fileName = `${from['name']}-${this.fileDate}.zip`;
         
         return dialogflow.exportAgent(from['projectId'], `gs://${this.bucket}/${fileName}`)

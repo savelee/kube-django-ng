@@ -18,6 +18,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as io from 'socket.io-client';
 
 @Component({
@@ -28,11 +29,14 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class AdminTestComponent implements OnInit {
-  server: any;
+  public server: any;
+  public form: FormGroup;
+
   public connectionDifferences;
   public connectionUserPhrases;
   public testIntents: string[];
   public testLanguages: string[];
+  public testCases: any[];
 
   public userphrases: string[];
   public diffCols: string[] = ['name1', 'relativePath', 'type2', 'action'];
@@ -64,7 +68,11 @@ export class AdminTestComponent implements OnInit {
     });
     this.server.on('loadSupportedLanguages', function(data) {
       me.testLanguages = data;
+    });
+    this.server.on('testresults', function(data) {
       console.log(data);
+      console.log('plot this in the table');
+      console.log('generate confusion matrix');
     });
 
     // When we receive a system error, display it
@@ -79,6 +87,13 @@ export class AdminTestComponent implements OnInit {
     this.connectionUserPhrases = this.updateUserPhrases().subscribe(phrases => {
       this.userphrases = phrases;
     });
+
+    this.form = new FormGroup({
+      testQuery: new FormControl('',[Validators.required]),
+      lang: new FormControl('',[Validators.required]),
+      intent: new FormControl('',[Validators.required])
+    });
+    this.testCases = [];
   }
 
   onClickDeployDevtoTest() {
@@ -127,6 +142,21 @@ export class AdminTestComponent implements OnInit {
       };
     });
     return observable;
+  }
+
+  addTestCase() {
+    const f = this.form;
+    let row = {
+      TEST_DATE: (new Date().getTime()/1000),
+      TEST_LANGUAGE: f.get('lang').value,
+      TEST_QUERY: f.get('testQuery').value,
+      EXPECTED_INTENT: f.get('intent').value
+    };
+    this.testCases.push(row);
+  
+    // submit the row to the back-end
+    // run unit test and store results in BQ
+    this.server.emit('acceptanceInput', 'addTestCase', row);
   }
 }
 

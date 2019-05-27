@@ -30,16 +30,15 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class AdminDashboardComponent implements OnInit {
-  server: any;
-  form: FormGroup;
-
-  connection;
-  searchConnection;
+  public server: any;
+  public form: FormGroup;
+  public connection;
+  public searchConnection;
 
   // table columns
-  negativeCols: string[] = ['SCORE', 'TEXT', 'SESSION'];
-  unhandledintentsCols: string[] = ['TEXT', 'INTENT', 'SESSION'];
-  trackedCols: string[] = ['POSTED', 'TEXT', 'INTENT', 'SCORE'];
+  public negativeCols: string[] = ['SCORE', 'TEXT', 'SESSION'];
+  public unhandledintentsCols: string[] = ['TEXT', 'INTENT', 'SESSION'];
+  public trackedCols: string[] = ['POSTED', 'TEXT', 'INTENT', 'SCORE'];
 
   // table data
   public totals: String;

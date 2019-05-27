@@ -97,26 +97,38 @@
             <td>[usecase 5] Cancel transaction</td>
             <td class="red center">FN</td>
         </tr>
+        <tr *ngFor="let testCase of testCases">
+            <td>{{ testCase.TEST_QUERY }}</td>
+            <td>{{ testCase.TEST_LANGUAGE }}</td>
+            <td>{{ testCase.INTENT }}</td>
+            <td></td>
+            <td class="center"></td>
+        </tr>
       </tbody>
-      <tfoot>
-        <tr>
+    </table>
+    
+        <form role="addTestCase" [formGroup]="form" (ngSubmit)="addTestCase()">
+          <table class="testtable">
+          <tfoot>
+          <tr>
           <td>
               <mat-form-field class="full-width">
-                  <input matInput id="testcase" name="testcase" type="text" autocomplete="off">
+                  <input matInput id="testQuery" name="testQuery" formControlName="testQuery" type="text" autocomplete="off">
               </mat-form-field>
           </td>
           <td>
               <mat-form-field class="small">
-                  <mat-select>
+                  <mat-select formControlName="lang" required>
                       <mat-option *ngFor="let lang of testLanguages" [value]="lang">
                           {{lang}}
                         </mat-option>
                   </mat-select>
                 </mat-form-field>
           </td>
+          
           <td colspan="2">
-              <mat-form-field class="full-width">
-                  <mat-select>
+              <mat-form-field class="full-width" name="intent">
+                  <mat-select formControlName="intent" required>
                     <mat-option *ngFor="let intent of testIntents" [value]="intent.displayName">
                       {{intent.displayName}}
                     </mat-option>
@@ -124,11 +136,11 @@
                 </mat-form-field>
           </td>
           <td class="center">
-              <button mat-raised-button color="primary" (click)="onClickAddTestCase($event, item)">Add</button>
+              <button mat-raised-button color="primary" type="submit">Add</button>
           </td>
         </tr>
-      </tfoot>
-      </table>
+      </tfoot></table>
+        </form>
 
 
       <button mat-raised-button color="primary" type="submit">Run unit tests</button>
