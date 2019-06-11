@@ -29,7 +29,7 @@ dotenv.config();
 const datasetTestMetrics = process.env.DATASET_TEST_METRICS;
 const tableTestMetrics = process.env.TABLE_TEST_METRICS;
 
-type queryRow = {
+export interface queryRow {
     TEST_DATE: number,
     TEST_QUERY: string,
     TEST_LANGUAGE: string,
@@ -115,8 +115,8 @@ export class Acceptance {
      * environment.
      * @param {Function} cb - Callback function to execute.
      */
-    public runDiff(cb: Function): Promise<void> {
-        return this._runDiff(this.dev, this.test).then((changes)=> {
+    public async runDiff(cb: Function): Promise<void> {
+        return this._runDiff(this.test, this.prod).then((changes)=> {
             cb(changes);
         });
     }
@@ -125,14 +125,16 @@ export class Acceptance {
      * Fetch Dialogflow Model Training Phrases
      * that belongs to an intent, execute callback
      * function and pass in array with phrases.
-     * @param {string} intentName - the name of the intent
+     * @param {string} fileName - the intent file name.
      * @param {Function} cb - Callback function to execute.
      */
-    public fetchUserPhrases(intentName:string, cb: Function): void {
-        if (!intentName) return;
-        intentName = intentName['name1'].replace('/','').replace('.json', '');
+    public fetchUserPhrases(fileName: string, cb: Function): void {
+        if (!fileName) return;
+        let intentName = fileName.replace('/','').replace('.json', '');
         let languageCode = intentName.split('_usersays_')[1];
         let intentNameShort = intentName.split('_usersays_')[0];
+
+        console.log(intentNameShort);
 
         dialogflow.getAllTestIntents(languageCode).then(responses => {
             const intents = responses[0];
@@ -162,10 +164,11 @@ export class Acceptance {
     public async addExecTestCase(row: queryRow): Promise<queryRow> {
         return new Promise((resolve, reject) => {
             this._runTestForMetrics(row).then((resultsRow) => {
-                analytics.insertInBQ(datasetTestMetrics, tableTestMetrics, resultsRow).then(() => {
+                console.log(resultsRow, datasetTestMetrics, tableTestMetrics);
+                console.log(analytics);
+                // analytics.insertInBQ(datasetTestMetrics, tableTestMetrics, resultsRow).then(() => {
                     resolve(resultsRow);
-                });
-                
+                // });
             }).catch(e => { reject(e) });
         });
     }
@@ -185,16 +188,18 @@ export class Acceptance {
      * @param {queryRow} row 
      * @returns {Promise<queryRow} resultRow - queryRow which includes results
      */
-    private async _runTestForMetrics(row: queryRow): Promise<queryRow>{
+    private async _runTestForMetrics(row: queryRow): Promise<queryRow> {
         let queryInput = {};
         queryInput['text'] = {
             text: row['TEST_QUERY'],
             languageCode: row['TEST_LANGUAGE']
         }
+        
         return new Promise((resolve, reject) => {
-            dialogflow.detectIntent(queryInput).then(results => {
-                row['DETECTED_INTENT'] = results['intentName'];
-                row['IS_FALLBACK'] = results['isFallback'];
+            dialogflow.detectIntent(queryInput, 'test').then(botResults => {
+                
+                row['DETECTED_INTENT'] = botResults['intentName'];
+                row['IS_FALLBACK'] = botResults['isFallback'];
 
                 if (row['EXPECTED_INTENT'] === row['DETECTED_INTENT'] 
                     && row['IS_FALLBACK'] === false) {
@@ -209,9 +214,11 @@ export class Acceptance {
                     && row['IS_FALLBACK'] === true) {
                         row['TEST_RESULT'] = 'FN';
                 }
+                console.log(row);
                 resolve(row);
             }).catch(err => {
                 reject(err);
+                console.log(err);
             });
         });
     }
@@ -242,15 +249,12 @@ export class Acceptance {
     private async _deployAgentToAgent(from: Environment, to: Environment): Promise<void> {
         this._setFileDate();
 
-        // download devAgent files
-        await this._exportAgent(from);
-        // download testAgent files
-        await this._exportAgent(to);
-
         // run a diff
         this._runDiff(from, to).then(changes => {
             this._makeZip(changes, to).then((path) => {
-                this._importAgent(path, to);
+                this._importAgent(path, to).then(() => {
+                    console.log(`Done Importing`);
+                });
             });
         });
     }
@@ -310,6 +314,12 @@ export class Acceptance {
      * @return {Promise<object[]>} changes array
      */
     private async _runDiff(from: Environment, to: Environment): Promise<object[]> {
+
+        // download devAgent files
+        await this._exportAgent(from);
+        // download testAgent files
+        await this._exportAgent(to);
+
         let path1 = `${this.directory}${from['name']}`;
         let path2 = `${this.directory}${to['name']}`;
         let options: Partial<Options> = {
@@ -432,7 +442,7 @@ export class Acceptance {
           .then(() => {
             console.log(`Unzipping to ${this.directory}${from['name']}`);
             return new Promise((resolve, reject) => {
-                exec(`rm -rf ${this.directory}${from['name']} && unzip -o ${this.directory}${fileName} -d ${this.directory}${from['name']}`, (err) => {
+                exec(`rm -rf ${this.directory}${from['name']} && unzip -x ${this.directory}${fileName} -d ${this.directory}${from['name']}`, (err) => {
                     if (err) reject(err);
                     else resolve();
                 });

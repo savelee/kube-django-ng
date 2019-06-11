@@ -147,7 +147,7 @@ export class App {
             }, process.env.TOPIC);
 
             chatbase.logUserChatbase({
-              text: txt,
+              text: txt.toString(),
               posted: timestamp.toString(),
               intentName: result['intentName'],
               isFallback: result['isFallback'],
@@ -200,14 +200,15 @@ export class App {
               acceptance.rollbackDev();
               break;
             case 'loadUserPhrases':
-              acceptance.fetchUserPhrases(item, function(result) {
-                client.emit('loadUserPhrases', result);
-              });
+              if (item && item['name1']) {
+                acceptance.fetchUserPhrases(item['name1'], function(result) {
+                  client.emit('loadUserPhrases', result);
+                });
+              }
               break;
             case 'addTestCase':
               acceptance.addExecTestCase(item).then(result => {
-                console.log(result);
-                client.emit('testresults', result);
+                client.emit('testResultOutput', result );
               }).catch(e => {
                 console.error(e);
               });

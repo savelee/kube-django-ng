@@ -24,11 +24,43 @@ const structJson = require('./structjson');
 
 dotenv.config();
 
+type actionObj = {
+    action: string,
+    param: { category: string }
+}
+
+type dialogflowResult = {
+    botAnswer: Array<any>,
+    isFulfillment: boolean,
+    isFallback: boolean,
+    isEndInteraction: boolean,
+    intentName: string,
+    sessionId: string,
+    confidence: number,
+    botName: string
+}
+
+export interface agentConfig {
+    parent: string,
+    agentContent: string
+}
+
+export interface queryInput {
+    event?: {
+        name: string,
+        languageCode: string
+        parameters?: object
+    }
+    text?: {
+        text: string,
+        languageCode: string
+    }
+}
+
 export class Dialogflow {
     private sessionClient: df.v2beta1.sessionClient;
     private agentClient: df.v2beta1.agentClient;
     private intentClient: df.v2beta1.IntentsClient;
-    private sessionPath: df.v2beta1.sessionClient.sessionPath;
     private projectId: string;
     private testProjectId: string;
     private sessionId: string;
@@ -39,41 +71,85 @@ export class Dialogflow {
         this.sessionId = uuid.v4();
         this.agentClient = new df.v2beta1.AgentsClient();
         this.sessionClient = new df.v2beta1.SessionsClient();
-        this.intentClient = new df.v2beta1.IntentsClient();
-        this.sessionPath = this.sessionClient.sessionPath(
-            this.projectId, this.sessionId);  
+        this.intentClient = new df.v2beta1.IntentsClient(); 
     }
 
-    public async exportAgent(projectId:string, bucket) {
+    /**
+     * Export Agent to Cloud Storage Bucket
+     * @param {string} projectId of the Google Cloud Project
+     * @param {string} bucket url
+     * @return {Promise<void>}
+     */
+    public async exportAgent(projectId:string, bucketUri:string): Promise<any> {
         return this.agentClient.exportAgent({parent: 'projects/' + projectId,
-            agentUri: bucket});
+            agentUri: bucketUri});
     }
 
-    public async importAgent(to: Object) {
+    /**
+     * Import Agent 
+     * Import new intents and entities without deleting
+     * @param {agentConfig} Dialogflow agent config
+     * @return {Promise<void>}
+     */
+    public async importAgent(to: agentConfig):Promise<void> {
         return this.agentClient.importAgent(to);
     }
 
-    public async restoreAgent(to: Object) {
+    /**
+     * Restore (Replace) Dialogflow Agent with new one.
+     * @param {agentConfig} Dialogflow agent config
+     * @return {Promise<void>}
+     */
+    public async restoreAgent(to: agentConfig): Promise<void> {
         return this.agentClient.restoreAgent(to);
     }
 
-    public async detectIntent(queryInput:any) {
+    /**
+     * Detect Intent based on queryInput.
+     * @param {queryInput} queryInput 
+     * @return {Promise<dialogflowResult>} bot results
+     */
+    public async detectIntent(queryInput: queryInput, environment?: string): Promise<dialogflowResult> {
+        let botResult: Promise<dialogflowResult>;
+        if (environment == 'test') {
+            let sessionTestPath = this.sessionClient.sessionPath(
+                this.testProjectId, this.sessionId); 
+            botResult = this._detectIntent(queryInput, sessionTestPath);
+        } else {
+            let sessionPath = this.sessionClient.sessionPath(
+                this.projectId, this.sessionId);
+            botResult = this._detectIntent(queryInput, sessionPath);
+        }
+        return botResult;
+    }
+
+    /**
+     * Detect Intent based on queryInput.
+     * @param {queryInput} queryInput 
+     * @return {Promise<dialogflowResult>} bot results
+     */
+    public async _detectIntent(queryInput: queryInput, sessionPath: df.v2beta1.sessionPath): Promise<dialogflowResult> {
         let request = {
-            session: this.sessionPath,
+            session: sessionPath,
             queryInput: queryInput
         }
 
         return new Promise((resolve, reject) => {
            this.sessionClient.detectIntent(request).then(responses => {
-            let result = responses[0];
-            resolve(this.getBotResults(result));
+                let result = responses[0];
+                resolve(this._getBotResults(result));
            }).catch(err => {
                reject(err)
            });
         });
     }
 
-    public async getAllTestIntents(languageCode?: string) {
+    /**
+     * Retrieve all intents from Test Dialogflow Agent
+     * @param {string} (optional) languageCode 
+     * @return {Promise<any>} JSON object with intents
+     */
+    public async getAllTestIntents(languageCode?: string): Promise<any> {
         const formattedParent = this.intentClient.projectAgentPath(this.testProjectId);
         return this.intentClient.listIntents({
             parent: formattedParent,
@@ -82,63 +158,79 @@ export class Dialogflow {
         });
     }
 
-    public async getTestAgents() {
+    /**
+     * Get Test Agent based on testProjectId
+     * @return {Promise<any}
+     */
+    public async getTestAgents(): Promise<any> {
         const formattedParent = this.agentClient.projectPath(this.testProjectId);
         return this.agentClient.getAgent({parent: formattedParent});
     }
 
-    public async getIntent(formattedName: string) {
+    /**
+     * Get Intent by formatted name
+     * @param {string} formattedName
+     * @return {Promise<any}
+     */
+    public async getIntent(formattedName: string): Promise<any>  {
         return this.intentClient.getIntent({name: formattedName});
     }
 
-    public getBotResults(result: any) {
-        let botResults = {};
-        if (result.webhookStatus) {
+    /**
+     * Return a formatted bot result from
+     * a Dialogflow JSON response
+     * @param {object} Dialogflow response
+     * @return {dialogflowResult} botResult 
+     */
+    private _getBotResults(result: object): dialogflowResult {
+        result = result['queryResult'];
+
+        let botResults : dialogflowResult = {
+            botAnswer: new Array(),
+            isFulfillment: false,
+            isFallback: false,
+            isEndInteraction: false,
+            intentName: '',
+            sessionId: this.sessionId,
+            confidence: result['intentDetectionConfidence'],
+            botName: 'Chatbot'
+        };
+
+        if (result['webhookStatus']) {
             botResults['isFulfillment'] = true;
-        } else {
-            botResults['isFulfillment'] = false;
         }
-        result = result.queryResult;
-        botResults['botAnswer'] = [];
-        botResults['sessionId'] = this.sessionId;
-        botResults['confidence'] = result.intentDetectionConfidence;        
-  
-        if (result.intent) {
-            botResults['isFallback'] = result.intent.isFallback;
-            botResults['intentName'] = result.intent.displayName;
-            botResults['isEndInteraction'] = result.intent.endInteraction;
-        } else {
-            botResults['isFallback'] = false;
-            botResults['isEndInteraction'] = false;
-            botResults['intentName'] = '';
+
+        if (result['intent']) {
+            botResults['isFallback'] = result['intent'].isFallback;
+            botResults['intentName'] = result['intent'].displayName;
+            botResults['isEndInteraction'] = result['intent'].endInteraction;
         }
 
         // get special actions
-        if (result.action === 'spent' || result.action === 'income') {
-            var p = structJson.structProtoToJson(result.parameters);
+        if (result['action'] === 'spent' || result['action'] === 'income') {
+            var p = structJson.structProtoToJson(result['parameters']);
 
             botResults['botName'] = 'BalanceBot';
-            if (result.action === 'spent') {
-                let spentObj = {
+            if (result['action'] === 'spent') {
+                let spentObj: actionObj = {
                     action: 'spent',
                     param: p['category']
                 }
-                botResults['botAnswer'] = spentObj;
+                botResults['botAnswer'].push(spentObj); //TODO this will break as its an array
             }
-            if (result.action === 'income') {
-                let incomingObj = {
+            if (result['action'] === 'income') {
+                let incomingObj: actionObj = {
                     action: 'income',
                     param: p['category']
                 }
-                botResults['botAnswer'] = incomingObj;
+                botResults['botAnswer'].push(incomingObj); //TODO this will break as its an array
             }
         } else {
             // get dialogs
-            let dialogs = result.fulfillmentMessages;
+            let dialogs = result['fulfillmentMessages'];
             for (let i = 0, len = dialogs.length; i < len; i++) {
                 let messageType = dialogs[i].message; // text || payload
                 let answer = '';
-                botResults['botName'] = 'Chatbot';
 
                 // in case of custom payload
                 if (messageType === 'payload') {
@@ -150,18 +242,18 @@ export class Dialogflow {
                         botResults['botAnswer'].push(answer);
                     }
                     // thumbnail
-                    else if (custom.type === "thumb") {
+                    else if (custom.type === 'thumb') {
                         answer = `<img src="${custom.image}" width="100"/><a href="${custom.link}" target="_blank">${custom.text}</a>`;
                         botResults['botAnswer'].push(answer);
                     }
                     // map
-                    else if (custom.type === "map") {
+                    else if (custom.type === 'map') {
                         answer = `<iframe src="${custom.link}" width="400" height="225" frameborder="0" style="border:0" allowfullscreen></iframe>`;
                         botResults['botAnswer'].push(answer);
                     }
                 } else {
-                    if (dialogs[i]["text"]) {
-                        answer = dialogs[i]["text"].text;
+                    if (dialogs[i]['text']) {
+                        answer = dialogs[i]['text'].text;
                         botResults['botAnswer'].push(answer);
                     }
                 }

@@ -25,7 +25,7 @@
 
       <h2>Get all agent changes</h2>
       <p>
-        Display the differences between current <b>Dev</b> and latest <b>Test</b> version.
+        Display the differences between current <b>Test</b> and latest <b>Dev</b> version.
         You will need to deploy the Dev environment to Test first.
       </p>
       <button mat-raised-button color="primary" (click)="onClickRunDiff($event)">Run Diff</button>
@@ -72,83 +72,70 @@
         Create unit tests, to run on diff. 
       </p>
 
+  
+      <form role="addTestCase" [formGroup]="form" (ngSubmit)="addTestCase()">
       <table class="testtable">
-        <thead>
-        <tr>
-          <th width="45%">Test Phrase</th>
-          <th width="20">Language</th>
-          <th>Intent</th>
-          <th>Matched Intent</th>
-          <th width="50">Result</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>My transaction from yesterday I want to cancel this.</td>
-          <td>en</td>
-          <td>[usecase 5] Cancel transaction</td>
-          <td>[usecase 5] Cancel transaction</td>
-          <td class="green center">TP</td>
-        </tr>
-        <tr>
-            <td>I want to undo my edits from yesterday.</td>
-            <td>en</td>
-            <td>Fallback</td>
-            <td>[usecase 5] Cancel transaction</td>
-            <td class="red center">FN</td>
-        </tr>
-        <tr *ngFor="let testCase of testCases">
-            <td>{{ testCase.TEST_QUERY }}</td>
-            <td>{{ testCase.TEST_LANGUAGE }}</td>
-            <td>{{ testCase.INTENT }}</td>
-            <td></td>
-            <td class="center"></td>
-        </tr>
-      </tbody>
-    </table>
-    
-        <form role="addTestCase" [formGroup]="form" (ngSubmit)="addTestCase()">
-          <table class="testtable">
-          <tfoot>
+          <thead>
           <tr>
-          <td>
-              <mat-form-field class="full-width">
-                  <input matInput id="testQuery" name="testQuery" formControlName="testQuery" type="text" autocomplete="off">
-              </mat-form-field>
-          </td>
-          <td>
-              <mat-form-field class="small">
-                  <mat-select formControlName="lang" required>
-                      <mat-option *ngFor="let lang of testLanguages" [value]="lang">
-                          {{lang}}
-                        </mat-option>
-                  </mat-select>
-                </mat-form-field>
-          </td>
-          
-          <td colspan="2">
-              <mat-form-field class="full-width" name="intent">
-                  <mat-select formControlName="intent" required>
-                    <mat-option *ngFor="let intent of testIntents" [value]="intent.displayName">
-                      {{intent.displayName}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-          </td>
-          <td class="center">
-              <button mat-raised-button color="primary" type="submit">Add</button>
-          </td>
-        </tr>
-      </tfoot></table>
+            <th width="45%">Test Phrase</th>
+            <th width="20">Language</th>
+            <th>Expected</th>
+            <th>Detected</th>
+            <th width="50">Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let el of testData">
+            <td>{{ el.TEST_QUERY }}</td>
+            <td>{{ el.TEST_LANGUAGE }}</td>
+            <td>{{ el.EXPECTED_INTENT }}</td>
+            <td>{{ el.DETECTED_INTENT }}</td>
+            <td [className]="el.TEST_RESULT == 'TP' ||  el.TEST_RESULT == 'TN' ? 'green' : 'red'" class="center">{{ el.TEST_RESULT}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <mat-form-field class="full-width">
+                        <input matInput id="testQuery" name="testQuery" formControlName="testQuery" type="text" autocomplete="off">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="small">
+                        <mat-select formControlName="lang" required>
+                            <mat-option *ngFor="let lang of testLanguages" [value]="lang">
+                                {{lang}}
+                              </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </td>
+                
+                <td colspan="2">
+                    <mat-form-field class="full-width" name="intent">
+                        <mat-select formControlName="intent" required>
+                          <mat-option *ngFor="let intent of testIntents" [value]="intent.displayName">
+                            {{intent.displayName}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </td>
+                <td class="center">
+                    <button mat-raised-button color="primary" type="submit">Add</button>
+                </td>
+              </tr>
+        </tfoot>
+        </table>
         </form>
 
 
-      <button mat-raised-button color="primary" type="submit">Run unit tests</button>
-      
-      <p>
+      <!--
+      <button mat-raised-button color="primary" (click)="onClickRunTestCases($event)" type="submit">Run unit tests</button>
+      -->
+      <!--<p>
         Run regression tests.
       </p>
       <button mat-raised-button color="primary" type="submit">Run regression tests</button>
+    -->
     
     </mat-card-content>
 </mat-card>

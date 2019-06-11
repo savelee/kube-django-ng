@@ -16,9 +16,9 @@
  * =============================================================================
  */
 
+import * as dotenv from 'dotenv';
 import { BigQuery } from '@google-cloud/bigquery';
 import { PubSub } from '@google-cloud/pubsub';
-import * as dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -31,11 +31,12 @@ const bigquery = new BigQuery({
 });
 
 const id = process.env.GCLOUD_PROJECT;
-
 const datasetChatMessages = process.env.DATASET;
 const tableChatMessages = process.env.TABLE;
 const datasetTestMetrics = process.env.DATASET_TEST_METRICS;
 const tableTestMetrics= process.env.TABLE_TEST_METRICS;
+const topicChatbotMessages = process.env.TOPIC;
+
 // tslint:disable-next-line:no-suspicious-comment
 const schemaChatMessages = `
     BOT_NAME,
@@ -61,8 +62,12 @@ const schemaTestMetrics = `
     IS_FALLBACK: BOOLEAN,
     TEST_RESULT
 `;
-const topicChatbotMessages = process.env.TOPIC;
 
+export interface bigQueryRow {}
+
+/**
+ * Analytics class to store chatbot analytics in BigQuery. 
+ */
 export class Analytics {
 
     constructor() {
@@ -81,7 +86,7 @@ export class Analytics {
      * @param {string} bqTableName BQ Table name 
      * @param {string} schema BQ table schema  
      */
-    public setupBigQuery(bqDataSetName: string, bqTableName: string, schema: string) {
+    public setupBigQuery(bqDataSetName: string, bqTableName: string, schema: string): void {
         const dataset = bigquery.dataset(bqDataSetName);
         const table = dataset.table(bqTableName);
 
@@ -147,8 +152,9 @@ export class Analytics {
     /**
      * Execute Query in BigQuery
      * @param {string} sql SQL Query
+     * @return {Promise<bigQueryRow>}
      */
-    public queryBQ(sql: string) {
+    public queryBQ(sql: string):Promise<bigQueryRow> {
         return new Promise(function(resolve: Function, reject: Function) {
             if (sql) {
                 bigquery.query(sql).then(function(data: any) {
@@ -164,9 +170,10 @@ export class Analytics {
      * Add Item to BigQuery
      * @param {string} bqDataSetName - the name of the choosen dataset
      * @param {string} bqTableName - the name of the choosen dataset
-     * @param {Object} row - The Object to insert based on schema
+     * @param {bigQueryRow} row - The Object to insert based on schema
+     * @return {Promise<void>}
      */
-    public async insertInBQ(bqDataSetName:string, bqTableName:string, row:Object) {
+    public async insertInBQ(bqDataSetName:string, bqTableName:string, row:bigQueryRow): Promise<any> {
         const dataset = bigquery.dataset(bqDataSetName);
         const table = dataset.table(bqTableName);
         return table.insert(row);
@@ -174,12 +181,13 @@ export class Analytics {
 
     /**
      * Push to PubSub Channel
-     * @param {Object} json JSON Object
+     * @param {object} json JSON Object
+     * @param {string} topicName unformed Pub/Sub topic name
+     * @return {Promise<any>}
      */
-    public async pushToChannel(json: Object, topicName:string) {
+    public async pushToChannel(json: object, topicName:string):Promise<any> {
         const topic = pubsub.topic(`projects/${id}/topics/${topicName}`);
         let dataBuffer = Buffer.from(JSON.stringify(json), 'utf-8');
-
         const messageId = await topic.publish(dataBuffer);
         console.log(`Message ${messageId} published to topic: ${topicName}`);
     }

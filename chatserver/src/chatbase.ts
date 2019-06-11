@@ -21,6 +21,16 @@ const c = require('@google/chatbase');
 
 dotenv.config();
 
+export interface dialogflowResult {
+    text?: string,
+    posted: string,
+    intent?: string,
+    intentName?: string,
+    isFallback?: boolean,
+    confidence: number,
+    session: string,
+}
+
 export class Chatbase {
     private chatbaseApiKey: string;
     private chatbaseVersion: string;
@@ -40,9 +50,9 @@ export class Chatbase {
 
     /**
      * Log the User Msg in Chatbase
-     * @param {Object} Finetuned response object retrieved from Dialogflow
+     * @param {dialogflowResult} Finetuned response object retrieved from Dialogflow
      */
-    public logUserChatbase(response: any) {
+    public logUserChatbase(response: dialogflowResult) {
         if (response.isFallback) {
             c.newMessage()
             .setTimestamp(response.posted)
@@ -71,9 +81,9 @@ export class Chatbase {
     }
     /**
      * Log the Chatbot Answer in Chatbase
-     * @param {Object} Finetuned response object retrieved from Dialogflow
+     * @param {dialogflowResult} Finetuned response object retrieved from Dialogflow
      */
-    public logBotChatbase(response: any) {
+    public logBotChatbase(response: dialogflowResult) {
         c.newMessage()
         .setTimestamp(response.posted)
         .setAsTypeAgent()

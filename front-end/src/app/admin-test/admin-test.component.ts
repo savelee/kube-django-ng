@@ -34,18 +34,27 @@ export class AdminTestComponent implements OnInit {
 
   public connectionDifferences;
   public connectionUserPhrases;
+  public connectionTestResults;
+
   public testIntents: string[];
   public testLanguages: string[];
-  public testCases: any[];
 
   public userphrases: string[];
+
   public diffCols: string[] = ['name1', 'relativePath', 'type2', 'action'];
+  //public trackedCols: string[] = ['TEST_QUERY', 'TEST_LANGUAGE', 'DETECTED', 'EXPECTED_INTENT', 'TEST_RESULT'];
+
+
   public changes: DiffDataSource;
+  //public testData: TestDataSource;
+  public testData: any[];
 
   constructor() { }
 
   ngOnInit() {
     const me = this;
+    me.testData = new Array();
+
     // only in localhost
     let server = location.protocol+'//'+location.hostname;
     if (location.hostname === 'localhost' && location.port === '4200'
@@ -55,24 +64,21 @@ export class AdminTestComponent implements OnInit {
       // server = location.protocol+'//'+location.hostname+ '/socket.io';
     }
 
-    console.log(server);
 
     this.server = io(server);
  
     this.server.on('loadUserPhrases', function(data) {
       this.userphrases = data;
     });
-
     this.server.on('loadIntents', function(data) {
       me.testIntents = data[0];
     });
     this.server.on('loadSupportedLanguages', function(data) {
       me.testLanguages = data;
     });
-    this.server.on('testresults', function(data) {
-      console.log(data);
-      console.log('plot this in the table');
-      console.log('generate confusion matrix');
+    this.server.on('testResultOutput', function(data) {
+      me.testData.push(data);
+      console.log(me.testData);
     });
 
     // When we receive a system error, display it
@@ -81,8 +87,18 @@ export class AdminTestComponent implements OnInit {
     });
 
     this.connectionDifferences = this.updateRunDiff().subscribe(changes => {
+      console.log(changes);
       this.changes = new DiffDataSource(changes);
+      console.log("222");
+      console.log(this.changes);
     });
+
+    /*this.connectionTestResults = this.updateTestData().subscribe(values => {
+      console.log(values);
+      this.testData = new TestDataSource(values);
+      console.log("111");
+      console.log(this.testData);
+    });*/
 
     this.connectionUserPhrases = this.updateUserPhrases().subscribe(phrases => {
       this.userphrases = phrases;
@@ -93,8 +109,10 @@ export class AdminTestComponent implements OnInit {
       lang: new FormControl('',[Validators.required]),
       intent: new FormControl('',[Validators.required])
     });
-    this.testCases = [];
   }
+
+
+  /* LISTENERS */
 
   onClickDeployDevtoTest() {
     this.server.emit('acceptanceInput', 'deployDevToTest');
@@ -114,6 +132,12 @@ export class AdminTestComponent implements OnInit {
   onClickLoadUserPhrases(e, item) {
     this.server.emit('acceptanceInput', 'loadUserPhrases', item);
   }
+  onClickRunTestCases(e) {
+    this.server.emit('acceptanceInput', 'runTestCases');
+  }
+
+
+  /* UPDATE METHODS */
 
   updateRunDiff() {
       this.server.emit('acceptanceInput', 'loadUserPhrases', null);
@@ -130,6 +154,22 @@ export class AdminTestComponent implements OnInit {
       return observable;
   }
 
+  /*
+  updateTestData() {
+   const observable = new Observable<any>(observer => {
+      // When we receive a customer message, display it
+      this.server.on('testResultOutput', function(values) {
+        console.log(values);
+        observer.next(values);
+      });
+
+      return () => {
+        this.server.disconnect();
+      };
+    });
+    return observable;
+  }*/
+
   updateUserPhrases() {
     const observable = new Observable<any>(observer => {
       // When we receive a customer message, display it
@@ -144,21 +184,26 @@ export class AdminTestComponent implements OnInit {
     return observable;
   }
 
+  updateTestCases() {
+    console.log('TODO Result All Test Cases');
+  }
+
   addTestCase() {
     const f = this.form;
-    let row = {
+    let row: TestResultData = {
       TEST_DATE: (new Date().getTime()/1000),
       TEST_LANGUAGE: f.get('lang').value,
       TEST_QUERY: f.get('testQuery').value,
       EXPECTED_INTENT: f.get('intent').value
     };
-    this.testCases.push(row);
   
     // submit the row to the back-end
     // run unit test and store results in BQ
     this.server.emit('acceptanceInput', 'addTestCase', row);
   }
 }
+
+/* MODELS */
 
 export interface ChangeData {
   date1: any;
@@ -172,6 +217,16 @@ export interface ChangeData {
   type2: string;
 }
 
+export interface TestResultData { 
+  TEST_DATE: number
+  TEST_LANGUAGE: string,
+  TEST_QUERY: string,
+  EXPECTED_INTENT: string,
+  DETECTED_INTENT?: string,
+  IS_FALLBACK?: boolean,
+  TEST_RESULT?: string 
+} 
+
 export class DiffDataSource extends DataSource<any> {
   constructor(private data: ChangeData[]) {
     super();
@@ -183,3 +238,16 @@ export class DiffDataSource extends DataSource<any> {
 
   disconnect() {}
 }
+
+/*
+export class TestDataSource extends DataSource<any> {
+  constructor(private data: TestResultData[]) {
+    super();
+  }
+  connect(): Observable<TestResultData[]> {
+    console.log(this.data);
+    return of(this.data);
+  }
+
+  disconnect() {}
+}*/
