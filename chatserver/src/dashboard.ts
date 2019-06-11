@@ -38,14 +38,14 @@ export class Dashboard {
             `SELECT COUNT(TEXT) AS totalnegatives 
             FROM ${datasetChatMessages}.${tableChatMessages} WHERE SCORE < 0`;
         this.queryImproveBot = 
-            `SELECT TEXT, INTENT, SESSION
+            `SELECT TEXT, INTENT_RESPONSE, SESSION 
             FROM ${datasetChatMessages}.${tableChatMessages} 
-            WHERE CONFIDENCE IS NULL AND INTENT LIKE '%Sorry%' LIMIT 5`;
+            WHERE IS_FALLBACK = true ORDER BY TEXT ASC LIMIT 8`;
         this.queryNegatives = 
             `SELECT SCORE, TEXT, SESSION 
             FROM ${datasetChatMessages}.${tableChatMessages} 
             WHERE SCORE < 0 
-            ORDER BY SCORE ASC LIMIT 5`;
+            ORDER BY SCORE ASC LIMIT 8`;
     }
 
     /**
@@ -65,11 +65,11 @@ export class Dashboard {
             let data = {};
 
             values.forEach(function(item: any){
-                if(item[0][0]['totals']) {
+                if(item && item[0] && item[0][0] && item[0][0]['totals']) {
                     totals = item[0][0]['totals'];
-                } else if(item[0][0]['totalnegatives']){
+                } else if(item && item[0] && item[0][0] && item[0][0]['totalnegatives']){
                     totalNegatives = item[0][0]['totalnegatives'];
-                } else if(item[0][0]['SCORE']){
+                } else if(item && item[0] && item[0][0] && item[0][0]['SCORE']){
                     negatives.push(item[0]);
                 } else {
                     unhandled.push(item[0]);
