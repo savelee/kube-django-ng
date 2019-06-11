@@ -81,7 +81,7 @@
           <mat-card class="dashboard-card">
             <mat-card-header>
               <mat-card-title>
-                Unhandled Intents
+                Unhandled & Fallback Intents
               </mat-card-title>
             </mat-card-header>
             <mat-card-content class="dashboard-card-content unhandledintents">
@@ -93,10 +93,15 @@
                       <td mat-cell *matCellDef="let unhandleditem"> {{ unhandleditem.TEXT }} </td>
                     </ng-container>
                   
-                    <ng-container matColumnDef="INTENT">
-                      <th mat-header-cell *matHeaderCellDef> Intent </th>
-                      <td mat-cell *matCellDef="let unhandleditem"> {{ unhandleditem.INTENT }} </td>
+                    <ng-container matColumnDef="INTENT_RESPONSE">
+                      <th mat-header-cell *matHeaderCellDef> Response </th>
+                      <td mat-cell *matCellDef="let unhandleditem"> {{ unhandleditem.INTENT_RESPONSE }} </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="INTENT_NAME">
+                        <th mat-header-cell *matHeaderCellDef>Detected</th>
+                        <td mat-cell *matCellDef="let unhandleditem"> {{ unhandleditem.INTENT_NAME }} </td>
+                      </ng-container>
                   
                     <ng-container matColumnDef="SESSION">
                       <th mat-header-cell *matHeaderCellDef> Session </th>
@@ -148,10 +153,15 @@
                       <td mat-cell *matCellDef="let result"> {{result.TEXT}} </td>
                     </ng-container>
                   
-                    <ng-container matColumnDef="INTENT">
-                      <th mat-header-cell *matHeaderCellDef> Intent </th>
-                      <td mat-cell *matCellDef="let result"> {{result.INTENT}} </td>
+                    <ng-container matColumnDef="INTENT_RESPONSE">
+                      <th mat-header-cell *matHeaderCellDef> Response </th>
+                      <td mat-cell *matCellDef="let result"> {{result.INTENT_RESPONSE}} </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="INTENT_NAME">
+                        <th mat-header-cell *matHeaderCellDef>Detected</th>
+                        <td mat-cell *matCellDef="let result"> {{result.INTENT_NAME}} </td>
+                      </ng-container>
                   
                     <ng-container matColumnDef="SCORE">
                       <th mat-header-cell *matHeaderCellDef> Score </th>

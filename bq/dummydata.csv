@@ -1,0 +1,13 @@
+BOT_NAME,TEXT,POSTED,SCORE,MAGNITUDE,INTENT_RESPONSE,INTENT_NAME,CONFIDENCE,IS_FALLBACK,IS_FULFILLMENT,IS_END_INTERACTION,PLATFORM,SESSION
+Chatbot,My salary. When will I receive it?,2018-04-11 07:58:22.403 UTC,0.00,0.10,Say that again?,Default Fallback Intent,0.5247265005,TRUE,FALSE,FALSE,web,6OVkcIQg7QFvdc5EAAAs
+Chatbot,Did my salary came in today?,2018-04-11 07:58:07.627 UTC,0,0,"Sorry, what was that?",Default Fallback Intent,0.5347265005,TRUE,FALSE,FALSE,web,6OVkcIQg7QFvdc5EAAAs
+Chatbot,Did my salary came in today?,2018-04-11 08:38:07.125 UTC,0,0,"Sorry, could you say that again?",Default Fallback Intent,0.3347265005,TRUE,FALSE,FALSE,web,6OVkcIQg7QFvdc5EAAAs
+Chatbot,I want to know if my salary came in.,2018-04-11 08:40:01.419 UTC,-0.1000000015,0.1000000015,One more time?,Default Fallback Intent,0.4347265005,TRUE,FALSE,FALSE,web,6OVkcIQg7QFvdc5EAAAs
+Chatbot,Did my company transfer money,2018-04-11 07:58:40.19 UTC,0.200000003,0.200000003,"Sorry, can you say that again?",Default Fallback Intent,0.1347265005,TRUE,FALSE,FALSE,web,6OVkcIQg7QFvdc5EAAAs
+Chatbot,I am really annoyed.,2018-04-11 07:59:16.526 UTC,-0.8000000119,0.8000000119,"Sorry, could you say that again?",Default Fallback Intent,0.5347265005,TRUE,FALSE,FALSE,web,6OVkcIQg7QFvdc5EAAAs
+Chatbot,Can you call me back please? My number is [PHONE_NUMBER][LOCATION],2019-06-11 17:12:39.777 UTC,0.1000000015,0.200000003,,,1,TRUE,FALSE,FALSE,web,Godrf26LBveoqd0jAAAB
+Chatbot,I want to transfer money,2019-06-11 17:19:03.006 UTC,0.1000000015,0.1000000015,What bank account number would you like to transfer money to?,[usercase1] transfer money,0.6699991822,FALSE,FALSE,FALSE,web,njvVExjnN_g0hvBTAAAC
+Chatbot,ABNA [LOCATION],2019-06-11 17:19:56.291 UTC,0,0,How much do you want to transfer?,[usercase1] transfer money,0.009999999776,FALSE,FALSE,FALSE,web,njvVExjnN_g0hvBTAAAC
+Chatbot,1000 euro,2019-06-11 17:19:59.800 UTC,0,0,What's the destination country?,[usercase1] transfer money,0.009999999776,FALSE,FALSE,FALSE,web,njvVExjnN_g0hvBTAAAC
+Chatbot,[LOCATION],2019-06-11 17:20:02.687 UTC,0,0,"Alright, I will transfer 1000 euro to bank account ABNA 0417 1643 00 Germany. Is there anything else I can help you with?",[usercase1] transfer money,1,FALSE,FALSE,FALSE,web,njvVExjnN_g0hvBTAAAC
+Chatbot,Can I take a mortgage,2019-06-11 17:20:26.838 UTC,0,0,"What type of housing are you looking for? House, Villa, Apartment or Bungalow?",[usecase 4] Mortgage request,0.5191081762,FALSE,FALSE,FALSE,web,GCW1eU6xecQbPJ5uAAAD

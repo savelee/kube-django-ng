@@ -37,8 +37,8 @@ export class AdminDashboardComponent implements OnInit {
 
   // table columns
   public negativeCols: string[] = ['SCORE', 'TEXT', 'SESSION'];
-  public unhandledintentsCols: string[] = ['TEXT', 'INTENT', 'SESSION'];
-  public trackedCols: string[] = ['POSTED', 'TEXT', 'INTENT', 'SCORE'];
+  public unhandledintentsCols: string[] = ['TEXT', 'INTENT_RESPONSE', 'INTENT_NAME', 'SESSION'];
+  public trackedCols: string[] = ['POSTED', 'TEXT', 'INTENT_RESPONSE', 'INTENT_NAME', 'SCORE'];
 
   // table data
   public totals: String;
@@ -58,8 +58,6 @@ export class AdminDashboardComponent implements OnInit {
     } else {
       // server = location.protocol+'//'+location.hostname+ "/socket.io";
     }
-
-    console.log(server);
 
     this.server = io(server);
     this.server.emit('dashboardload');
@@ -125,7 +123,9 @@ export interface Data {
   POSTED: any;
   TEXT: string;
   MAGNITUDE: any;
-  INTENT: string;
+  INTENT_RESPONSE: string;
+  INTENT_NAME: string;
+  IS_FALLBACK: boolean;
   SCORE: any;
   SESSION: string;
 }

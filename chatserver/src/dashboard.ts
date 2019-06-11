@@ -38,7 +38,7 @@ export class Dashboard {
             `SELECT COUNT(TEXT) AS totalnegatives 
             FROM ${datasetChatMessages}.${tableChatMessages} WHERE SCORE < 0`;
         this.queryImproveBot = 
-            `SELECT TEXT, INTENT_RESPONSE, SESSION 
+            `SELECT TEXT, INTENT_RESPONSE, INTENT_NAME, SESSION 
             FROM ${datasetChatMessages}.${tableChatMessages} 
             WHERE IS_FALLBACK = true ORDER BY TEXT ASC LIMIT 8`;
         this.queryNegatives = 
