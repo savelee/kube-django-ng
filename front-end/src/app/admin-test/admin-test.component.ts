@@ -40,13 +40,10 @@ export class AdminTestComponent implements OnInit {
   public testLanguages: string[];
 
   public userphrases: string[];
-
   public diffCols: string[] = ['name1', 'relativePath', 'type2', 'action'];
-  //public trackedCols: string[] = ['TEST_QUERY', 'TEST_LANGUAGE', 'DETECTED', 'EXPECTED_INTENT', 'TEST_RESULT'];
-
+  
 
   public changes: DiffDataSource;
-  //public testData: TestDataSource;
   public testData: any[];
 
   constructor() { }
@@ -87,18 +84,8 @@ export class AdminTestComponent implements OnInit {
     });
 
     this.connectionDifferences = this.updateRunDiff().subscribe(changes => {
-      console.log(changes);
       this.changes = new DiffDataSource(changes);
-      console.log("222");
-      console.log(this.changes);
     });
-
-    /*this.connectionTestResults = this.updateTestData().subscribe(values => {
-      console.log(values);
-      this.testData = new TestDataSource(values);
-      console.log("111");
-      console.log(this.testData);
-    });*/
 
     this.connectionUserPhrases = this.updateUserPhrases().subscribe(phrases => {
       this.userphrases = phrases;
@@ -153,22 +140,6 @@ export class AdminTestComponent implements OnInit {
       });
       return observable;
   }
-
-  /*
-  updateTestData() {
-   const observable = new Observable<any>(observer => {
-      // When we receive a customer message, display it
-      this.server.on('testResultOutput', function(values) {
-        console.log(values);
-        observer.next(values);
-      });
-
-      return () => {
-        this.server.disconnect();
-      };
-    });
-    return observable;
-  }*/
 
   updateUserPhrases() {
     const observable = new Observable<any>(observer => {
@@ -238,16 +209,3 @@ export class DiffDataSource extends DataSource<any> {
 
   disconnect() {}
 }
-
-/*
-export class TestDataSource extends DataSource<any> {
-  constructor(private data: TestResultData[]) {
-    super();
-  }
-  connect(): Observable<TestResultData[]> {
-    console.log(this.data);
-    return of(this.data);
-  }
-
-  disconnect() {}
-}*/

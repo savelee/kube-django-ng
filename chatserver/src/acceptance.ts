@@ -164,11 +164,9 @@ export class Acceptance {
     public async addExecTestCase(row: queryRow): Promise<queryRow> {
         return new Promise((resolve, reject) => {
             this._runTestForMetrics(row).then((resultsRow) => {
-                console.log(resultsRow, datasetTestMetrics, tableTestMetrics);
-                console.log(analytics);
-                // analytics.insertInBQ(datasetTestMetrics, tableTestMetrics, resultsRow).then(() => {
+                analytics.insertInBQ(datasetTestMetrics, tableTestMetrics, resultsRow).then(() => {
                     resolve(resultsRow);
-                // });
+                });
             }).catch(e => { reject(e) });
         });
     }
@@ -214,7 +212,7 @@ export class Acceptance {
                     && row['IS_FALLBACK'] === true) {
                         row['TEST_RESULT'] = 'FN';
                 }
-                console.log(row);
+
                 resolve(row);
             }).catch(err => {
                 reject(err);

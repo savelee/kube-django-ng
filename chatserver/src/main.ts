@@ -117,7 +117,7 @@ export class App {
 
         });
 
-        client.on('msg', (txt: String) => {
+        client.on('msg', (txt: String, platform: string) => {
           let queryInput = {};
           let timestamp = new Date().getTime();
             
@@ -137,11 +137,13 @@ export class App {
             analytics.pushToChannel({
               text: txt,
               posted: timestamp,
-              intent: result['botAnswer'].toString(),
-              //intentName: result['intentName'],
-              //isFallback: result['isFallback'],
-              //isFulfillment: result['isFulfillment'],
-              //isEndInteraction: result['isEndInteraction'],
+              platform: platform,
+              botName: result['botName'],
+              intentResponse: result['botAnswer'].toString(),
+              intentName: result['intentName'],
+              isFallback: result['isFallback'],
+              isFulfillment: result['isFulfillment'],
+              isEndInteraction: result['isEndInteraction'],
               confidence: result['confidence'],
               session: client['id']
             }, process.env.TOPIC);
@@ -149,6 +151,7 @@ export class App {
             chatbase.logUserChatbase({
               text: txt.toString(),
               posted: timestamp.toString(),
+              platform: platform,
               intentName: result['intentName'],
               isFallback: result['isFallback'],
               confidence: result['confidence'],

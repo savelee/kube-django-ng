@@ -37,7 +37,8 @@ type dialogflowResult = {
     intentName: string,
     sessionId: string,
     confidence: number,
-    botName: string
+    botName: string,
+    platform?: string
 }
 
 export interface agentConfig {

@@ -49,7 +49,7 @@ export class SupportComponent implements OnInit {
   }
 
   intentMatching(query){
-    this.server.emit('msg', query);
+    this.server.emit('msg', query, 'web');
     this.updateChatBox(query, null);
   }
 

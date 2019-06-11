@@ -28,24 +28,23 @@ export interface dialogflowResult {
     intentName?: string,
     isFallback?: boolean,
     confidence: number,
+    platform?: string,
     session: string,
 }
 
 export class Chatbase {
     private chatbaseApiKey: string;
     private chatbaseVersion: string;
-    private chatbasePlatform: string;
     private chatbaseName: string;
 
     constructor() {
         this.chatbaseApiKey = process.env.MY_CHATBASE_KEY;
         this.chatbaseVersion = process.env.MY_CHATBASE_VERSION;
-        this.chatbasePlatform = 'Web';
         this.chatbaseName = process.env.MY_CHATBASE_BOT_NAME;
 
         c.setVersion(this.chatbaseVersion);
-        c.setPlatform(this.chatbasePlatform);
         c.setApiKey(this.chatbaseApiKey, this.chatbaseName);
+        c.setPlatform('web');
     }
 
     /**
@@ -56,6 +55,7 @@ export class Chatbase {
         if (response.isFallback) {
             c.newMessage()
             .setTimestamp(response.posted)
+            .setPlatform(response.platform)
             .setAsTypeUser()
             .setMessage(response.text)
             .setIntent(response.intentName)
@@ -68,6 +68,7 @@ export class Chatbase {
         } else {
             c.newMessage()
             .setTimestamp(response.posted)
+            .setPlatform(response.platform)
             .setAsTypeUser()
             .setMessage(response.text)
             .setIntent(response.intentName)
@@ -86,6 +87,7 @@ export class Chatbase {
     public logBotChatbase(response: dialogflowResult) {
         c.newMessage()
         .setTimestamp(response.posted)
+        .setPlatform(response.platform)
         .setAsTypeAgent()
         .setMessage(response.intent)
         .setCustomSessionId(response.session)
