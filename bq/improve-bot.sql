@@ -1,2 +1,2 @@
-SELECT TEXT, INTENT, POSTED, SESSION, CONFIDENCE from `chatanalytics.chatmessages` where CONFIDENCE 
+SELECT TEXT, INTENT_NAME, POSTED, SESSION, CONFIDENCE from `chatanalytics.chatmessages` where CONFIDENCE 
 IS NULL AND INTENT LIKE "%Sorry%"

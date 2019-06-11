@@ -24,10 +24,9 @@ dotenv.config();
 export interface dialogflowResult {
     text?: string,
     posted: string,
-    intent?: string,
+    intentResponse?: string,
     intentName?: string,
     isFallback?: boolean,
-    confidence: number,
     platform?: string,
     session: string,
 }
@@ -44,7 +43,6 @@ export class Chatbase {
 
         c.setVersion(this.chatbaseVersion);
         c.setApiKey(this.chatbaseApiKey, this.chatbaseName);
-        c.setPlatform('web');
     }
 
     /**
@@ -52,6 +50,7 @@ export class Chatbase {
      * @param {dialogflowResult} Finetuned response object retrieved from Dialogflow
      */
     public logUserChatbase(response: dialogflowResult) {
+
         if (response.isFallback) {
             c.newMessage()
             .setTimestamp(response.posted)
@@ -89,13 +88,13 @@ export class Chatbase {
         .setTimestamp(response.posted)
         .setPlatform(response.platform)
         .setAsTypeAgent()
-        .setMessage(response.intent)
+        .setMessage(response.intentResponse)
         .setCustomSessionId(response.session)
         .setUserId('user-' + response.session)
         .setAsHandled()
         .send()
         .then(msg => {
-            console.log(msg);
+            console.log(msg.getCreateResponse());
         })
         .catch(err => console.error('bot', err));
     }

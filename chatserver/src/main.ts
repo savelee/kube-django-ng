@@ -154,15 +154,14 @@ export class App {
               platform: platform,
               intentName: result['intentName'],
               isFallback: result['isFallback'],
-              confidence: result['confidence'],
-              session: result['sessionId']
+              session: client['id']
             });
 
             chatbase.logBotChatbase({
               posted: timestamp.toString(),
-              intent: result['botAnswer'].toString(),
-              confidence: result['confidence'],
-              session: result['sessionId']
+              platform: platform,
+              intentResponse: result['botAnswer'].toString(),
+              session: client['id']
             });
           }).catch(err => {
             console.log(err);

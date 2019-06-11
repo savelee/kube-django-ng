@@ -1,0 +1,1 @@
+SELECT * from `chatanalytics.chatmessages` where IS_FALLBACK = true ORDER BY TEXT ASC

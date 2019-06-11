@@ -35,6 +35,10 @@ var detectPIIData = async function(text, callback) {
   // The infoTypes of information to match
   const infoTypes = [ 
     {name: 'PERSON_NAME'}, 
+    {name: 'FIRST_NAME'}, 
+    {name: 'LAST_NAME'}, 
+    {name: 'MALE_NAME'}, 
+    {name: 'FEMALE_NAME'},
     {name: 'IBAN_CODE'},
     {name: 'IP_ADDRESS'},
     {name: 'LOCATION'},
