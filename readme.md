@@ -105,9 +105,11 @@ authentication:
 
 1. Install [Node](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/get-npm) if you do not already have them.
 
-1. (optional) Install Python 2.7
+2. Install Python3.6: `brew install python3`
+3. Install pip: `sudo easy_install pip3`
+4. Install virtualenv: `sudo pip3 install virtualenv`
 
-1. Install [Angular CLI](http://cli.angular.io) - 
+5. Install [Angular CLI](http://cli.angular.io) - 
 `npm install -g @angular-cli`
 
 ### Enable the APIs
@@ -309,15 +311,19 @@ In case you want to run this for the first time:
 
 ```
 virtualenv -p python3 myenv
-pip install -r requirements.txt
+source myenv/bin/activate .
+chmod +x /usr/local/bin/django-admin.py
+pip3 install -r requirements.txt
+python3 manage.py migrate
+python3 manage.py createsuperuser
 ```
 
 Run on the command-line:
 
 ```
 cd server/
-source myenv/bin/activate
-python manage.py runserver 8080
+source myenv/bin/activate .
+python3 manage.py runserver 8080
 ```
 
 Django can be reached via http://localhost:8080
