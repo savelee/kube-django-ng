@@ -53,7 +53,7 @@ import { FaqComponent } from './faq/faq.component';
 import { AdminConfigComponent } from './admin-config/admin-config.component';
 import { AdminTestComponent } from './admin-test/admin-test.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -109,7 +109,8 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     FaqComponent,
     AdminConfigComponent,
     AdminTestComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    LoginComponent
   ],
   providers: [
     {

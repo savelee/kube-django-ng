@@ -1,0 +1,21 @@
+.logout,
+.login {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 50%;
+}
+
+.login .form-group{
+    float: left;
+    padding: 0 5px;
+
+    label {
+        padding-right: 5px;
+    }
+}
+
+.login button, .login i {
+    background: none;
+    border: none;
+}

@@ -35,6 +35,7 @@ export class AdminTestComponent implements OnInit {
   public connectionDifferences;
   public connectionUserPhrases;
   public connectionTestResults;
+  public loggedIn;
 
   public testIntents: string[];
   public testLanguages: string[];
@@ -62,6 +63,7 @@ export class AdminTestComponent implements OnInit {
     }
 
 
+    this.loggedIn = false;
     this.server = io(server);
  
     this.server.on('loadUserPhrases', function(data) {
@@ -96,6 +98,11 @@ export class AdminTestComponent implements OnInit {
       lang: new FormControl('',[Validators.required]),
       intent: new FormControl('',[Validators.required])
     });
+
+    if(localStorage.getItem("user")) {
+      this.loggedIn = true;
+      console.log(localStorage.getItem("user"));
+    }
   }
 
 
