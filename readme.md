@@ -495,7 +495,19 @@ TODO
 
    `kubectl apply -f cloudbuilder/django-deployment.yaml`
 
-11. Get a static IP:
+  In case you run into problems, with pods that crash, run:
+  `kubectl get pods`
+  And retrieve the logs for the crashing pod: `kubectl logs [podname]`
+  or ssh into it with `kubectl exec -it [podname] -- /bin/bash`
+
+11. SSH into the Django POD and run the following commands:
+
+    `kubectl exec -it [podname] -- /bin/bash`
+    `python manage.py migrate`
+    `python manage.py createsuperuser`
+    `exit;`
+
+12. Get a static IP:
 
   A domain name is needed for an SSL certificate. We also want to create a fixed ‘A record’ for it on the name registrar. With an Ingress, the external IP keeps changing as it is deleted and created. We can solve this problem on GCP by reserving an external IP address which we can then assign to the Ingress each time.
 
