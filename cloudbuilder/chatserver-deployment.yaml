@@ -26,6 +26,16 @@ spec:
               configMapKeyRef:
                 name: chatserver-config
                 key: GCLOUD_PROJECT
+          - name: "DEV_AGENT_PROJECT_ID"
+            valueFrom:
+              configMapKeyRef:
+                name: chatserver-config
+                key: DEV_AGENT_PROJECT_ID
+          - name: "TEST_AGENT_PROJECT_ID"
+            valueFrom:
+              configMapKeyRef:
+                name: chatserver-config
+                key: TEST_AGENT_PROJECT_ID
           - name: "TOPIC"
             valueFrom:
               configMapKeyRef:
@@ -41,16 +51,31 @@ spec:
               configMapKeyRef:
                 name: chatserver-config
                 key: MY_CHATBASE_VERSION
-          - name: "MY_CHATBASE_NAME"
+          - name: "MY_CHATBASE_BOT_NAME"
             valueFrom:
               configMapKeyRef:
                 name: chatserver-config
-                key: "MY_CHATBASE_NAME"
+                key: "MY_CHATBASE_BOT_NAME"
           - name: "LANGUAGE_CODE"
             valueFrom:
               configMapKeyRef:
                 name: chatserver-config
                 key: LANGUAGE_CODE
+          - name: "GCLOUD_STORAGE_BUCKET"
+            valueFrom:
+              configMapKeyRef:
+                name: chatserver-config
+                key: GCLOUD_STORAGE_BUCKET
+          - name: "DATASET_TEST_METRICS"
+            valueFrom:
+              configMapKeyRef:
+                name: chatserver-config
+                key: DATASET_TEST_METRICS
+          - name: "TABLE_TEST_METRICS"
+            valueFrom:
+              configMapKeyRef:
+                name: chatserver-config
+                key: TABLE_TEST_METRICS
         volumeMounts:
           - name: mykeys
             mountPath: /var/secrets/
