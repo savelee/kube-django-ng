@@ -444,11 +444,15 @@ TODO
 
     (when you already have a cluster, and you get the error **The connection to the server localhost:8080 was refused - did you specify the right host or port?**, type: `gcloud container clusters get-credentials "futurebank" --zone europe-west4-a`)
 
-2. Set your **PROJECT_ID**, **GCLOUD_STORAGE_BUCKET** and **MY_CHATBASE_KEY** variables, which points to your GCP project id. For example:
+2. Set your **PROJECT_ID**, **DEV_AGENT_PROJECT_ID**, **TEST_AGENT_PROJECT_ID**, **GCLOUD_STORAGE_BUCKET** and **MY_CHATBASE_KEY** variables, which points to your GCP project id. For example:
 
-    `export PROJECT_ID=gke-pipeline-savelee-192517`
+    `export PROJECT_ID=dialogflow-production-agent`
+    `export DEV_AGENT_PROJECT_ID=dialogflow-dev-agent`
+    `export TEST_AGENT_PROJECT_ID=dialogflow-test-agent`
     `export MY_CHATBASE_KEY=123...`
     `export MY_CHATBASE_VERSION=1.0`
+    `export GCLOUD_STORAGE_BUCKET=mybucket`
+    
 
 3. Navigate to the root of this repository.
 
@@ -458,7 +462,7 @@ TODO
 
 5. Create a config map:
    
-    `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "TOPIC=user-content" --from-literal "DATASET=chatanalytics" --from-literal "TABLE=chatmessages" --from-literal "MY_CHATBASE_KEY=${MY_CHATBASE_KEY}" --from-literal "MY_CHATBASE_VERSION=${MY_CHATBASE_VERSION}"`
+    `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "DEV_AGENT_PROJECT_ID=${DEV_AGENT_PROJECT_ID}" --from-literal "TEST_AGENT_PROJECT_ID=${TEST_AGENT_PROJECT_ID}" --from-literal "LANGUAGE_CODE=en-US" --from-literal "TOPIC=user-content" --from-literal "DATASET=chatanalytics" --from-literal "TABLE=chatmessages" --from-literal "DATASET_TEST_METRICS=conversationcoverage" --from-literal "TABLE_TEST_METRICS=testmetrics" --from-literal "MY_CHATBASE_KEY=${MY_CHATBASE_KEY}" --from-literal "MY_CHATBASE_BOT_NAME=Babs the Banking Bot" --from-literal "MY_CHATBASE_VERSION=${MY_CHATBASE_VERSION}" --from-literal "GCLOUD_STORAGE_BUCKET=${GCLOUD_STORAGE_BUCKET}"`
 
 6. Fix paths to your images of the **-deployment.yaml** & **setup** files (in the cloudbuilder folder) to match the container names in your Container Registry.
 
@@ -478,13 +482,20 @@ TODO
 
    `kubectl delete deployment front-end`
 
-11. To deploy another deployment:
+   `kubectl delete deployment chatserver`
+    
+   `kubectl delete deployment django`
+
+
+10. To deploy another deployment:
 
    `kubectl apply -f cloudbuilder/front-end-deployment.yaml`
 
    `kubectl apply -f cloudbuilder/chatserver-deployment.yaml`
 
-12. Get a static IP:
+   `kubectl apply -f cloudbuilder/django-deployment.yaml`
+
+11. Get a static IP:
 
   A domain name is needed for an SSL certificate. We also want to create a fixed ‘A record’ for it on the name registrar. With an Ingress, the external IP keeps changing as it is deleted and created. We can solve this problem on GCP by reserving an external IP address which we can then assign to the Ingress each time.
 
@@ -492,7 +503,7 @@ TODO
 
   `gcloud compute --project=${PROJECT_ID} addresses create futurebank --global --network-tier=PREMIUM`
 
-1. Now setup the services and ingress loadbalancer:
+12. Now setup the services and ingress loadbalancer:
 
     `kubectl apply -f cloudbuilder/ingress.yaml`
 
@@ -500,6 +511,6 @@ TODO
     Google’s Load Balancer performs health checks on the associated backend service. The service must return a status of 200. If it does not, the load balancer marks the instance as unhealthy and does not send it any traffic until the health check shows that it is healthy again.*
 
 
-1. Attach a domain name:
+13. Attach a domain name:
 
   To have browsers querying your domain name (such as example.com) or subdomain name (such as blog.example.com) point to the static IP address you reserved, you must update the DNS (Domain Name Server) records of your domain name. You must create an **A (Address) type DNS record** for your domain or subdomain name and have its value configured **with the reserved external IP address**.
