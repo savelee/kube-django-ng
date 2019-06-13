@@ -40,7 +40,7 @@ spec:
             backend:
               serviceName: django-service
               servicePort: 8080
-          - path: /socket.io/?(.*)
+          - path: /socket.io?(.*)
             backend:
               serviceName: chatserver-service
               servicePort: 3000
@@ -108,18 +108,11 @@ metadata:
 spec:
   ports:
   - name: http
-    nodePort: 30683
     port: 80
-    protocol: TCP
     targetPort: http
   - name: https
-    nodePort: 31849
     port: 443
-    protocol: TCP
     targetPort: https
   selector:
     app: nginx-ingress
-    component: controller
-    release: my-nginx
-  sessionAffinity: None
   type: LoadBalancer
