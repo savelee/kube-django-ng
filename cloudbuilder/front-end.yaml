@@ -7,7 +7,10 @@ steps:
 - id: 'Push Front-end image to registry'
   name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/front-end-image' ]
-
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
+    
 # Delete Existing Deployment 
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'delete', 'deployment', 'front-end' ]

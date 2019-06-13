@@ -472,7 +472,6 @@ TODO
 
    `gcloud builds submit --config cloudbuilder/front-end.yaml`
 
-    (optional)
    `gcloud builds submit --config cloudbuilder/django.yaml`
 
 9.  To delete deployments use:
