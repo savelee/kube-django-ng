@@ -26,6 +26,15 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./my-nav.component.scss'],
 })
 export class MyNavComponent {
+  public loggedIn: boolean;
+
+  ngOnInit(){
+    if(localStorage.getItem("user")) {
+        this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
+    }
+  };
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

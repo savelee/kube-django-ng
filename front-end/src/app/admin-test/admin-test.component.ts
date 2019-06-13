@@ -101,7 +101,6 @@ export class AdminTestComponent implements OnInit {
 
     if(localStorage.getItem("user")) {
       this.loggedIn = true;
-      console.log(localStorage.getItem("user"));
     }
   }
 

@@ -102,12 +102,12 @@
               <tr>
                   <td>
                       <mat-form-field class="full-width">
-                          <input matInput id="testQuery" name="testQuery" formControlName="testQuery" type="text" autocomplete="off">
+                          <input matInput id="testQuery" name="testQuery" formControlName="testQuery" placeholder="Test Query" type="text" autocomplete="off">
                       </mat-form-field>
                   </td>
                   <td>
                       <mat-form-field class="small">
-                          <mat-select formControlName="lang" required>
+                          <mat-select formControlName="lang" required placeholder="Language">
                               <mat-option *ngFor="let lang of testLanguages" [value]="lang">
                                   {{lang}}
                                 </mat-option>
@@ -117,7 +117,7 @@
                   
                   <td colspan="2">
                       <mat-form-field class="full-width" name="intent">
-                          <mat-select formControlName="intent" required>
+                          <mat-select formControlName="intent" required placeholder="Expected Intent">
                             <mat-option *ngFor="let intent of testIntents" [value]="intent.displayName">
                               {{intent.displayName}}
                             </mat-option>

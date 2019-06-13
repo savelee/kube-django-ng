@@ -1,22 +1,16 @@
-<form (ngSubmit)="onLogout()" [formGroup]="form" class="navbar-form navbar-right logout" role="logout" *ngIf="loggedIn;else login">
+<form (ngSubmit)="onLogout()" [formGroup]="form" class="logout-form" role="logout" *ngIf="loggedIn;else login">
     Welcome <strong>{{username}}</strong>
-    <button type="submit" class="btn btn-info btn-round btn-sm">
-        Logout
-    </button>
+    <button mat-raised-button color="primary" type="submit">Logout</button>
 </form>
 
 <ng-template #login>
-    <form (ngSubmit)="onLogin()" [formGroup]="form" class="navbar-form login navbar-right {{error}}" role="login">
-        <div class="form-group">
-            <label class="form-control-placeholder">Username</label>
-            <input id="username" formControlName="username" type="text" class="form-control" name="username" autocomplete="off" required>
-        </div>
-        <div class="form-group">
-            <label class="form-control-placeholder">Password</label>
-            <input id="password" formControlName="password" type="password" class="form-control" name="password" autocomplete="off" required>
-        </div>
-        <button type="submit" class="btn btn-search-top btn-round btn-just-icon">
-            <i class="material-icons">lock</i><div class="ripple-container"></div>
-        </button>
+    <form (ngSubmit)="onLogin()" [formGroup]="form" class="login-form {{error}}" role="login">
+        <mat-form-field>
+                <input matInput id="username" name="username" formControlName="username" placeholder="Username" type="text" autocomplete="off">
+        </mat-form-field>
+        <mat-form-field>
+                <input matInput id="password" name="password" formControlName="password" placeholder="Password" type="password" autocomplete="off">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Login</button>
     </form>
 </ng-template>
