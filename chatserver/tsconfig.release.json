@@ -1,11 +1,9 @@
 {
   "extends": "./tsconfig.json",
+  "compileOnSave": true,
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist",
-    "removeComments": true
-  },
-  "include": [
-    "src/**/*"
-  ]
+    "removeComments": true,
+    "rootDir": ".",
+    "outDir": "dist"
+  }
 }

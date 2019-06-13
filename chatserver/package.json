@@ -38,7 +38,7 @@
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "start": "npm run build && nodemon dist/main.js --ignore tmp/"
+    "start": "npm run build && nodemon dist/src/main.js --ignore tmp/"
   },
   "dependencies": {
     "@google-cloud/bigquery": "^3.0.0",
