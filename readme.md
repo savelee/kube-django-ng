@@ -444,15 +444,14 @@ TODO
 
     (when you already have a cluster, and you get the error **The connection to the server localhost:8080 was refused - did you specify the right host or port?**, type: `gcloud container clusters get-credentials "futurebank" --zone europe-west4-a`)
 
-2. Set your **PROJECT_ID**, **DEV_AGENT_PROJECT_ID**, **TEST_AGENT_PROJECT_ID**, **GCLOUD_STORAGE_BUCKET** and **MY_CHATBASE_KEY** variables, which points to your GCP project id. For example:
+2. Set your **PROJECT_ID**, **DEV_AGENT_PROJECT_ID**, **TEST_AGENT_PROJECT_ID**, **GCLOUD_STORAGE_BUCKET_NAME** and **MY_CHATBASE_KEY** variables, which points to your GCP project id. For example:
 
     `export PROJECT_ID=dialogflow-production-agent`
     `export DEV_AGENT_PROJECT_ID=dialogflow-dev-agent`
     `export TEST_AGENT_PROJECT_ID=dialogflow-test-agent`
     `export MY_CHATBASE_KEY=123...`
     `export MY_CHATBASE_VERSION=1.0`
-    `export GCLOUD_STORAGE_BUCKET=mybucket`
-    
+    `export GCLOUD_STORAGE_BUCKET_NAME=mybucket`
 
 3. Navigate to the root of this repository.
 
@@ -462,7 +461,7 @@ TODO
 
 5. Create a config map:
    
-    `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "DEV_AGENT_PROJECT_ID=${DEV_AGENT_PROJECT_ID}" --from-literal "TEST_AGENT_PROJECT_ID=${TEST_AGENT_PROJECT_ID}" --from-literal "LANGUAGE_CODE=en-US" --from-literal "TOPIC=user-content" --from-literal "DATASET=chatanalytics" --from-literal "TABLE=chatmessages" --from-literal "DATASET_TEST_METRICS=conversationcoverage" --from-literal "TABLE_TEST_METRICS=testmetrics" --from-literal "MY_CHATBASE_KEY=${MY_CHATBASE_KEY}" --from-literal "MY_CHATBASE_BOT_NAME=Babs the Banking Bot" --from-literal "MY_CHATBASE_VERSION=${MY_CHATBASE_VERSION}" --from-literal "GCLOUD_STORAGE_BUCKET=${GCLOUD_STORAGE_BUCKET}"`
+    `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "DEV_AGENT_PROJECT_ID=${DEV_AGENT_PROJECT_ID}" --from-literal "TEST_AGENT_PROJECT_ID=${TEST_AGENT_PROJECT_ID}" --from-literal "LANGUAGE_CODE=en-US" --from-literal "TOPIC=user-content" --from-literal "DATASET=chatanalytics" --from-literal "TABLE=chatmessages" --from-literal "DATASET_TEST_METRICS=conversationcoverage" --from-literal "TABLE_TEST_METRICS=testmetrics" --from-literal "MY_CHATBASE_KEY=${MY_CHATBASE_KEY}" --from-literal "MY_CHATBASE_BOT_NAME=Babs the Banking Bot" --from-literal "MY_CHATBASE_VERSION=${MY_CHATBASE_VERSION}" --from-literal "GCLOUD_STORAGE_BUCKET_NAME=${GCLOUD_STORAGE_BUCKET_NAME}"`
 
 6. Fix paths to your images of the **-deployment.yaml** & **setup** files (in the cloudbuilder folder) to match the container names in your Container Registry.
 

@@ -43,10 +43,11 @@ export class LoginComponent implements OnInit {
         var username = f.get('username').value;
         var password = f.get('password').value;
 
-        //TODO
-        var server = location.protocol+'//'+location.hostname;
+        var server = "";
         if(location.hostname == "localhost" && location.port == "4200"){
           server = location.protocol+'//'+location.hostname+ ':8080/authenticate/'
+        } else {
+          server = `${location.protocol}//${location.hostname}/api/authenticate/`;
         }
 
         this.http.post(server, {

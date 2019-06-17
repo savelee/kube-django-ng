@@ -84,6 +84,7 @@ export class App {
   }
 
   private sockets(): void {
+      console.log(this.server);
       this.io = socketIo(this.server);
   }
 

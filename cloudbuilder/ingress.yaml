@@ -1,78 +1,48 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-service
-  #additional configuration options that specify higher level about object (ingress) created
   annotations:
-    #tells k8 we want to create ingress controller based on nginx project
-    kubernetes.io/ingress.class: nginx
-    #configures how our copy of nginx controller behaves
-    #does rewrite to remove /api from path
-    #check github.com/kubernetes/ingress-nginx/tree/master/docs/examples/rewrite to validate
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    #informs ingress to use letsencrypt service cert
-    #expect cert from this issuer
-    # certmanager.k8s.io/cluster-issuer: 'letsencrypt-prod'
-    #force users to use https traffic via nginx
-    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.global-static-ip-name: futurebank
+    kubernetes.io/ingress.class: "gce"
+  name: ingress
+  namespace: default
 spec:
-  tls:
-    #host domains to serve traffic
-    - hosts:
-        - futurebank.nl
-        - www.futurebank.nl
-      # secret that holds cert to allow https
-      #secretName: channel16-dev 
   rules:
-    #apply these rules to this host
-    #www is not applied, need to copy host as per below
-    - host: futurebank.nl
-      http:
-        paths: 
-          #2 paths with rules
-          # first rule send / requests to client pods
-          # second send /api/ requests to server pods
-          - path: /?(.*)
-            backend: 
-              serviceName: front-end-service
-              servicePort: 4200 
-          - path: /api/?(.*)
-            backend:
-              serviceName: django-service
-              servicePort: 8080
-          - path: /socket.io?(.*)
-            backend:
-              serviceName: chatserver-service
-              servicePort: 3000
-    - host: www.futurebank.nl
-      http:
-        paths: 
-          #2 paths with rules
-          # first rule send / requests to client pods
-          # second send /api/ requests to server pods
-          - path: /?(.*)
-            backend: 
-              serviceName: front-end-service
-              servicePort: 4200 
-          - path: /api/?(.*)
-            backend:
-              serviceName: django-service
-              servicePort: 8080
-          - path: /socket.io?(.*)
-            backend:
-              serviceName: chatserver-service
-              servicePort: 3000
+  - http:
+      paths:
+      - backend:
+          serviceName: front-end-service
+          servicePort: 80
+        path: /
+      - backend:
+          serviceName: front-end-service
+          servicePort: 80
+        path: /*
+      - backend:
+          serviceName: chatserver-service
+          servicePort: 3000
+        path: /socket.io
+      - backend:
+          serviceName: chatserver-service
+          servicePort: 3000
+        path: /socket.io/*
+      - backend:
+          serviceName: django-service
+          servicePort: 8080
+        path: /api/*
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: chatserver-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: chatserver
   ports:
   - port: 3000
+    protocol: TCP
     targetPort: 3000
 ---
 apiVersion: v1
@@ -80,39 +50,25 @@ kind: Service
 metadata:
   name: front-end-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: front-end
   ports:
       #how other other pods access our pod
-    - port: 4200
+    - port: 80
+      protocol: TCP
       #port on target pods (multi-client pod) service talks 
-      targetPort: 4200
+      targetPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: django-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: django
   ports:
   - port: 8080
+    protocol: TCP
     targetPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-nginx-nginx-ingress-controller
-spec:
-  ports:
-  - name: http
-    port: 80
-    targetPort: http
-  - name: https
-    port: 443
-    targetPort: https
-  selector:
-    app: nginx-ingress
-  type: LoadBalancer

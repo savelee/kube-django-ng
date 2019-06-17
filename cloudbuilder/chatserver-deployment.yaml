@@ -18,6 +18,7 @@ spec:
       containers:
       - name: "chatserver-image"
         image: "gcr.io/gke-pipeline-savelee-192517/chatserver-image:latest"
+        imagePullPolicy: Always
         env:
           - name: "GOOGLE_APPLICATION_CREDENTIALS"
             value: /var/secrets/master.json
@@ -61,16 +62,26 @@ spec:
               configMapKeyRef:
                 name: chatserver-config
                 key: LANGUAGE_CODE
-          - name: "GCLOUD_STORAGE_BUCKET"
+          - name: "GCLOUD_STORAGE_BUCKET_NAME"
             valueFrom:
               configMapKeyRef:
                 name: chatserver-config
-                key: GCLOUD_STORAGE_BUCKET
+                key: GCLOUD_STORAGE_BUCKET_NAME
           - name: "DATASET_TEST_METRICS"
             valueFrom:
               configMapKeyRef:
                 name: chatserver-config
                 key: DATASET_TEST_METRICS
+          - name: "TABLE"
+            valueFrom:
+              configMapKeyRef:
+                name: chatserver-config
+                key: TABLE
+          - name: "DATASET"
+            valueFrom:
+              configMapKeyRef:
+                name: chatserver-config
+                key: DATASET
           - name: "TABLE_TEST_METRICS"
             valueFrom:
               configMapKeyRef:
