@@ -506,10 +506,11 @@ TODO
     `python manage.py createsuperuser`
     `exit;`
 
-    
-kubectl exec -it django-585776b9f-44n9n -- /bin/bash
 
-12. Get a static IP:
+    For example: kubectl exec -it django-585776b9f-dnpk7 -- /bin/bash
+    
+
+1.  Get a static IP:
 
   A domain name is needed for an SSL certificate. We also want to create a fixed ‘A record’ for it on the name registrar. With an Ingress, the external IP keeps changing as it is deleted and created. We can solve this problem on GCP by reserving an external IP address which we can then assign to the Ingress each time.
 
