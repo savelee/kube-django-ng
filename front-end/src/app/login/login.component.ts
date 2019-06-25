@@ -11,17 +11,24 @@ import { Location } from '@angular/common';
 export class LoginComponent implements OnInit {
     private error: any;
     private username: any;
+    private server: string;
+
     loggedIn: boolean;
-    location: Location;
     model = new UserModel('','','','');
 
     form: FormGroup;
 
-    constructor(location: Location, private http: HttpClient, private formBuilder: FormBuilder, private element: ElementRef) {
-      this.location = location;
+    constructor(private http: HttpClient, private formBuilder: FormBuilder, private element: ElementRef) {
+
       this.loggedIn = false;
       this.error = false;
       this.http = http;
+
+      if(location.hostname == "localhost" && location.port == "4200"){
+        this.server = `${location.protocol}//${location.hostname}:8080`
+      } else {
+        this.server = `${location.protocol}//${location.hostname}/api/`;
+      }
     }
 
     ngOnInit(){
@@ -43,14 +50,7 @@ export class LoginComponent implements OnInit {
         var username = f.get('username').value;
         var password = f.get('password').value;
 
-        var server = "";
-        if(location.hostname == "localhost" && location.port == "4200"){
-          server = location.protocol+'//'+location.hostname+ ':8080/authenticate/'
-        } else {
-          server = `${location.protocol}//${location.hostname}/api/authenticate/`;
-        }
-
-        this.http.post(server, {
+        this.http.post(`${this.server}/authenticate/`, {
             "username": username, 
             "password": password 
         }).subscribe(token => {
@@ -77,15 +77,10 @@ export class LoginComponent implements OnInit {
     private setSession(auth) {
         localStorage.setItem('token', auth.token);
         
-        //TODO
-        var usersUrl = location.protocol+'//'+location.hostname+'/api/users/current/?format=json';
-        if(location.hostname == "localhost" && location.port == "4200"){
-          usersUrl = location.protocol+'//'+location.hostname+ ':8080/users/current/?format=json'
-        }
+        var usersUrl = `${this.server}/users/current/?format=json`
         this.http.get(usersUrl).subscribe(user => {
             localStorage.setItem('user', JSON.stringify(user));
-        });
-        
+        });  
     } 
 
 }

@@ -74,15 +74,18 @@ export class BalanceComponent implements OnInit {
     this.balanceDataSource1.filter = filterValue.trim().toLowerCase();
   }
 
+  
   spentFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function(data, filter): boolean {
-      return data.CATEGORY.toLowerCase().indexOf(filter) !== -1 && data.AMOUNT.indexOf('-') !== -1;
+      // Filter the grid data with the search query, look for amounts that are negative, cause you are spending.
+      return data.CATEGORY.toLowerCase().indexOf(filter) !== -1 && data.AMOUNT.indexOf('-') != -1;
     }
     return filterFunction;
   }
 
   incomeFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function(data, filter): boolean {
+      // Filter the grid data with the search query, look for amounts that are positive, it's incoming money
       return data.CATEGORY.toLowerCase().indexOf(filter) !== -1 && data.AMOUNT.indexOf('-') == -1;
     }
     return filterFunction;
@@ -91,28 +94,23 @@ export class BalanceComponent implements OnInit {
 
   ngOnInit() {
     const me = this;
-    // only in localhost
-    let server = location.protocol+'//'+location.hostname;
-    if (location.hostname === 'localhost' && location.port === '4200'
-  || location.hostname === 'localhost' && location.port === '4000'){
-      server = location.protocol +  '//'+ location.hostname + ':3000'
-    } else {
-      // server = location.protocol+'//'+location.hostname+ '/socket.io';
-    }
 
-    console.log(server);
+    // NGNIX will route /socket.io to port 3000 in production
+    let server = location.protocol+'//'+location.hostname;
+    if(location.hostname == "localhost" && location.port == "4200"){
+      server = `${location.protocol}//${location.hostname}:3000`
+    }
 
     this.server = io(server);
     this.server.on('agentmsg', function(data) {
-      console.log(data);
-      if (data.username === 'BalanceBot' && data.message.action === 'spent') {
-        const category = data.message.param;
+      if (data.username === 'BalanceBot' && data.message[0].action === 'spent') {
+        const category = data.message[0].param;
         // filter on spent
         me.balanceDataSource1.filterPredicate = me.spentFilter();
         me.applyFilter(category);
       }
-      if (data.username === 'BalanceBot' && data.message.action === 'income'){
-        const category = data.message.param;
+      if (data.username === 'BalanceBot' && data.message[0].action === 'income'){
+        const category = data.message[0].param;
 
         // Filter on Salary
         me.balanceDataSource1.filterPredicate = me.incomeFilter();
