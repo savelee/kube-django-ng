@@ -503,12 +503,13 @@ TODO
 
     `kubectl exec -it [podname] -- /bin/bash`
     `python manage.py migrate`
+    `python manage.py collectstatic`
     `python manage.py createsuperuser`
     `exit;`
 
 
-    For example: kubectl exec -it django-585776b9f-dnpk7 -- /bin/bash
-    
+    For example: kubectl exec -it django-585776b9f-wx52b  -- /bin/bash
+    kubectl exec -it front-end-79bb7f4f45-jw7p9-- /bin/bash
 
 1.  Get a static IP:
 

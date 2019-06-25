@@ -29,10 +29,11 @@ router.register(r'groups', views.GroupViewSet)
 urlpatterns = [
     url('', admin.site.urls),
     url(r'^', include(router.urls)),
+    url(r'^api/', include(router.urls)),
     url(r'^authenticate/', obtain_jwt_token),
     url(r'^api/authenticate/', obtain_jwt_token),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='api')),
+    url(r'^api/api-auth/', include('rest_framework.urls', namespace='api')),
     url(r'^api-token-refresh/', refresh_jwt_token),
     url(r'^api/api-token-refresh/', refresh_jwt_token),
     url(r'^api-token-verify/', verify_jwt_token),
