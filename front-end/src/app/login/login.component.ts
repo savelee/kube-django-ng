@@ -24,10 +24,9 @@ export class LoginComponent implements OnInit {
       this.error = false;
       this.http = http;
 
+      this.server = `${location.protocol}//${location.hostname}/api`;
       if(location.hostname == "localhost" && location.port == "4200"){
         this.server = `${location.protocol}//${location.hostname}:8080`
-      } else {
-        this.server = `${location.protocol}//${location.hostname}/api/`;
       }
     }
 
