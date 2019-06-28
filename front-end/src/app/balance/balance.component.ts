@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -149,7 +149,7 @@ const account1Feed = {
     LOGO : '../../assets/img/logos/tcalogo.png',
     NAME : 'TCA',
     TIME : '10 min ago',
-    ALT_TIME: '28/11/2018 10:02',
+    ALT_TIME: '28/11/2019 10:02',
     AMOUNT: '-$10.99',
     MAPS: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.7995042963175!2d4.86977811605297!3d52.33778327978019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle!5e0!3m2!1snl!2sus!4v1536682639147',
     CATEGORY: 'Taxis'
@@ -158,16 +158,16 @@ const account1Feed = {
     LOGO : '../../assets/img/logos/gamemania.png',
     NAME : 'GameShop',
     TIME : 'yesterday 15:12',
-    ALT_TIME: '27/11/2018 15:12',
+    ALT_TIME: '27/11/2019 15:12',
     AMOUNT: '-$59.99',
     MAPS: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.7995042963175!2d4.86977811605297!3d52.33778327978019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle!5e0!3m2!1snl!2sus!4v1536682639147',
-    CATEGORY: 'Fun'
+    CATEGORY: 'Shopping'
   },
   {
     LOGO : '../../assets/img/logos/profile.png',
     NAME : 'Michele Appello',
     TIME : 'yesterday 12:00',
-    ALT_TIME: '27/11/2018 12:00',
+    ALT_TIME: '27/11/2019 12:00',
     AMOUNT: '$80.00',
     DETAILS: 'Money for Dinner',
     MAPS: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.7995042963175!2d4.86977811605297!3d52.33778327978019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle!5e0!3m2!1snl!2sus!4v1536682639147',
@@ -177,9 +177,9 @@ const account1Feed = {
     LOGO : '../../assets/img/logos/google.png',
     NAME : 'Company Foo',
     TIME : '26/11 11:20',
-    ALT_TIME: '26/11/2018 11:20',
+    ALT_TIME: '26/11/2019 11:20',
     AMOUNT: '$3000.00',
-    DETAILS: 'Salary August 2018',
+    DETAILS: 'Salary August 2019',
     MAPS: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.7995042963175!2d4.86977811605297!3d52.33778327978019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle!5e0!3m2!1snl!2sus!4v1536682639147',
     CATEGORY: 'Salary'
   },
@@ -187,7 +187,7 @@ const account1Feed = {
     LOGO : '../../assets/img/logos/bank.png',
     NAME : 'The Future Bank',
     TIME : '25/11 09:00',
-    ALT_TIME: '25/11/2018 09:00',
+    ALT_TIME: '25/11/2019 09:00',
     AMOUNT: '-$1500.00',
     DETAILS: 'Mortgage',
     MAPS: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.7995042963175!2d4.86977811605297!3d52.33778327978019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle!5e0!3m2!1snl!2sus!4v1536682639147',
@@ -197,7 +197,7 @@ const account1Feed = {
     LOGO : '../../assets/img/logos/profile.png',
     NAME : 'Utility Company',
     TIME : '24/11 09:00',
-    ALT_TIME: '24/11/2018 09:00',
+    ALT_TIME: '24/11/2019 09:00',
     AMOUNT: '-$230.00',
     DETAILS: 'Electricy',
     MAPS: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.7995042963175!2d4.86977811605297!3d52.33778327978019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle!5e0!3m2!1snl!2sus!4v1536682639147',
@@ -207,17 +207,17 @@ const account1Feed = {
     LOGO : '../../assets/img/logos/profile.png',
     NAME : 'Grocery Store',
     TIME : '23/11 18:10',
-    ALT_TIME: '23/11/2018 18:10',
+    ALT_TIME: '23/11/2019 18:10',
     AMOUNT: '-$23.40',
     DETAILS: 'Groceries',
     MAPS: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.7995042963175!2d4.86977811605297!3d52.33778327978019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle!5e0!3m2!1snl!2sus!4v1536682639147',
-    CATEGORY: 'Groceries'
+    CATEGORY: 'Shopping'
   },
   {
     LOGO : '../../assets/img/logos/tcalogo.png',
     NAME : 'TCA',
     TIME : '22/11 18:10',
-    ALT_TIME: '22/11/2018 22:42',
+    ALT_TIME: '22/11/2019 22:42',
     AMOUNT: '-$8.75',
     MAPS: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.7995042963175!2d4.86977811605297!3d52.33778327978019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle!5e0!3m2!1snl!2sus!4v1536682639147',
     CATEGORY: 'Taxis'
@@ -226,7 +226,7 @@ const account1Feed = {
     LOGO : '../../assets/img/logos/pizza.png',
     NAME : 'Pizza Restaurant',
     TIME : '19/11 18:10',
-    ALT_TIME: '19/11/2018 22:42',
+    ALT_TIME: '19/11/2019 22:42',
     AMOUNT: '-$10.99',
     MAPS: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.7995042963175!2d4.86977811605297!3d52.33778327978019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle!5e0!3m2!1snl!2sus!4v1536682639147',
     CATEGORY: 'Restaurants'
@@ -235,7 +235,7 @@ const account1Feed = {
     LOGO : '../../assets/img/logos/profile.png',
     NAME : 'Michele Appello',
     TIME : '18/11 12:00',
-    ALT_TIME: '18/11/2018 12:00',
+    ALT_TIME: '18/11/2019 12:00',
     AMOUNT: '-$55',
     DETAILS: 'Money for Dinner last night',
     MAPS: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2437.7995042963175!2d4.86977811605297!3d52.33778327978019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c60a05af168f5b%3A0x3e5bfe6e0b2ce441!2sGoogle!5e0!3m2!1snl!2sus!4v1536682639147',
