@@ -280,7 +280,6 @@ export class FileDirectory extends Set {
         let me = this;
 
         this.forEach(function(_key: number, file: file) {
-            console.log(file);
             // the file does not exist in the other directory
             // thus the file is new
             let otherFile = otherFileDir.has(file);
@@ -292,7 +291,6 @@ export class FileDirectory extends Set {
                 }
                 difference.add(f);
             } else {
-                console.log(otherFile);
                 if (otherFile.size != file.size) {
                     // the file exists in both directories but thte file size differs
                     // thus the file has been edited
