@@ -17,12 +17,11 @@
  */
 
 import * as dotenv from 'dotenv';
-import { exec } from 'child_process';
 import { dialogflow } from './dialogflow';
 import { analytics } from './analytics';
 import { Storage } from '@google-cloud/storage';
-import { compare, Options } from "dir-compare";
-import * as fs from 'fs';
+import { FileDirectory } from "./set";
+import * as unzip from 'unzipper';
 
 dotenv.config();
 
@@ -61,7 +60,6 @@ export class Acceptance {
     private test: Environment;
     private prod: Environment;
     private storage: Storage;
-    private directory: string;
     private bucket: string;
     private fileDate: string;
    
@@ -72,8 +70,6 @@ export class Acceptance {
             process.env.TEST_AGENT_PROJECT_ID);
         this.prod = new Environment('prodAgent',
             process.env.GCLOUD_PROJECT);
-        
-        this.directory = 'tmp/';
         this.bucket = process.env.GCLOUD_STORAGE_BUCKET_NAME;
 
         this.storage = new Storage();
@@ -99,16 +95,8 @@ export class Acceptance {
      * Rollback Production Dialogflow agent to Test agent
      */
     public rollback(): Promise<void>{
-        return this._rollback(this.prod, this.test);
+        return this._deployAgentToAgent(this.prod, this.test);
     }
-
-    /**
-     * Rollback Dev Dialogflow agent to Test agent
-     */
-    public rollbackDev(): Promise<void>{
-        return this._rollback(this.dev, this.test);
-    }
-
 
     /**
      * Find the Differences between Dev and Test
@@ -128,13 +116,11 @@ export class Acceptance {
      * @param {string} fileName - the intent file name.
      * @param {Function} cb - Callback function to execute.
      */
-    public fetchUserPhrases(fileName: string, cb: Function): void {
-        if (!fileName) return;
-        let intentName = fileName.replace('/','').replace('.json', '');
+    public fetchUserPhrases(intentName: string, cb: Function): void {
+        if (!intentName) return;
+        intentName = intentName.replace('intents/', '');
         let languageCode = intentName.split('_usersays_')[1];
         let intentNameShort = intentName.split('_usersays_')[0];
-
-        console.log(intentNameShort);
 
         dialogflow.getAllTestIntents(languageCode).then(responses => {
             const intents = responses[0];
@@ -245,15 +231,17 @@ export class Acceptance {
      * @return {Promise<void>} - Import in the other agent.
      */
     private async _deployAgentToAgent(from: Environment, to: Environment): Promise<void> {
+        // create versions based on date
         this._setFileDate();
 
-        // run a diff
-        this._runDiff(from, to).then(changes => {
-            this._makeZip(changes, to).then((path) => {
-                this._importAgent(path, to).then(() => {
-                    console.log(`Done Importing`);
-                });
-            });
+        // download from files in gcs, to have a dev version to upload
+        await this._exportAgent(from);
+        
+        // path to zip on GCS
+        const remoteFile = `gs://${this.bucket}/${from['name']}-${this.fileDate}.zip`;
+        
+        dialogflow.restoreAgent(remoteFile, to['projectId']).then(() => {
+            console.log(`Done Importing`);
         });
     }
 
@@ -272,145 +260,47 @@ export class Acceptance {
     }
 
     /**
-     * Rollback environments from one agent to another
-     * @param {Environment} from agent 
-     * @param {Environment} to destination agent
-     * @return {Promise<void>}
-     */
-    private async _rollback(from: Environment, to: Environment): Promise<void> {
-        this._setFileDate();
-
-        // download prod files
-        await this._exportAgent(from);
-        // download testAgent files
-        await this._exportAgent(to);
-
-        let zipPath = `${this.directory}${from['name']}-${this.fileDate}.zip`;
-
-        return new Promise((resolve, reject) => {
-            console.log(`Reading ${zipPath}`);
-            fs.readFile((zipPath), (err, data) => {
-              if (err) reject(err);
-              else resolve(data);
-            });
-        }).then(data => {
-          console.log(`Restoring ${from['name']} to ${to['projectId']}`);
-          return dialogflow.restoreAgent({
-            parent: 'projects/' + to['projectId'],
-            agentContent: (data as Buffer).toString('base64')
-        });
-        }).catch(err => {
-          console.error(err);
-        });
-    }
-
-
-    /**
      * Compare 2 environment folders on the file system
      * @param {Environment} from 
      * @param {Environment} to 
-     * @return {Promise<object[]>} changes array
+     * @return {Promise<FileDirectory>} changes FileDirectory Set
      */
-    private async _runDiff(from: Environment, to: Environment): Promise<object[]> {
-
-        // download devAgent files
+    private async _runDiff(from: Environment, to: Environment): Promise<FileDirectory> {
+        // download test zip in gcs
         await this._exportAgent(from);
-        // download testAgent files
+        // download prod zip in gcs to compare
         await this._exportAgent(to);
 
-        let path1 = `${this.directory}${from['name']}`;
-        let path2 = `${this.directory}${to['name']}`;
-        let options: Partial<Options> = {
-            compareSize: true,
-            compareContent: true,
-            excludeFilter: 'agent.json,package.json' 
-        };
-        
-        return compare(path1, path2, options).then(res => {
-            let changes = [], i = 0;
-            for (i; i < res.diffSet.length; i++) {
-                if (res.diffSet[i].state !== 'equal' && 
-                    res.diffSet[i].state !== 'distinct')
-                {
-                    changes.push(res.diffSet[i]);
-                }
-            }
-            return changes;
-        })
-    }
+        return new Promise(async (resolve, _reject) => {
+            let fromDir = new FileDirectory();
+            const [filesFrom] = await this.storage.bucket(this.bucket).getFiles({ prefix: `${from['name']}/` });
+            let toDir = new FileDirectory();
+            const [filesTo] = await this.storage.bucket(this.bucket).getFiles({ prefix: `${to['name']}/` });
 
-    /**
-     * Build the zip to upload to Dialogflow
-     * First create a temp prepare folder.
-     * Then copy files over from the destination folder
-     * to the prepare folder. Then zip it to newAgent.zip.
-     * @param {object[]} changeList - array with change objects
-     * @param {Environment} destination - to environment
-     * @return {Promise<any>} - make the zip
-     */
-    private async _makeZip(changeList: object[], destination: Environment): Promise<any> {
-        let i = 0;
-        let folder = `${this.directory}prepare`;
-        
-        return new Promise((resolve, reject) => {
-            console.log('Create a temp folder.');
-            exec(`rm -rf ${folder} && mkdir ${folder} && mkdir ${folder}/entities && mkdir ${folder}/intents`, (err) => {
-                if (err) reject(err);
-                else resolve();
-            });
-        }).then(() => {
-            return new Promise((resolve, reject) => {
-                console.log(`Copy new files to ${folder}`);
-                for (i; i < changeList.length; i++) {
-                    if (changeList[i]['path1']) {
-                        if (changeList[i]['name1'] !== '.DS_Store') {
-                            let name = changeList[i]['name1'].replace(/ /g,"\\ ");
-                            exec(`cp ./${changeList[i]['path1']}/${name} ${folder}${changeList[i]['relativePath']} && cp ./tmp/${destination['name']}/agent.json ${folder} && cp ./tmp/${destination['name']}/package.json ${folder}`, (err) => {
-                                if (err) reject(err);
-                                else resolve();
-                            });
-                        }
-                    } else {
-                        // TODO intent will need to be removed.
-                        // dialogflow.removeIntent();
-                    }
+            filesFrom.forEach(file => {
+                if (file.name.indexOf('.zip') == -1 && file.name.indexOf('package.json') == -1){
+                    let newName = file.metadata.name.replace(`${from['name']}/`, '').replace('.json', '');
+                    fromDir.add({
+                        name: newName,
+                        size: parseInt(file.metadata.size)
+                    });
                 }
             });
-        }).then(() => {
-            return new Promise((resolve, reject) => {
-                console.log(`Zipping newAgent.zip`);
-                exec(`cd ${folder}; zip -r newAgent.zip *`, (err) => {
-                    if (err) reject(err);
-                    else resolve(`${folder}/newAgent.zip`);
-                });
+    
+            filesTo.forEach(file => {
+                if (file.name.indexOf('.zip') == -1 && file.name.indexOf('package.json') == -1){
+                    let newName = file.metadata.name.replace(`${to['name']}/`, '').replace('.json', '');
+                    toDir.add({
+                        name: newName,
+                        size: parseInt(file.metadata.size)
+                    });
+                }
             });
-        }).catch(err => {
-            console.error(err);
-        });
-    }
 
-    /**
-     * Import Agent from a certain path to the destination environment.
-     * @param {string} zipPath 
-     * @param {Environment} to destination
-     * @return {Promise<void>}
-     */
-    private _importAgent(zipPath: string, to: Environment): Promise<void> {
-        return new Promise((resolve, reject) => {
-            console.log(`Reading ${zipPath}`);
-            fs.readFile((zipPath), (err, data) => {
-              if (err) reject(err);
-              else resolve(data);
-            });
-        }).then(data => {
-          console.log(`Importing project to ${to['projectId']}`);
-          return dialogflow.importAgent({
-            parent: 'projects/' + to['projectId'],
-            agentContent: (data as Buffer).toString('base64')
-          });
-        }).catch(err => {
-          console.error(err);
-        });
+            let differences = fromDir.diff(toDir);
+
+            resolve(differences);
+        });        
     }
 
     /**
@@ -420,7 +310,8 @@ export class Acceptance {
      */
     private async _exportAgent(from: Environment): Promise<any> {
         let fileName = `${from['name']}-${this.fileDate}.zip`;
-        
+        const remoteFile = this.storage.bucket(this.bucket).file(`${fileName}`)
+    
         return dialogflow.exportAgent(from['projectId'], `gs://${this.bucket}/${fileName}`)
           .then(responses => {
             const [operation] = responses;
@@ -429,20 +320,28 @@ export class Acceptance {
             return operation.promise();
           })
           .then(() => {
-                const options = {
-                    // The path to which the file should be downloaded, e.g. "./file.txt"
-                    destination: `${this.directory}${fileName}`,
-                };
-                console.log(`Download ${fileName} to ${options.destination}.`);
-                return this.storage.bucket(this.bucket).file(`${fileName}`)
-                    .download(options);
-          })
-          .then(() => {
-            console.log(`Unzipping to ${this.directory}${from['name']}`);
             return new Promise((resolve, reject) => {
-                exec(`rm -rf ${this.directory}${from['name']} && unzip -x ${this.directory}${fileName} -d ${this.directory}${from['name']}`, (err) => {
-                    if (err) reject(err);
-                    else resolve();
+                console.log(`Unzipping to GCS gs://${this.bucket}/${fileName}`);
+                remoteFile.createReadStream()
+                .on('error', err => {
+                    console.error(err);
+                    reject(err);
+                })
+                .on('end', () => {
+                    console.log(`Finished unpacking files in gs://${this.bucket}/${fileName}`)
+                    resolve();
+                })
+                .pipe(unzip.Parse())
+                .on('entry', entry => {
+                    const file = this.storage.bucket(this.bucket).file(`${from['name']}/${entry.path}`)
+                    entry.pipe(file.createWriteStream())
+                    .on('error', err => {
+                        console.log(err);
+                    })
+                    .on('finish', () => {
+                        //console.log(`Finsihed extracting ${from['name']}/${entry.path}`)
+                    });
+                    entry.autodrain();
                 });
             });
           })

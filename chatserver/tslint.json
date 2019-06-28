@@ -58,6 +58,7 @@
     "no-relative-imports": false,
     "no-switch-case-fall-through": true,
     "no-use-before-declare": true,
+    "no-unused-parameters": false,
     "no-var-requires": false,
     "object-literal-key-quotes": [
       true,

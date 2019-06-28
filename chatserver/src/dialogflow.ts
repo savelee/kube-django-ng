@@ -82,27 +82,36 @@ export class Dialogflow {
      * @return {Promise<void>}
      */
     public async exportAgent(projectId:string, bucketUri:string): Promise<any> {
-        return this.agentClient.exportAgent({parent: 'projects/' + projectId,
-            agentUri: bucketUri});
+        return this.agentClient.exportAgent({
+            parent: 'projects/' + projectId,
+            agentUri: bucketUri
+        });
     }
 
-    /**
-     * Import Agent 
-     * Import new intents and entities without deleting
-     * @param {agentConfig} Dialogflow agent config
+     /**
+     * Import Agent from a certain path to the destination environment.
+     * @param {File} zipPath location of the zip to upload
+     * @param {string} projectId the projectId of the agent to upload the zip to
      * @return {Promise<void>}
      */
-    public async importAgent(to: agentConfig):Promise<void> {
-        return this.agentClient.importAgent(to);
+    public async importAgent(remoteFile: any, projectId: string): Promise<void> {
+        return this.agentClient.importAgent({
+            parent: `projects/${projectId}`,
+            agentUri: remoteFile
+          });
     }
 
-    /**
-     * Restore (Replace) Dialogflow Agent with new one.
-     * @param {agentConfig} Dialogflow agent config
+     /**
+     * Import Agent from a certain path to the destination environment.
+     * @param {string} zipPath location of the zip to upload
+     * @param {string} projectId the projectId of the agent to upload the zip to
      * @return {Promise<void>}
      */
-    public async restoreAgent(to: agentConfig): Promise<void> {
-        return this.agentClient.restoreAgent(to);
+    public async restoreAgent(remoteFile: any, projectId: string): Promise<void> {
+        return this.agentClient.restoreAgent({
+            parent: `projects/${projectId}`,
+            agentUri: remoteFile
+          });
     }
 
     /**

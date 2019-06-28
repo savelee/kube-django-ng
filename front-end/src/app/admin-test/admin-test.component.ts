@@ -41,7 +41,7 @@ export class AdminTestComponent implements OnInit {
   public testLanguages: string[];
 
   public userphrases: string[];
-  public diffCols: string[] = ['name1', 'relativePath', 'type2', 'action'];
+  public diffCols: string[] = ['name', 'status', 'action'];
   
 
   public changes: DiffDataSource;
@@ -137,7 +137,12 @@ export class AdminTestComponent implements OnInit {
       const observable = new Observable<any>(observer => {
         // When we receive a customer message, display it
         this.server.on('acceptanceOutput', function(values) {
-          observer.next(values);
+          let items = [];
+          for (var key in values.items) {
+            if (!values.items.hasOwnProperty(key)) continue;
+            items.push(values.items[key])
+          }
+          observer.next(items);
         });
 
         return () => {
@@ -183,15 +188,9 @@ export class AdminTestComponent implements OnInit {
 /* MODELS */
 
 export interface ChangeData {
-  date1: any;
-  level: number;
-  name1: string;
-  path1: string;
-  relativePath: string;
-  size1: number;
-  state: string;
-  type1: string;
-  type2: string;
+  name: string;
+  size: number;
+  status: string;
 }
 
 export interface TestResultData { 

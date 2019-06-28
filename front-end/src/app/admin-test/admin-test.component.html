@@ -17,12 +17,10 @@
         </p>
         <button mat-raised-button color="primary" (click)="onClickDeployDevtoTest($event)">Deploy Dev to Test</button>
         <p>
-          Deploy to Production or Rollback:
+          Rollback or Deploy to Production:
         </p>
         &nbsp;
         <button mat-raised-button color="red" (click)="onClickRollback($event)">Rollback Production to Test</button>
-        &nbsp;
-        <button mat-raised-button color="red" (click)="onClickRollbackDev($event)">Rollback Dev to Test</button>
         &nbsp; | &nbsp;
         <button mat-raised-button color="green" (click)="onClickDeployTesttoProd($event)">Deploy Test to Production</button>
         <p></p>
@@ -30,31 +28,26 @@
 
         <h2>Get all agent changes</h2>
         <p>
-          Display the differences between current <b>Test</b> and latest <b>Dev</b> version.
+          Display the differences between current <b>Test</b> and latest <b>Production</b> version.
           You will need to deploy the Dev environment to Test first.
         </p>
         <button mat-raised-button color="primary" (click)="onClickRunDiff($event)">Run Diff</button>
         
         <table mat-table [dataSource]="changes" class="difftable">
-          <ng-container matColumnDef="name1">
-            <th mat-header-cell *matHeaderCellDef>File</th>
-            <td mat-cell *matCellDef="let item">{{item.name1 }}</td>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Intent</th>
+            <td mat-cell *matCellDef="let item"> {{ item.name}}</td>
           </ng-container>
         
-          <ng-container matColumnDef="relativePath">
-              <th mat-header-cell *matHeaderCellDef>Path</th>
-              <td mat-cell *matCellDef="let item">{{item.relativePath}}</td>
-            </ng-container>
-
-          <ng-container matColumnDef="type2">
+          <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef>State</th>
-            <td mat-cell *matCellDef="let item">{{item.type2}}</td>
+            <td mat-cell *matCellDef="let item">{{item.status}}</td>
           </ng-container>
 
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let item">
-              <div *ngIf="item.relativePath == '/intents'">
+              <div *ngIf="item.name.indexOf('_usersays_') != -1">
                 <button mat-raised-button color="primary" (click)="onClickLoadUserPhrases($event, item)">Load user phrases</button>
               </div>
             </td>

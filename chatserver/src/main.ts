@@ -199,12 +199,9 @@ export class App {
             case 'rollback':
               acceptance.rollback();
               break;
-            case 'rollbackDev':
-              acceptance.rollbackDev();
-              break;
             case 'loadUserPhrases':
-              if (item && item['name1']) {
-                acceptance.fetchUserPhrases(item['name1'], function(result) {
+              if (item && item['name']) {
+                acceptance.fetchUserPhrases(item['name'], function(result) {
                   client.emit('loadUserPhrases', result);
                 });
               }
