@@ -23,9 +23,15 @@ It also pushes the contents to Pub/Sub.
 A cloud function has a subscription on the Pub/Sub channel.
 See also the **cloudfunctions** folder.
 
-Everytime a message comes in, the message will be passed to the NLP API to detect the sentiment,
-and to BigQuery. We run the BigQuery queries in a dashboard.
-The **bq** folder contains the queries.
+Everytime a message comes in, the message will be passed to the NLP API to detect the sentiment, DLP API to remove sensitive information
+and to BigQuery. We run the BigQuery queries in a real-time dashboard on the front-end.
+The **bq** folder contains sample the queries.
+
+On top of this, this project contains an continious integration flow. Conversational designers can work in a **Dev Dialogflow Agent**.
+Changes made, can be pushed to a **Test Dialogflow Agent**, by copying the contents in **Cloud Storage**, which will show the differences in a test screen on the front-end. From there, you
+can run *unit tests* on the conversations, before
+deploying it to the **Production Dialogflow Agent.**
+
 
 [![Banking Portal Demo](https://img.youtube.com/vi/KhB0hwlyZkg/3.jpg)](https://youtu.be/KhB0hwlyZkg?t=298)
 
