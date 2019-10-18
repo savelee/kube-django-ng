@@ -43,7 +43,7 @@ deploying it to the **Production Dialogflow Agent.**
 
 ### Automatic Setup on Google Cloud Platform:
 
-[![Open in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https%3A%2F%2Fgithub.com%2Fsavelee%2Fkube-django-ng&cloudshell_working_dir=cloudbuilder&cloudshell_tutorial=TUTORIAL.md)
+[![Open in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https%3A%2F%2Fgithub.com%2Fsavelee%2Fkube-django-ng&cloudshell_tutorial=TUTORIAL.md)
 
 Guided one click installation from Google Cloud Shell. No client tooling required.
 

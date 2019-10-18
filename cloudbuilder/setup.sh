@@ -165,7 +165,8 @@ kubectl create configmap chatserver-config \
   --from-literal "GCLOUD_STORAGE_BUCKET_NAME=$GCLOUD_STORAGE_BUCKET_NAME"
 
 bold "Starting deployments..."
-gcloud builds submit --config setup.yaml \
+
+gcloud builds submit --config cloudbuilder/setup.yaml \
 --substitutions _REGION=$REGION,_GKE_CLUSTER=$GKE_CLUSTER
 
 kubectl apply -f ingress.yaml
