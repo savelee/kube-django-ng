@@ -15,38 +15,34 @@ steps:
     - 'CLOUDSDK_COMPUTE_ZONE=$REGION'
     - 'CLOUDSDK_CONTAINER_CLUSTER=$GKE_CLUSTER'
 
-# Build ChatServer Container
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/chatserver-image', '../chatserver' ]
 
 # Build Django Container
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/django-image', '../server' ]
-
-
-# Push updated ChatServer Container
-- id: 'Push ChatServer image to registry'
-  name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/$PROJECT_ID/chatserver-image' ]
-
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/django-image', '~/kube-django-ng/server' ]
 # Push updated Django Container
 - id: 'Push Django image to registry'
   name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/django-image' ]
-
-
-
-# Deploy all in the Cloud
-- name: 'gcr.io/cloud-builders/kubectl'
-  args: [ 'apply', '-f', 'cloudbuilder/chatserver-deployment.yaml' ]
-  env:
-    - 'CLOUDSDK_COMPUTE_ZONE=europe-west4-a'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
-
 # Deploy all in the Cloud
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-f', 'cloudbuilder/django-deployment.yaml' ]
   env:
-    - 'CLOUDSDK_COMPUTE_ZONE=europe-west4-a'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
+    - 'CLOUDSDK_COMPUTE_ZONE=$REGION'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=$GKE_CLUSTER'
+
+
+  # Build ChatServer Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/chatserver-image', '~/kube-django-ng/chatserver' ]
+# Push updated ChatServer Container
+- id: 'Push ChatServer image to registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/chatserver-image' ]
+# Deploy all in the Cloud
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'cloudbuilder/chatserver-deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=$REGION'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=$GKE_CLUSTER'
+
 

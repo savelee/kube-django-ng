@@ -165,7 +165,9 @@ kubectl create configmap chatserver-config \
   --from-literal "GCLOUD_STORAGE_BUCKET_NAME=$GCLOUD_STORAGE_BUCKET_NAME"
 
 bold "Starting deployments..."
-gcloud builds submit --config setup.yaml
+gcloud builds submit --config setup.yaml \
+--substitutions PROJECT_ID=$PROJECT_ID, REGION=$REGION, GKE_CLUSTER=$GKE_CLUSTER
+
 kubectl apply -f ingress.yaml
 
 bold "Setup network addresses"
