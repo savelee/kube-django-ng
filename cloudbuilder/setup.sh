@@ -187,8 +187,6 @@ bold "Starting deployments..."
 gcloud builds submit --config ./cloudbuilder/deploy.yaml \
 --substitutions _REGION=$REGION,_GKE_CLUSTER=$GKE_CLUSTER
 
-kubectl apply -f ingress.yaml
-
 bold "Setup network addresses"
 gcloud compute --project=$PROJECT_ID addresses create $GKE_CLUSTER --global --network-tier=PREMIUM
 
