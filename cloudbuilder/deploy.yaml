@@ -1,4 +1,5 @@
- # Deploy all in the Cloud
+steps:
+# Deploy all in the Cloud
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-f', 'front-end-deployment.yaml' ]
   env:
