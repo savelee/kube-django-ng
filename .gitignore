@@ -233,3 +233,4 @@ testem.log
 Thumbs.db
 
 chatserver/tmp
+chatserver/_local

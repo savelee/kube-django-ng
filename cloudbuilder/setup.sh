@@ -24,20 +24,20 @@ fi
 bold "Starting the setup process in project $PROJECT_ID..."
 bold "Enable APIs..."
 gcloud services enable \
-  container.googleapis.com \
+  automl.googleapis.com \
   bigquery-json.googleapis.com \
   cloudfunctions.googleapis.com \
-  pubsub.googleapis.com \
-  language.googleapis.com \
-  dlp.googleapis.com \
-  automl.googleapis.com \
-  translate.googleapis.com \
-  dialogflow.googleapis.com \
   cloudbuild.googleapis.com \
-  sourcerepo.googleapis.com \
+  container.googleapis.com \
   cloudtrace.googleapis.com \
+  dialogflow.googleapis.com \
+  dlp.googleapis.com \
+  language.googleapis.com \
   logging.googleapis.com \
   monitoring.googleapis.com
+  pubsub.googleapis.com \
+  sourcerepo.googleapis.com \
+  translate.googleapis.com
 
 bold "Creating a service account $SERVICE_ACCOUNT_NAME..."
 
@@ -54,6 +54,13 @@ if [ -z "$SA_EMAIL" ]; then
   exit 1
 fi
 
+bold "Saving the key"
+gcloud iam service-accounts keys create ~/master.json \
+  --iam-account $SERVICE_ACCOUNT_NAME
+
+bold "Creating Storage bucket"
+gsutil mb gs://$GCLOUD_STORAGE_BUCKET_NAME/
+
 bold "Adding policy binding to $SERVICE_ACCOUNT_NAME email: $SA_EMAIL"
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
@@ -63,10 +70,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --role roles/bigquery.jobUser
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
-  --role roles/pubsub.editor
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/pubsub.viewer
+  --role roles/clouddebugger.agent
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/dialogflow.admin
@@ -75,17 +79,26 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --role roles/dialogflow.reader
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
-  --role roles/clouddebugger.agent
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
   --role roles/errorreporting.admin
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/logging.logWriter
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$SA_EMAIL \
+  --role roles/pubsub.editor
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$SA_EMAIL \
+  --role roles/pubsub.viewer
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$SA_EMAIL \
+  --role roles/storage.editor
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$SA_EMAIL \
+  --role roles/storage.viewer
 
 bold "Creating Cloud Functions..."
 gcloud functions deploy $CF_ANALYTICS \ 
---region=europe-west1 \
+--region=$REGION_ALTERNATIVE \
 --memory=512MB \
 --trigger-topic=$TOPIC_ANALYTICS
 --retry \ 
@@ -96,6 +109,24 @@ gcloud functions deploy $CF_ANALYTICS \
 --entry-point=subscribe \
 --update-labels=[DATASET=$DATASET_ANALYTICS,TABLE=$TABLE_ANALYTICS]] 
 
+bold "Creating BQ dataset"
+bq --location=$BQ_LOCATION mk \
+$DATASET
+
+bold "Creating Test Metrics BQ dataset"
+bq --location=$BQ_LOCATION mk \
+$DATASET_TEST_METRICS
+
+bold "Creating BQ table"
+bq mk \
+$DATASET.$TABLE \
+$SCHEMA
+
+bold "Creating Test Metrics BQ table"
+bq mk \
+$DATASET.$TABLE \
+$SCHEMA_TEST_METRICS
+
 bold "Creating cluster..."
 gcloud container clusters create $GKE_CLUSTER \ 
     --region $REGION \
@@ -104,26 +135,35 @@ gcloud container clusters create $GKE_CLUSTER \
     --enable-autoupgrade \
     --enable-autorepair \
     --enable-stackdriver-kubernetes \
-    --min-nodes 1 \
-    --max-nodes 4 \
+    --min-nodes $MIN_NODES \
+    --max-nodes $MAX_NODES \
     --scopes "https://www.googleapis.com/auth/cloud-platform"
 gcloud container clusters get-credentials $GKE_CLUSTER --zone $REGION
 
-bold "Install service account secret..."
+bold "Create a secret from your service account"
+kubectl create secret generic credentials --from-file=~/master.json
+
+bold "Create GKE Configmap..."
 kubectl create configmap chatserver-config \
-    --from-literal "GCLOUD_PROJECT=$PROJECT_ID" \
-    --from-literal "TOPIC=$TOPIC_ANALYTICS" \
-    --from-literal "DATASET=$DATASET_ANALYTICS" \ 
-    --from-literal "TABLE=$TABLE_ANALYTICS" \
-    --from-literal "LANGUAGE_CODE=$LANGUAGE_CODE" \
-    --from-literal "MY_CHATBASE_KEY=$MY_CHATBASE_KEY" \ 
-    --from-literal "MY_CHATBASE_VERSION=$MY_CHATBASE_VERSION" \
-    --from-literal "MY_CHATBASE_NAME=$MY_CHATBASE_NAME" 
-    
-    
+  --from-literal "GCLOUD_PROJECT=$PROJECT_ID"\
+  --from-literal "DEV_AGENT_PROJECT_ID=$DEV_AGENT_PROJECT_ID" \
+  --from-literal "TEST_AGENT_PROJECT_ID=$TEST_AGENT_PROJECT_ID" \
+  --from-literal "LANGUAGE_CODE=$LANGUAGE_CODE" \
+  --from-literal "TOPIC=$TOPIC" \
+  --from-literal "BQ_LOCATION=$BQ_LOCATION"\
+  --from-literal "DATASET=$DATASET"\
+  --from-literal "TABLE=$TABLE" \
+  --from-literal "DATASET_TEST_METRICS=$DATASET_TEST_METRICS" \
+  --from-literal "TABLE_TEST_METRICS=$TABLE_TEST_METRICS" \
+  --from-literal "MY_CHATBASE_KEY=$MY_CHATBASE_KEY" 
+  --from-literal "MY_CHATBASE_BOT_NAME=$MY_CHATBASE_BOT_NAME" \
+  --from-literal "MY_CHATBASE_VERSION=$MY_CHATBASE_VERSION" \
+  --from-literal "GCLOUD_STORAGE_BUCKET_NAME=$GCLOUD_STORAGE_BUCKET_NAME"
+
 bold "Starting deployments..."
 gcloud builds submit --config cloudbuilder/setup.yaml
 kubectl apply -f cloudbuilder/ingress.yaml
+
 bold "Setup network addresses"
 gcloud compute --project=$PROJECT_ID addresses create $GKE_CLUSTER --global --network-tier=PREMIUM
 

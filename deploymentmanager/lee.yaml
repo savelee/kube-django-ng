@@ -1,0 +1,14 @@
+resources:
+  - name: my-topic
+    type: gcp-types/pubsub-v1:projects.topics
+    properties:
+      topic: "my-topic"
+  - name: my-topic-sub
+    type: gcp-types/pubsub-v1:projects.subscriptions
+    properties:
+      subscription: "my-cloud-function"
+      topic: $(ref.my-topic.name)
+      pushConfig: 
+        pushEndpoint: "https://us-central1-gke-pipeline-savelee-192517.cloudfunctions.net/some-cloud-func"
+      ackDeadlineSeconds: 60
+      expirationPolicy: {}

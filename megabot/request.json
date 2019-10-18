@@ -1,0 +1,7 @@
+{
+  "subAgents": [
+     {"project": "projects/lee-cbtest"},
+     {"project": "projects/leeboonstra-dev"}
+  ]
+}
+

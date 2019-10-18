@@ -124,39 +124,24 @@ authentication:
 
 1. Click on **APIs & Services > Dashboard**
 
-1. Click on **Enable APIs & Services**
-
-1. Enable the following APIS:
-
-* BigQuery API
-* Cloud Functions API
-* Cloud Natural Language API
-* Cloud Pub/Sub API
-* Kubernetes Engine
-* Dialogflow API
-
-* Cloud Data Loss Protection API
-* Cloud Translation API
-* Cloud Auto ML API
-
-Or via gcloud:
+2. Enable the following APIS via gcloud:
 
 ```
 gcloud services enable \
+  automl.googleapis.com \
   bigquery-json.googleapis.com \
   cloudfunctions.googleapis.com \
-  language.googleapis.com \
-  pubsub.googleapis.com \
-  container.googleapis.com \
-  dlp.googleapis.com \
-  dialogflow.googleapis.com \
-  automl.googleapis.com \
-  translate.googleapis.com \
   cloudbuild.googleapis.com \
-  sourcerepo.googleapis.com \
+  container.googleapis.com \
   cloudtrace.googleapis.com \
+  dialogflow.googleapis.com \
+  dlp.googleapis.com \
+  language.googleapis.com \
   logging.googleapis.com \
   monitoring.googleapis.com
+  pubsub.googleapis.com \
+  sourcerepo.googleapis.com \
+  translate.googleapis.com
 ```
 
 ### Setup Service Account
@@ -292,7 +277,7 @@ TEST_AGENT_PROJECT_ID=
 
 1. Choose topic: **user-content**
 
-1. Runtime: Node JS 8 (beta)
+1. Runtime: Node JS 8
 
 1. Paste the contents of *cloudfunctions/chatanalytics/index.js* into the **index.js** textarea
 

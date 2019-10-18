@@ -4,6 +4,14 @@
 
 ## Setup Steps
 
+### Run Setup Script
+
+1. Make sure `$PROJECT_ID` is set: `gcloud config set project $PROJECT_ID`
+
+2. To start installation: `./setup.sh`
+
+Check for the endpoint address after deployment finishes (can take 10-15 mins)
+
 ### Setup the Dialogflow Agent
 
 1. (optional) In the cloud console, search for Dialogflow API
@@ -68,16 +76,6 @@
    mv env.txt .env
    ```
    
-### Run Setup Script
-
-1. Make sure `$PROJECT_ID` is set: `gcloud config set project $PROJECT_ID`
-
-2. Set application version: `VERSION` in `properties` if required (default is 1.0.0)
-
-3. To start installation: `./setup.sh`
-
-Check for the endpoint address after deployment finishes (can take 10-15 mins)
-
 ## Uninstall
 
 **WARNING!!** This will delete everything installed during the Install step above

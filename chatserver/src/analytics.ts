@@ -31,6 +31,7 @@ const bigquery = new BigQuery({
 });
 
 const id = process.env.GCLOUD_PROJECT;
+const dataLocation = process.env.BQ_LOCATION;
 const datasetChatMessages = process.env.DATASET;
 const tableChatMessages = process.env.TABLE;
 const datasetTestMetrics = process.env.DATASET_TEST_METRICS;
@@ -38,30 +39,8 @@ const tableTestMetrics= process.env.TABLE_TEST_METRICS;
 const topicChatbotMessages = process.env.TOPIC;
 
 // tslint:disable-next-line:no-suspicious-comment
-const schemaChatMessages = `
-    BOT_NAME,
-    TEXT, 
-    POSTED:TIMESTAMP, 
-    SCORE:FLOAT, 
-    MAGNITUDE:FLOAT, 
-    INTENT_RESPONSE,
-    INTENT_NAME,
-    CONFIDENCE:FLOAT,
-    IS_FALLBACK: BOOLEAN, 
-    IS_FULFILLMENT: BOOLEAN,
-    IS_END_INTERACTION: BOOLEAN,
-    PLATFORM,
-    SESSION`;
-
-const schemaTestMetrics = `
-    TEST_DATE:TIMESTAMP,
-    TEST_LANGUAGE,
-    TEST_QUERY,
-    EXPECTED_INTENT,
-    DETECTED_INTENT,
-    IS_FALLBACK: BOOLEAN,
-    TEST_RESULT
-`;
+const schemaChatMessages = process.env.SCHEMA;
+const schemaTestMetrics = process.env.SCHEMA_TEST_METRICS;
 
 export interface bigQueryRow {}
 
@@ -72,9 +51,9 @@ export class Analytics {
 
     constructor() {
         this.setupBigQuery(datasetChatMessages, 
-            tableChatMessages, schemaChatMessages);
+            tableChatMessages, dataLocation, schemaChatMessages);
         this.setupBigQuery(datasetTestMetrics, 
-            tableTestMetrics, schemaTestMetrics);  
+            tableTestMetrics, dataLocation, schemaTestMetrics);  
 
         this.setupPubSub(topicChatbotMessages);
     }
@@ -84,9 +63,10 @@ export class Analytics {
      * If table doesn't exist, create one.
      * @param {string} bqDataSetName BQ Dataset name
      * @param {string} bqTableName BQ Table name 
+     * @param {string} bqLocation BQ Data Location
      * @param {string} schema BQ table schema  
      */
-    public setupBigQuery(bqDataSetName: string, bqTableName: string, schema: string): void {
+    public setupBigQuery(bqDataSetName: string, bqTableName: string, bqLocation: string, schema: string): void {
         const dataset = bigquery.dataset(bqDataSetName);
         const table = dataset.table(bqTableName);
 
@@ -94,7 +74,8 @@ export class Analytics {
             if (err) console.error('ERROR', err);
             if (!exists) {
                     dataset.create({
-                    id: bqDataSetName
+                    id: bqDataSetName,
+                    location: bqLocation
                 }).then(function() {
                     console.log("dataset created");
                     // If the table doesn't exist, let's create it.

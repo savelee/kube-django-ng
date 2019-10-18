@@ -39,27 +39,27 @@ steps:
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-f', 'cloudbuilder/front-end-deployment.yaml' ]
   env:
-    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west4-a'
     - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
 
 # Deploy all in the Cloud
 #- name: 'gcr.io/cloud-builders/kubectl'
 #  args: [ 'apply', '-f', 'cloudbuilder/front-end-ssr-deployment.yaml' ]
 #  env:
-#    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+#    - 'CLOUDSDK_COMPUTE_ZONE=europe-west4-a'
 #    - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
 
 # Deploy all in the Cloud
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-f', 'cloudbuilder/chatserver-deployment.yaml' ]
   env:
-    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west4-a'
     - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
 
 # Deploy all in the Cloud
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-f', 'cloudbuilder/django-deployment.yaml' ]
   env:
-    - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-c'
+    - 'CLOUDSDK_COMPUTE_ZONE=europe-west4-a'
     - 'CLOUDSDK_CONTAINER_CLUSTER=futurebank'
 
