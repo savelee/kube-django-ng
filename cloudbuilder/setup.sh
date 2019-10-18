@@ -166,7 +166,7 @@ kubectl create configmap chatserver-config \
 
 bold "Starting deployments..."
 gcloud builds submit --config setup.yaml \
---substitutions PROJECT_ID=$PROJECT_ID, REGION=$REGION, GKE_CLUSTER=$GKE_CLUSTER
+--substitutions _REGION=$REGION,_GKE_CLUSTER=$GKE_CLUSTER
 
 kubectl apply -f ingress.yaml
 

@@ -12,9 +12,8 @@ steps:
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-f', 'cloudbuilder/front-end-deployment.yaml' ]
   env:
-    - 'CLOUDSDK_COMPUTE_ZONE=$REGION'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=$GKE_CLUSTER'
-
+    - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
 
 # Build Django Container
 - name: 'gcr.io/cloud-builders/docker'
@@ -27,8 +26,8 @@ steps:
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-f', 'cloudbuilder/django-deployment.yaml' ]
   env:
-    - 'CLOUDSDK_COMPUTE_ZONE=$REGION'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=$GKE_CLUSTER'
+    - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
 
 
   # Build ChatServer Container
@@ -42,7 +41,7 @@ steps:
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-f', 'cloudbuilder/chatserver-deployment.yaml' ]
   env:
-    - 'CLOUDSDK_COMPUTE_ZONE=$REGION'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=$GKE_CLUSTER'
+    - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
 
 
