@@ -66,6 +66,9 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --role roles/clouddebugger.agent
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
+  --role roles/container.clusterAdmin
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$SA_EMAIL \
   --role roles/dialogflow.admin
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
@@ -166,7 +169,7 @@ kubectl create configmap chatserver-config \
 
 bold "Starting deployments..."
 
-gcloud builds submit --config cloudbuilder/setup.yaml \
+gcloud builds submit --config ./cloudbuilder/setup.yaml \
 --substitutions _REGION=$REGION,_GKE_CLUSTER=$GKE_CLUSTER
 
 kubectl apply -f ingress.yaml
