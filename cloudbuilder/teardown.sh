@@ -29,9 +29,6 @@ bold "Deleting Cloud Functions"
 gcloud functions delete $CF_ANALYTICS \ 
 --region=europe-west1
 
-bold "Deleting service account $SERVICE_ACCOUNT_NAME..."
-gcloud iam service-accounts delete $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com --quiet
-
 bold "Deleting GKE cluster $GKE_CLUSTER in zone $ZONE"
 gcloud beta container clusters delete $GKE_CLUSTER --zone $ZONE --quiet
 
@@ -44,10 +41,11 @@ bold "Remove network addresses"
 gcloud compute --project=$PROJECT_ID addresses delete $GKE_CLUSTER
 
 bold "Deleting Pub/Sub Topics"
-gcloud pubsub topics delete $TOPIC_ANALYTICS
+gcloud pubsub topics delete $TOPIC
 
-bold "Deleting BigQuery dataset futurebank..."
-bq rm -r --force $DATASET_ANALYTICS
+bold "Deleting BigQuery datasets futurebank..."
+bq rm -r --force $DATASET
+bq rm -r --force $DATASET_TEST_METRICS
 
 bold "Removing Kuberentes Admin role from $CLOUD_BUILD_EMAIL..."
 gcloud projects remove-iam-policy-binding $PROJECT_ID \
@@ -58,33 +56,14 @@ bold "Removing roles from $SA_EMAIL..."
 gcloud projects remove-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/bigquery.dataViewer
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/bigquery.dataViewer
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/bigquery.jobUser
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/pubsub.editor
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/pubsub.viewer
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/dialogflow.editor
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/dialogflow.reader
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/clouddebugger.agent
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/errorreporting.admin
-gcloud projects remove-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SA_EMAIL \
-  --role roles/logging.logWriter
+
+##TODO
+
+bold "Removing Storage"
+gsutil rm -r gs://$GCLOUD_STORAGE_BUCKET_NAME/
+
+bold "Deleting service account $SERVICE_ACCOUNT_NAME..."
+gcloud iam service-accounts delete $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com --quiet
 
 bold "Deleting git clone dir..."
 rm -rf kube-django-ng

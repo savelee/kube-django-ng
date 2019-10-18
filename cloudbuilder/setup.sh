@@ -39,6 +39,11 @@ gcloud services enable \
   sourcerepo.googleapis.com \
   translate.googleapis.com
 
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member=serviceAccount:$CLOUD_BUILD_EMAIL \
+    --role=roles/container.admin
+
+
 bold "Creating a service account $SERVICE_ACCOUNT_NAME..."
 
 gcloud iam service-accounts create \
@@ -66,7 +71,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --role roles/clouddebugger.agent
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
-  --role roles/container.clusterAdmin
+  --role roles/container.admin
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/dialogflow.admin
@@ -94,6 +99,10 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/iam.serviceAccountKeyAdmin
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member=serviceAccount:$CLOUD_BUILD_EMAIL \
+    --role=roles/container.admin
 
 bold "Saving the key..."
 gcloud iam service-accounts keys create ~/master.json \
@@ -167,9 +176,15 @@ kubectl create configmap chatserver-config \
   --from-literal "MY_CHATBASE_VERSION=$MY_CHATBASE_VERSION" \
   --from-literal "GCLOUD_STORAGE_BUCKET_NAME=$GCLOUD_STORAGE_BUCKET_NAME"
 
-bold "Starting deployments..."
+kubectl create clusterrolebinding cluster-admin-binding \
+ --clusterrole=cluster-admin \
+ --user=$(gcloud config get-value core/account)
 
-gcloud builds submit --config ./cloudbuilder/setup.yaml \
+bold "Build container & push to registry..."
+gcloud builds submit --config ./cloudbuilder/setup.yaml
+
+bold "Starting deployments..."
+gcloud builds submit --config ./cloudbuilder/deploy.yaml \
 --substitutions _REGION=$REGION,_GKE_CLUSTER=$GKE_CLUSTER
 
 kubectl apply -f ingress.yaml

@@ -8,13 +8,6 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/front-end-image' ]
 
-# Deploy all in the Cloud
-- name: 'gcr.io/cloud-builders/kubectl'
-  args: [ 'apply', '-f', 'front-end-deployment.yaml' ]
-  env:
-    - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
-
 # Build Django Container
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/django-image', './server' ]
@@ -22,12 +15,6 @@ steps:
 - id: 'Push Django image to registry'
   name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/django-image' ]
-# Deploy all in the Cloud
-- name: 'gcr.io/cloud-builders/kubectl'
-  args: [ 'apply', '-f', 'django-deployment.yaml' ]
-  env:
-    - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
 
 
   # Build ChatServer Container
@@ -37,11 +24,8 @@ steps:
 - id: 'Push ChatServer image to registry'
   name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/chatserver-image' ]
-# Deploy all in the Cloud
-- name: 'gcr.io/cloud-builders/kubectl'
-  args: [ 'apply', '-f', 'chatserver-deployment.yaml' ]
-  env:
-    - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
+
+
+
 
 

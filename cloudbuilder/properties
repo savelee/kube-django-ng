@@ -7,6 +7,7 @@ TEST_AGENT_PROJECT_ID=chatbotportal-test
 PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
 VERSION=1.0.0
 COMMIT_SHA=`git rev-parse HEAD`
+CLOUD_BUILD_EMAIL=$PROJECT_NUMBER@cloudbuild.gserviceaccount.com
 
 # setup service account
 SERVICE_ACCOUNT_NAME="futurebank-app-$(date +"%s")"

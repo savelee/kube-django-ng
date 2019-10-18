@@ -63,18 +63,18 @@ Check for the endpoint address after deployment finishes (can take 10-15 mins)
 1. Modify Chat Container environment variables
 
    ```
-   cd ../chatserver/my-app/
+   cd chatserver/my-app/
    nano env.txt
    mv env.txt .env
    ```
 
-1. Modify File Server  Container environment variables
+1. Modify the cloudbuilder properties. (These need to be the same, as some of the .env properties)
 
    ```
-   cd ../fileserver/my-app/
-   nano env.txt
-   mv env.txt .env
+   cd cloudbuilder/
+   nano .properties
    ```
+
    
 ## Uninstall
 

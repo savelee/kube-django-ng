@@ -1,0 +1,18 @@
+ # Deploy all in the Cloud
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'front-end-deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'django-deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', 'chatserver-deployment.yaml' ]
+  env:
+    - 'CLOUDSDK_COMPUTE_ZONE=${_REGION}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
