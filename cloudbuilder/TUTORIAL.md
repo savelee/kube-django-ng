@@ -8,7 +8,7 @@
 
 1. Make sure `$PROJECT_ID` is set: `gcloud config set project $PROJECT_ID`
 
-2. To start installation: `./setup.sh`
+2. To start installation: `. setup.sh`
 
 Check for the endpoint address after deployment finishes (can take 10-15 mins)
 

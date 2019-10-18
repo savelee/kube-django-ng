@@ -34,7 +34,7 @@ gcloud services enable \
   dlp.googleapis.com \
   language.googleapis.com \
   logging.googleapis.com \
-  monitoring.googleapis.com
+  monitoring.googleapis.com \
   pubsub.googleapis.com \
   sourcerepo.googleapis.com \
   translate.googleapis.com
@@ -54,14 +54,7 @@ if [ -z "$SA_EMAIL" ]; then
   exit 1
 fi
 
-bold "Saving the key"
-gcloud iam service-accounts keys create ~/master.json \
-  --iam-account $SERVICE_ACCOUNT_NAME
-
-bold "Creating Storage bucket"
-gsutil mb gs://$GCLOUD_STORAGE_BUCKET_NAME/
-
-bold "Adding policy binding to $SERVICE_ACCOUNT_NAME email: $SA_EMAIL"
+bold "Adding policy binding to $SERVICE_ACCOUNT_NAME email: $SA_EMAIL..."
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/bigquery.dataViewer
@@ -91,56 +84,67 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --role roles/pubsub.viewer
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
-  --role roles/storage.editor
+  --role roles/storage.objectCreator
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
-  --role roles/storage.viewer
+  --role roles/storage.objectViewer
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$SA_EMAIL \
+  --role roles/iam.serviceAccountKeyAdmin
+
+bold "Saving the key..."
+gcloud iam service-accounts keys create ~/master.json \
+  --iam-account $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com
+
+bold "Creating Storage bucket..."
+gsutil mb gs://$GCLOUD_STORAGE_BUCKET_NAME/
+
+bold "Create PubSub Topic..."
+gcloud pubsub topics create $TOPIC
 
 bold "Creating Cloud Functions..."
-gcloud functions deploy $CF_ANALYTICS \ 
---region=$REGION_ALTERNATIVE \
+gcloud functions deploy $CF_ANALYTICS --region=$REGION_ALTERNATIVE \
 --memory=512MB \
---trigger-topic=$TOPIC_ANALYTICS
---retry \ 
---runtime=nodejs8 \ 
---source=./cloudfunctions/chatanalytics \ 
---stage-bucket=$BUCKET_NAME \ 
---timeout=60s \ 
+--trigger-topic=$TOPIC \
+--runtime=nodejs8 \
+--source=../cloudfunctions/chatanalytics \
+--stage-bucket=$GCLOUD_STORAGE_BUCKET_NAME \
+--timeout=60s \
 --entry-point=subscribe \
---update-labels=[DATASET=$DATASET_ANALYTICS,TABLE=$TABLE_ANALYTICS]] 
+--set-env-vars DATASET=$DATASET,TABLE=$TABLE
 
-bold "Creating BQ dataset"
+bold "Creating BQ dataset..."
 bq --location=$BQ_LOCATION mk \
 $DATASET
 
-bold "Creating Test Metrics BQ dataset"
+bold "Creating Test Metrics BQ dataset..."
 bq --location=$BQ_LOCATION mk \
 $DATASET_TEST_METRICS
 
-bold "Creating BQ table"
+bold "Creating BQ table..."
 bq mk \
 $DATASET.$TABLE \
 $SCHEMA
 
-bold "Creating Test Metrics BQ table"
+bold "Creating Test Metrics BQ table..."
 bq mk \
 $DATASET.$TABLE \
 $SCHEMA_TEST_METRICS
 
 bold "Creating cluster..."
-gcloud container clusters create $GKE_CLUSTER \ 
-    --region $REGION \
-    --num-nodes 1 \
-    --enable-autoscaling \ 
-    --enable-autoupgrade \
-    --enable-autorepair \
-    --enable-stackdriver-kubernetes \
-    --min-nodes $MIN_NODES \
-    --max-nodes $MAX_NODES \
-    --scopes "https://www.googleapis.com/auth/cloud-platform"
+gcloud container clusters create $GKE_CLUSTER \
+  --region $REGION \
+  --enable-autoscaling \
+  --enable-autoupgrade \
+  --enable-autorepair \
+  --enable-stackdriver-kubernetes \
+  --num-nodes $MIN_NODES --enable-autoscaling \
+  --min-nodes $MIN_NODES --max-nodes $MAX_NODES
+
+bold "Get credentials..."
 gcloud container clusters get-credentials $GKE_CLUSTER --zone $REGION
 
-bold "Create a secret from your service account"
+bold "Create a secret from your service account..."
 kubectl create secret generic credentials --from-file=~/master.json
 
 bold "Create GKE Configmap..."
@@ -161,8 +165,8 @@ kubectl create configmap chatserver-config \
   --from-literal "GCLOUD_STORAGE_BUCKET_NAME=$GCLOUD_STORAGE_BUCKET_NAME"
 
 bold "Starting deployments..."
-gcloud builds submit --config cloudbuilder/setup.yaml
-kubectl apply -f cloudbuilder/ingress.yaml
+gcloud builds submit --config setup.yaml
+kubectl apply -f ingress.yaml
 
 bold "Setup network addresses"
 gcloud compute --project=$PROJECT_ID addresses create $GKE_CLUSTER --global --network-tier=PREMIUM
