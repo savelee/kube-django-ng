@@ -9,7 +9,6 @@ err() {
 }
 
 source ./properties
-source ./chatserver/my-app/.env
 
 if [ -z "$PROJECT_ID" ]; then
   err "Not running in a GCP project. Please run gcloud config set project $PROJECT_ID."
@@ -119,7 +118,7 @@ gcloud functions deploy $CF_ANALYTICS --region=$REGION_ALTERNATIVE \
 --memory=512MB \
 --trigger-topic=$TOPIC \
 --runtime=nodejs8 \
---source=../cloudfunctions/chatanalytics \
+--source=cloudfunctions/chatanalytics \
 --stage-bucket=$GCLOUD_STORAGE_BUCKET_NAME \
 --timeout=60s \
 --entry-point=subscribe \
@@ -181,13 +180,15 @@ kubectl create clusterrolebinding cluster-admin-binding \
  --user=$(gcloud config get-value core/account)
 
 bold "Build container & push to registry..."
-gcloud builds submit --config ./cloudbuilder/setup.yaml
+gcloud builds submit --config cloudbuilder/setup.yaml
 
 bold "Starting deployments..."
-gcloud builds submit --config ./cloudbuilder/deploy.yaml \
+gcloud builds submit --config cloudbuilder/deploy.yaml \
 --substitutions _REGION=$REGION,_GKE_CLUSTER=$GKE_CLUSTER
+bold "Create services..."
+gcloud builds submit --config cloudbuilder/services.yaml
 
 bold "Setup network addresses"
 gcloud compute --project=$PROJECT_ID addresses create $GKE_CLUSTER --global --network-tier=PREMIUM
 
-bold "Deployment complete!"
+bold "Setup & Deployment complete!"

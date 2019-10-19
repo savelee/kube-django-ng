@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: "front-end-image"
-        image: "gcr.io/gke-pipeline-savelee-192517/front-end-image:latest"
+        image: "gcr.io/$PROJECT_ID/front-end-image:latest"
         ports:
         - containerPort: 4200 

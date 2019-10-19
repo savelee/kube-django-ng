@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: "django-image"
-        image: "gcr.io/gke-pipeline-savelee-192517/django-image:latest"
+        image: "gcr.io/$PROJECT_ID/django-image:latest"
         ports:
         - containerPort: 8080

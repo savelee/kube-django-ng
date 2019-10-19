@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: "chatserver-image"
-        image: "gcr.io/gke-pipeline-savelee-192517/chatserver-image:latest"
+        image: "gcr.io/$PROJECT_ID/chatserver-image:latest"
         imagePullPolicy: Always
         env:
           - name: "GOOGLE_APPLICATION_CREDENTIALS"

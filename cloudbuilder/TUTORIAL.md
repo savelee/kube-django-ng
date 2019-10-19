@@ -82,4 +82,4 @@ Check for the endpoint address after deployment finishes (can take 10-15 mins)
 
 - Make sure `$PROJECT_ID` is set: `gcloud config set project $PROJECT_ID`
 
-- To start uninstallation: `./teardown.sh`
+- To start uninstallation: `. teardown.sh`
