@@ -10,8 +10,16 @@ if [ -z "$CLOUD_BUILD_EMAIL" ]; then
   exit 1
 fi
 
+set -e
+eval "cat <<EOF
+$(<$1)
+EOF
+" | kubectl apply -f -
+
 bold "Starting deployments..."
-gcloud builds submit --config cloudbuilder/deploy.yaml \
---substitutions _REGION=$REGION,_GKE_CLUSTER=$GKE_CLUSTER
+kubectl apply -f cloudbuilder/front-end-deployment.yaml;
+kubectl apply -f cloudbuilder/django-deployment.yaml;
+kubectl apply -f cloudbuilder/chatserver-deployment.yaml;
+
 bold "Create services..."
 kubectl apply -f cloudbuilder/services.yaml

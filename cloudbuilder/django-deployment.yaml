@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
       - name: "django-image"
-        image: "gcr.io/PROJECT_ID/django-image:latest"
+        image: "gcr.io/${PROJECT_ID}/django-image:latest"
         ports:
         - containerPort: 8080
-        args: ["$(PROJECT_ID)"]
