@@ -20,16 +20,12 @@ if [ -z "$CLOUD_BUILD_EMAIL" ]; then
   err "Cloud Build email is empty. Exiting."
 fi
 
-if [ -z "$SA_EMAIL" ]; then
-  err "Service Account email is empty. Exiting."
-fi
-
 bold "Deleting Cloud Functions"
 gcloud functions delete $CF_ANALYTICS \ 
---region=europe-west1
+--region=$REGION_ALTERNATIVE
 
-bold "Deleting GKE cluster $GKE_CLUSTER in zone $ZONE"
-gcloud beta container clusters delete $GKE_CLUSTER --zone $ZONE --quiet
+bold "Deleting GKE cluster $GKE_CLUSTER in zone $REGION"
+gcloud beta container clusters delete $GKE_CLUSTER --zone $REGION --quiet
 
 bold "Deleting GCR images"
 gcloud container images delete gcr.io/$PROJECT_ID/django-image --force-delete-tags --quiet
@@ -42,7 +38,7 @@ gcloud compute --project=$PROJECT_ID addresses delete $GKE_CLUSTER
 bold "Deleting Pub/Sub Topics"
 gcloud pubsub topics delete $TOPIC
 
-bold "Deleting BigQuery datasets futurebank..."
+bold "Deleting BigQuery datasets..."
 bq rm -r --force $DATASET
 bq rm -r --force $DATASET_TEST_METRICS
 
