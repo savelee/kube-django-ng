@@ -49,14 +49,6 @@ gcloud iam service-accounts create \
   $SERVICE_ACCOUNT_NAME \
   --display-name $SERVICE_ACCOUNT_NAME
 
-SA_EMAIL=$(gcloud iam service-accounts list \
-  --filter="displayName:$SERVICE_ACCOUNT_NAME" \
-  --format='value(email)')
-  
-if [ -z "$SA_EMAIL" ]; then
-  err "Service Account email is empty. Exiting."
-  exit 1
-fi
 
 bold "Adding policy binding to $SERVICE_ACCOUNT_NAME email: $SA_EMAIL..."
 gcloud projects add-iam-policy-binding $PROJECT_ID \
