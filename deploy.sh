@@ -12,8 +12,10 @@ set -a
   source ./properties
   set +a
 
-bold "Eval the templates..."
+bold "Eval the templates & deploy..."
 envsubst < cloudbuilder/front-end-deployment.yaml | kubectl apply -f -
+envsubst < cloudbuilder/django-deployment.yaml | kubectl apply -f -
+envsubst < cloudbuilder/chatserver-deployment.yaml | kubectl apply -f -
 
 bold "Starting deployments..."
 kubectl apply -f cloudbuilder/django-deployment.yaml;

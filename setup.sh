@@ -182,16 +182,10 @@ kubectl create clusterrolebinding cluster-admin-binding \
 bold "Build container & push to registry..."
 gcloud builds submit --config cloudbuilder/setup.yaml
 
-set -e
-eval "cat <<EOF
-$(<$1)
-EOF
-" | kubectl apply -f -
-
-bold "Starting deployments..."
-kubectl apply -f cloudbuilder/front-end-deployment.yaml;
-kubectl apply -f cloudbuilder/django-deployment.yaml;
-kubectl apply -f cloudbuilder/chatserver-deployment.yaml;
+bold "Eval the templates & deploy..."
+envsubst < cloudbuilder/front-end-deployment.yaml | kubectl apply -f -
+envsubst < cloudbuilder/django-deployment.yaml | kubectl apply -f -
+envsubst < cloudbuilder/chatserver-deployment.yaml | kubectl apply -f -
 
 bold "Create services..."
 kubectl apply -f cloudbuilder/services.yaml
