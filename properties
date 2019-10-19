@@ -15,13 +15,14 @@ SA_EMAIL=$(gcloud iam service-accounts list \
 CLOUD_BUILD_EMAIL=$PROJECT_NUMBER@cloudbuild.gserviceaccount.com
 
 # Storage Bucket
-GCLOUD_STORAGE_BUCKET_NAME=leeboonstra-chatbotportal
+GCLOUD_STORAGE_BUCKET_NAME=$PROJECT_NUMBER-app
 
 # setup GKE
 MIN_NODES=1
 MAX_NODES=4
 GKE_CLUSTER=chatbotportal
 REGION=europe-west4-a
+REGION_ALTERNATIVE=europe-west1
 
 DEV_AGENT_PROJECT_ID=chatbotportal-dev
 TEST_AGENT_PROJECT_ID=chatbotportal-test
@@ -30,7 +31,6 @@ TEST_AGENT_PROJECT_ID=chatbotportal-test
 
 # setup Cloud Functions
 CF_ANALYTICS=chatanalytics
-REGION_ALTERNATIVE=europe-west1
 LANGUAGE_CODE=en-US
 TOPIC=user-content
 

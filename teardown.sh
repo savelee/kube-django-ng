@@ -21,7 +21,7 @@ if [ -z "$CLOUD_BUILD_EMAIL" ]; then
 fi
 
 bold "Deleting Cloud Functions"
-gcloud functions delete $CF_ANALYTICS \ 
+gcloud functions delete $CF_ANALYTICS \
 --region=$REGION_ALTERNATIVE
 
 bold "Deleting GKE cluster $GKE_CLUSTER in zone $REGION"
