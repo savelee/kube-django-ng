@@ -5,11 +5,6 @@ if [ -z "$PROJECT_ID" ]; then
   exit 1
 fi
 
-if [ -z "$CLOUD_BUILD_EMAIL" ]; then
-  err "Cloud Build email is empty. Exiting."
-  exit 1
-fi
-
 set -e
 eval "cat <<EOF
 $(<$1)

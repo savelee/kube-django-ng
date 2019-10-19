@@ -16,11 +16,12 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/django-image' ]
 
-
-  # Build ChatServer Container
+# Build ChatServer Container
+# docker build -t gcr.io/$PROJECT_ID/chatserver-image ./chatserver
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/chatserver-image', './chatserver' ]
 # Push updated ChatServer Container
+# docker push gcr.io/$PROJECT_ID/chatserver-image
 - id: 'Push ChatServer image to registry'
   name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/chatserver-image' ]

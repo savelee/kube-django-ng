@@ -182,11 +182,19 @@ kubectl create clusterrolebinding cluster-admin-binding \
 bold "Build container & push to registry..."
 gcloud builds submit --config cloudbuilder/setup.yaml
 
+set -e
+eval "cat <<EOF
+$(<$1)
+EOF
+" | kubectl apply -f -
+
 bold "Starting deployments..."
-gcloud builds submit --config cloudbuilder/deploy.yaml \
---substitutions _REGION=$REGION,_GKE_CLUSTER=$GKE_CLUSTER
+kubectl apply -f cloudbuilder/front-end-deployment.yaml;
+kubectl apply -f cloudbuilder/django-deployment.yaml;
+kubectl apply -f cloudbuilder/chatserver-deployment.yaml;
+
 bold "Create services..."
-gcloud builds submit --config cloudbuilder/services.yaml
+kubectl apply -f cloudbuilder/services.yaml
 
 bold "Setup network addresses"
 gcloud compute --project=$PROJECT_ID addresses create $GKE_CLUSTER --global --network-tier=PREMIUM
