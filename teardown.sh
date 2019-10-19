@@ -20,6 +20,9 @@ if [ -z "$CLOUD_BUILD_EMAIL" ]; then
   err "Cloud Build email is empty. Exiting."
 fi
 
+bold "Removing Storage"
+gsutil rm -r gs://$GCLOUD_STORAGE_BUCKET_NAME/
+
 bold "Deleting Cloud Functions"
 gcloud functions delete $CF_ANALYTICS \
 --region=$REGION_ALTERNATIVE
@@ -33,7 +36,7 @@ gcloud container images delete gcr.io/$PROJECT_ID/front-end-image --force-delete
 gcloud container images delete gcr.io/$PROJECT_ID/chatserver-image --force-delete-tags --quiet
 
 bold "Remove network addresses"
-gcloud compute --project=$PROJECT_ID addresses delete $GKE_CLUSTER
+gcloud compute --project=$PROJECT_ID addresses delete $GKE_CLUSTER --global
 
 bold "Deleting Pub/Sub Topics"
 gcloud pubsub topics delete $TOPIC
@@ -51,9 +54,6 @@ bold "Removing roles from $SA_EMAIL..."
 gcloud projects remove-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/bigquery.dataViewer
-
-bold "Removing Storage"
-gsutil rm -r gs://$GCLOUD_STORAGE_BUCKET_NAME/
 
 bold "Deleting service account $SERVICE_ACCOUNT_NAME..."
 gcloud iam service-accounts delete $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com --quiet
