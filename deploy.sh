@@ -1,11 +1,6 @@
  #!/bin/bash
- 
-source ./properties
 
-if [ -z "$PROJECT_ID" ]; then
-  err "Not running in a GCP project. Please run gcloud config set project $PROJECT_ID."
-  exit 1
-fi
+source ./properties
 
 set -e
 eval "cat <<EOF
