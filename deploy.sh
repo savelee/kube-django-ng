@@ -13,13 +13,9 @@ set -a
   set +a
 
 bold "Eval the templates..."
-eval 'cat <<EOF
-${PROJECT_ID}
-EOF
-' | kubectl apply -f -
+envsubst < cloudbuilder/front-end-deployment.yaml | kubectl apply -f -
 
 bold "Starting deployments..."
-kubectl apply -f cloudbuilder/front-end-deployment.yaml;
 kubectl apply -f cloudbuilder/django-deployment.yaml;
 kubectl apply -f cloudbuilder/chatserver-deployment.yaml;
 
