@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: "chatserver-image"
-        image: "gcr.io/$PROJECT_ID/chatserver-image:latest"
+        image: "gcr.io/PROJECT_ID/chatserver-image:latest"
         imagePullPolicy: Always
         env:
           - name: "GOOGLE_APPLICATION_CREDENTIALS"
@@ -87,6 +87,7 @@ spec:
               configMapKeyRef:
                 name: chatserver-config
                 key: TABLE_TEST_METRICS
+        args: ["$(PROJECT_ID)"]
         volumeMounts:
           - name: mykeys
             mountPath: /var/secrets/
