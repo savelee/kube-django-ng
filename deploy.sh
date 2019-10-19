@@ -1,3 +1,5 @@
+ #!/bin/bash
+ 
 source ./properties
 
 if [ -z "$PROJECT_ID" ]; then
