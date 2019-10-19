@@ -14,7 +14,7 @@ set -a
 
 bold "Eval the templates..."
 eval 'cat <<EOF
-$(<$1)
+${PROJECT_ID}
 EOF
 ' | kubectl apply -f -
 
