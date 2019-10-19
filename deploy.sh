@@ -14,4 +14,4 @@ bold "Starting deployments..."
 gcloud builds submit --config cloudbuilder/deploy.yaml \
 --substitutions _REGION=$REGION,_GKE_CLUSTER=$GKE_CLUSTER
 bold "Create services..."
-gcloud builds submit --config cloudbuilder/services.yaml
+kubectl apply -f cloudbuilder/services.yaml
