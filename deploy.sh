@@ -1,6 +1,9 @@
  #!/bin/bash
 
-source ./properties
+bold "Set all vars..."
+set -a
+  source ./properties
+  set +a
 
 bold "Eval the templates..."
 eval "cat <<EOF
