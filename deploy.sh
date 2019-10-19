@@ -13,10 +13,10 @@ set -a
   set +a
 
 bold "Eval the templates..."
-eval "cat <<EOF
+eval 'cat <<EOF
 $(<$1)
 EOF
-" | kubectl apply -f -
+' | kubectl apply -f -
 
 bold "Starting deployments..."
 kubectl apply -f cloudbuilder/front-end-deployment.yaml;
