@@ -1,5 +1,4 @@
-#!/bin/bash
-
+ #!/bin/bash
 bold() {
   echo ". $(tput bold)" "$*" "$(tput sgr0)";
 }
@@ -8,21 +7,21 @@ err() {
   echo "$*" >&2;
 }
 
-source ./properties
+bold "Set all vars..."
+set -a
+  source ./properties
+  set +a
 
 if [ -z "$PROJECT_ID" ]; then
   err "Not running in a GCP project. Exiting."
-  exit 1
 fi
 
 if [ -z "$CLOUD_BUILD_EMAIL" ]; then
   err "Cloud Build email is empty. Exiting."
-  exit 1
 fi
 
 if [ -z "$SA_EMAIL" ]; then
   err "Service Account email is empty. Exiting."
-  exit 1
 fi
 
 bold "Deleting Cloud Functions"
@@ -56,8 +55,6 @@ bold "Removing roles from $SA_EMAIL..."
 gcloud projects remove-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/bigquery.dataViewer
-
-##TODO
 
 bold "Removing Storage"
 gsutil rm -r gs://$GCLOUD_STORAGE_BUCKET_NAME/
