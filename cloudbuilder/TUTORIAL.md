@@ -10,7 +10,7 @@
 
 1. Create a new bot
 
-1. Copy the API_KEY to *env.txt* into the **MY_CHATBASE_KEY** variable.
+1. Copy the API_KEY to *chatserver/env.txt* into the **MY_CHATBASE_KEY** variable.
 
 ### (Optional) prepare the environement variables.
 
