@@ -12,6 +12,10 @@ set -a
   source ./properties
   set +a
 
+SA_EMAIL=$(gcloud iam service-accounts list \
+  --filter="displayName:$SERVICE_ACCOUNT_NAME" \
+  --format='value(email)')
+
 if [ -z "$PROJECT_ID" ]; then
   err "Not running in a GCP project. Exiting."
 fi
@@ -59,6 +63,7 @@ bold "Deleting service account $SERVICE_ACCOUNT_NAME..."
 gcloud iam service-accounts delete $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com --quiet
 
 bold "Deleting git clone dir..."
+cd ..
 rm -rf kube-django-ng
 
 bold "Uninstallation complete!"
