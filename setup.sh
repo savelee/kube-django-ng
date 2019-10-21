@@ -158,7 +158,7 @@ bold "Get credentials..."
 gcloud container clusters get-credentials $GKE_CLUSTER --zone $REGION
 
 bold "Create a secret from your service account..."
-kubectl create secret generic credentials --from-file=~/master.json
+kubectl create secret generic credentials --from-file=../master.json
 
 bold "Create GKE Configmap..."
 kubectl create configmap chatserver-config \
