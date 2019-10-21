@@ -10,14 +10,14 @@ err() {
 
 bold "Set all vars..."
 
-mv chatserver/env.txt chatserver/.env
+mv chatserver/src/env.txt chatserver/src/.env
 
 set -a
   source ./properties
   set +a
 bold "Set all .env vars..."
 set -a
-  source chatserver/.env
+  source chatserver/src/.env
   set +a
 
 bold "Creating GCP project for Dev"
