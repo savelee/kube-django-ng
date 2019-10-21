@@ -15,13 +15,16 @@ mv chatserver/env.txt chatserver/.env
 set -a
   source ./properties
   set +a
-  
+
 bold "Set all .env vars..."
 set -a
   source chatserver/.env
   set +a
 
+ACCESS_TOKEN="$(gcloud auth application-default print-access-token)"
+
 echo $MY_CHATBASE_VERSION;
+echo $ACCESS_TOKEN;
 
 bold "Creating GCP project for Dev"
 gcloud projects create $DEV_AGENT_PROJECT_ID
@@ -120,6 +123,8 @@ bold "Saving the key..."
 gcloud iam service-accounts keys create ../master.json \
   --iam-account $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com
 
+export GOOGLE_APPLICATION_CREDENTIALS = ../master.json
+
 bold "Creating Storage bucket..."
 gsutil mb gs://$GCLOUD_STORAGE_BUCKET_NAME/
 
@@ -163,12 +168,11 @@ bq/data/chatbotdata.csv \
 $SCHEMA
 
 bold "Zipping Intents..."
-zip -r agent.zip chatserver/dialogflow/agent
+zip -r chatserver/dialogflow/agent/agent.zip chatserver/dialogflow/agent
 bold "Uploading Intents to $GCLOUD_STORAGE_BUCKET_NAME..."
 gsutil cp chatserver/dialogflow/agent/agent.zip gs://$GCLOUD_STORAGE_BUCKET_NAME/
 
 bold "Create a Dialogflow Agent..."
-ACCESS_TOKEN="$(gcloud auth application-default print-access-token)"
 JSONPROD="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$PROD_AGENT_NAME\",\"parent\":\"projects/$PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
 JSONTEST="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$TEST_AGENT_NAME\",\"parent\":\"projects/$TEST_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
 JSONDEV="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$DEV_AGENT_NAME\",\"parent\":\"projects/$DEV_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
