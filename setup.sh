@@ -22,6 +22,8 @@ set -a
   set +a
 
 ACCESS_TOKEN="$(gcloud auth application-default print-access-token)"
+DEV_PROJECT_ID="$(gcloud projects list --filter="name:$DEV_AGENT_PROJECT_ID" --format="value(projectId)")"
+TEST_PROJECT_ID="$(gcloud projects list --filter="name:$TEST_AGENT_PROJECT_ID" --format="value(projectId)")"
 
 echo $MY_CHATBASE_VERSION;
 echo $ACCESS_TOKEN;
@@ -55,12 +57,11 @@ gcloud services enable \
   sourcerepo.googleapis.com \
   translate.googleapis.com
 
+bold "Creating a service account $SERVICE_ACCOUNT_NAME..."
+
 gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member=serviceAccount:$CLOUD_BUILD_EMAIL \
     --role=roles/container.admin
-
-
-bold "Creating a service account $SERVICE_ACCOUNT_NAME..."
 
 gcloud iam service-accounts create \
   $SERVICE_ACCOUNT_NAME \
@@ -175,17 +176,17 @@ gsutil cp chatserver/dialogflow/agent/agent.zip gs://$GCLOUD_STORAGE_BUCKET_NAME
 bold "Create a Dialogflow Agent..."
 echo $ACCESS_TOKEN
 
-JSONPROD="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$PROD_AGENT_NAME\",\"parent\":\"projects/$PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
+JSONPROD="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$PROD_AGENT_NAME\",\"parent\":\"projects/$PROJECT_ID\",\"timeZone\":\"Europe/Madrid\"}"
 curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONPROD "https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent"
 
-JSONTEST="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$TEST_AGENT_NAME\",\"parent\":\"projects/$TEST_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
+JSONTEST="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$TEST_AGENT_NAME\",\"parent\":\"projects/$TEST_AGENT_PROJECT_ID\",\"timeZone\":\"Europe/Madrid\"}"
 curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONTEST "https://dialogflow.googleapis.com/v2/projects/$TEST_AGENT_PROJECT_ID/agent"
 
-JSONDEV="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$DEV_AGENT_NAME\",\"parent\":\"projects/$DEV_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
+JSONDEV="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$DEV_AGENT_NAME\",\"parent\":\"projects/$DEV_AGENT_PROJECT_ID\",\"timeZone\":\"Europe/Madrid\"}"
 curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONDEV "https://dialogflow.googleapis.com/v2/projects/$DEV_AGENT_PROJECT_ID/agent"
@@ -210,7 +211,7 @@ curl -X POST \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -H "Content-Type: application/json; charset=utf-8" \
 -d $IMPORTFILES \
-https://dialogflow.googleapis.com/v2/projects/$DPROJECT_ID/agent:restore
+https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent:restore
 
 bold "Creating cluster..."
 gcloud container clusters create $GKE_CLUSTER \

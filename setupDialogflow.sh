@@ -36,16 +36,30 @@ curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONPROD "https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent"
 
+## TODO ITS IN A DIFFERENT PROJECT SO YOU NEED
+## THE RIGHTS
+
 JSONTEST="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$TEST_AGENT_NAME\",\"parent\":\"projects/$TEST_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
 curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONTEST "https://dialogflow.googleapis.com/v2/projects/$TEST_AGENT_PROJECT_ID/agent"
 
+## TODO ITS IN A DIFFERENT PROJECT SO YOU NEED
+## THE RIGHTS
 JSONDEV="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$DEV_AGENT_NAME\",\"parent\":\"projects/$DEV_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
 curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONDEV "https://dialogflow.googleapis.com/v2/projects/$DEV_AGENT_PROJECT_ID/agent"
 
+bold "Import Intents to Prod"
+curl -X POST \
+-H "Authorization: Bearer $ACCESS_TOKEN" \
+-H "Content-Type: application/json; charset=utf-8" \
+-d $IMPORTFILES \
+https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent:restore
+
+## TODO ITS IN A DIFFERENT PROJECT SO YOU NEED
+## THE RIGHTS
 IMPORTFILES="{\"agentUri\":\"gs:\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
 bold "Import Intents to Dev"
 curl -X POST \
@@ -54,6 +68,8 @@ curl -X POST \
 -d $IMPORTFILES \
 https://dialogflow.googleapis.com/v2/projects/$DEV_AGENT_PROJECT_ID/agent:restore
 
+## TODO ITS IN A DIFFERENT PROJECT SO YOU NEED
+## THE RIGHTS
 bold "Import Intents to Test"
 curl -X POST \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
@@ -61,9 +77,3 @@ curl -X POST \
 -d $IMPORTFILES \
 https://dialogflow.googleapis.com/v2/projects/$TEST_AGENT_PROJECT_ID/agent:restore
 
-bold "Import Intents to Prod"
-curl -X POST \
--H "Authorization: Bearer $ACCESS_TOKEN" \
--H "Content-Type: application/json; charset=utf-8" \
--d $IMPORTFILES \
-https://dialogflow.googleapis.com/v2/projects/$DPROJECT_ID/agent:restore
