@@ -19,9 +19,6 @@ set -a
 
 mv chatserver/env.txt chatserver/.env
 
-bold "Creating GCP project for Test"
-gcloud projects create $PROJECT_ID
-
 bold "Creating GCP project for Dev"
 gcloud projects create $DEV_AGENT_PROJECT_ID
 
