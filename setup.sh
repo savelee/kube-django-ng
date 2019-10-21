@@ -17,6 +17,8 @@ set -a
   source chatserver/.env
   set +a
 
+mv env.txt .env
+
 bold "Creating GCP project for Test"
 gcloud projects create $PROJECT_ID
 
