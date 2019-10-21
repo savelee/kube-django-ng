@@ -15,10 +15,13 @@ mv chatserver/env.txt chatserver/.env
 set -a
   source ./properties
   set +a
+  
 bold "Set all .env vars..."
 set -a
   source chatserver/.env
   set +a
+
+echo $MY_CHATBASE_VERSION;
 
 bold "Creating GCP project for Dev"
 gcloud projects create $DEV_AGENT_PROJECT_ID
@@ -114,7 +117,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
     --role=roles/container.admin
 
 bold "Saving the key..."
-gcloud iam service-accounts keys create ~/master.json \
+gcloud iam service-accounts keys create ../master.json \
   --iam-account $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com
 
 bold "Creating Storage bucket..."
