@@ -1,0 +1,42 @@
+{
+  "id": "8c77fda6-c2c6-4c27-aa5f-b6f795bc52c9",
+  "parentId": "baf15fbe-5b4b-46dd-9985-cf25000b1e0b",
+  "rootParentId": "baf15fbe-5b4b-46dd-9985-cf25000b1e0b",
+  "name": "[usecase 7] Last 3 transactions - I did not do that",
+  "auto": true,
+  "contexts": [
+    "usecase7Last3transactions-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "usecase7Last3transactions.usecase7Last3transactions-custom",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": "I can connect you to a futurebank employee. Would you like me to transfer your call?"
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

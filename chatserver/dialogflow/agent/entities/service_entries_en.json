@@ -1,0 +1,22 @@
+[
+  {
+    "value": "creditcard",
+    "synonyms": [
+      "amex",
+      "cc",
+      "creditcard",
+      "gold card",
+      "mastercard",
+      "visa"
+    ]
+  },
+  {
+    "value": "debitcard",
+    "synonyms": [
+      "atm card",
+      "bank pass",
+      "card",
+      "debit card"
+    ]
+  }
+]

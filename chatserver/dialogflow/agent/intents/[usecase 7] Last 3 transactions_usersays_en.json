@@ -1,0 +1,104 @@
+[
+  {
+    "id": "d9c7cc47-3f6c-437e-83d6-0ae270b2781f",
+    "data": [
+      {
+        "text": "Yes. I want to see the history.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "6e3d54c9-5baf-4cfe-8410-6a5c1dd5a683",
+    "data": [
+      {
+        "text": "Yes. Please give me an overview.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "f41cabd1-3dc2-4089-a0cc-b682dee412ed",
+    "data": [
+      {
+        "text": "I want to receive an overview of my last purchases.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "170c22b8-0320-46cb-b5b0-f64a16aff4ff",
+    "data": [
+      {
+        "text": "Please give me an overview of my last purchases",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "66d97d42-3eec-4f88-8ae0-e835ad2aa75d",
+    "data": [
+      {
+        "text": "Yes please tell me the last ",
+        "userDefined": false
+      },
+      {
+        "text": "3",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " transations.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "c8ebdfba-525c-4f66-8f34-c11ae18c36a0",
+    "data": [
+      {
+        "text": "Yes, what are the last ",
+        "userDefined": false
+      },
+      {
+        "text": "3",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " transactions.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "42e4bfac-d048-438e-838c-de7820d11674",
+    "data": [
+      {
+        "text": "Yes!",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "26249eaa-0dad-4050-b4b6-18369d87cdcf",
+    "data": [
+      {
+        "text": "Give me a a hyperlink",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "04f31d0c-997d-4982-b814-9cebb03f68f8",
+    "data": [
+      {
+        "text": "Give me a rich card",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "d8e1c569-fba5-49ba-b377-a243c2b237b9",
+    "data": [
+      {
+        "text": "What\u0027s your website?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "3fad9343-a252-4f31-ba00-88062b806a30",
+    "data": [
+      {
+        "text": "What\u0027s the url for your website?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

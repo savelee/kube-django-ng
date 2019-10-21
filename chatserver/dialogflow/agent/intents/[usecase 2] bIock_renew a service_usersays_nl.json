@@ -1,0 +1,229 @@
+[
+  {
+    "id": "4c7718b6-3497-42bd-9582-6b803948a361",
+    "data": [
+      {
+        "text": "Ik wil mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "bankpas",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "vernieuwen",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "6ffc4d1e-5008-4cab-bfce-7db7e015b0ea",
+    "data": [
+      {
+        "text": "Ik wil ",
+        "userDefined": false
+      },
+      {
+        "text": "pas",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "rekening",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "123456",
+        "alias": "any",
+        "meta": "@sys.any",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "blokkeren",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": true
+      },
+      {
+        "text": " als mijn partner al ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "account",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " heeft",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "2ead06f4-73d7-4e0a-803e-ec1b9c73a644",
+    "data": [
+      {
+        "text": "Ik wil mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "pas",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "blokkeren",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": true
+      },
+      {
+        "text": " voor ",
+        "userDefined": false
+      },
+      {
+        "text": "rekening",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "123456",
+        "alias": "any",
+        "meta": "@sys.any",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "215f868e-6262-48a1-ad4a-2ae2b52ea4ab",
+    "data": [
+      {
+        "text": "Ik wil graag mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "pas",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "blokkeren",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "5b6b0a15-24fa-4371-8537-bc0c5f293e5a",
+    "data": [
+      {
+        "text": "Ik ",
+        "userDefined": false
+      },
+      {
+        "text": "heb",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "pas",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "rekening",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      },
+      {
+        "text": " gekregen die ik wil ",
+        "userDefined": false
+      },
+      {
+        "text": "blokkeren",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

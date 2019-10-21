@@ -1,0 +1,42 @@
+{
+  "id": "340c01fd-6f9a-44ae-b758-f0c1456acd23",
+  "parentId": "3452e4a5-7183-4167-b3a4-d5572da4018d",
+  "rootParentId": "3452e4a5-7183-4167-b3a4-d5572da4018d",
+  "name": "[usecase 6] What\u0027s my saldo - problem",
+  "auto": true,
+  "contexts": [
+    "usecase6Whatsmysaldo-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "usecase6Whatsmysaldo.usecase6Whatsmysaldo-custom",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": "Would you like to see the 3 latest transactions?"
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

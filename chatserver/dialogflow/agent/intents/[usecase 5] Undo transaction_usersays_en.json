@@ -1,0 +1,159 @@
+[
+  {
+    "id": "f80d2daf-4e16-41ff-98b1-f16debf4c0dc",
+    "data": [
+      {
+        "text": "Undo my transaction from last night",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "908d953d-ad6a-4c67-8880-2fbf5cf59b0f",
+    "data": [
+      {
+        "text": "Please cancel my transaction",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "3f4d2dc3-6876-47a3-83fd-cebfc3f9ced2",
+    "data": [
+      {
+        "text": "By accident I made a transaction to IBAN ",
+        "userDefined": false
+      },
+      {
+        "text": "11111",
+        "alias": "account",
+        "meta": "@sys.number",
+        "userDefined": true
+      },
+      {
+        "text": " how can I undo this?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "4ec7fbed-d1da-4b1d-ac62-2dc780ebd803",
+    "data": [
+      {
+        "text": "Accidentally, I ",
+        "userDefined": false
+      },
+      {
+        "text": "transferred",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " the wrong amount. How can I cancel this?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "92143d8d-0a5f-4994-95c6-72c389a3ad91",
+    "data": [
+      {
+        "text": "Accidentally, I ",
+        "userDefined": false
+      },
+      {
+        "text": "transferred",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " the wrong amount. How can I undo this transaction?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "3da2f3d2-5e63-45ec-926b-8b740af09904",
+    "data": [
+      {
+        "text": "By accident I ",
+        "userDefined": false
+      },
+      {
+        "text": "transferred",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " money to a wrong account, how can I undo this?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "1ac88533-fa58-402f-9799-91cb1d07155f",
+    "data": [
+      {
+        "text": "How can I undo a transaction",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "09489d69-0e47-4d31-95c5-ed28cb7af7ff",
+    "data": [
+      {
+        "text": "Can I remove a transaction",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "183df0f7-1691-4d8e-8ac2-b8d7216b787f",
+    "data": [
+      {
+        "text": "I want to undo a transaction",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "3439e3ac-7034-41ca-a624-3d49e65cd239",
+    "data": [
+      {
+        "text": "I would like to cancel a scheduled transaction",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

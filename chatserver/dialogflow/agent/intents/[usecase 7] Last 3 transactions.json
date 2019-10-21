@@ -1,0 +1,37 @@
+{
+  "id": "baf15fbe-5b4b-46dd-9985-cf25000b1e0b",
+  "name": "[usecase 7] Last 3 transactions",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [
+        {
+          "name": "usecase7Last3transactions-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": "You just transferred 100 euro to account number 01.23.456.789, Germany. Today, at 3:05am you transferred 8000 euro to account number 98.76.543.210, AliExpress. Today, at 3:00 am you transferred 1 euro cent to account number 98.76.543.210, AliExpress. Are you familiar with these transactions?"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

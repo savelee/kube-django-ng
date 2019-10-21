@@ -1,0 +1,97 @@
+[
+  {
+    "value": "clothes",
+    "synonyms": [
+      "clothes",
+      "clothing"
+    ]
+  },
+  {
+    "value": "flights",
+    "synonyms": [
+      "airplane tickets",
+      "flights"
+    ]
+  },
+  {
+    "value": "fun",
+    "synonyms": [
+      "fun",
+      "hobby"
+    ]
+  },
+  {
+    "value": "groceries",
+    "synonyms": [
+      "food",
+      "groceries",
+      "supermarket"
+    ]
+  },
+  {
+    "value": "mortgage",
+    "synonyms": [
+      "house",
+      "mortgage",
+      "rent"
+    ]
+  },
+  {
+    "value": "public transport",
+    "synonyms": [
+      "public transport",
+      "trains",
+      "trams",
+      "transportation"
+    ]
+  },
+  {
+    "value": "restaurants",
+    "synonyms": [
+      "dinner",
+      "dinners",
+      "eating out",
+      "lunch",
+      "restaurants"
+    ]
+  },
+  {
+    "value": "shoes",
+    "synonyms": [
+      "boots",
+      "pumps",
+      "shoes",
+      "sneakers"
+    ]
+  },
+  {
+    "value": "shopping",
+    "synonyms": [
+      "shopping"
+    ]
+  },
+  {
+    "value": "taxis",
+    "synonyms": [
+      "cabs",
+      "taxis",
+      "ubers"
+    ]
+  },
+  {
+    "value": "transfer",
+    "synonyms": [
+      "bank transfer",
+      "transfer"
+    ]
+  },
+  {
+    "value": "vacation",
+    "synonyms": [
+      "holiday",
+      "summer vacation",
+      "vacation",
+      "wintersport"
+    ]
+  }
+]

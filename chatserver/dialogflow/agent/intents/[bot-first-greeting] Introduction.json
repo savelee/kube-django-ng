@@ -1,0 +1,50 @@
+{
+  "id": "fcc2530c-cf2e-4b5d-8012-ea7675236eac",
+  "name": "[bot-first-greeting] Introduction",
+  "auto": false,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": [
+            "Hoi! Ik ben Babs de BankingBot. Ik kan je helpen met geld overmaken, je saldo opvragen of ik kan je betaal historie vertellen. Wat kan ik voor je doen?",
+            "Hallo, ik ben Babs de BankingBot. Ik kan je helpen met het overmaken van bedragen, saldo opvragen of ik kan je betaal historie vertellen. Hoe mag ik je helpen?"
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": [
+            "Hi there! I\u0027m Babs the Bankingbot. I can help you with transferring money, requesting your balance, or I can tell you your payment history. What can I do for you?",
+            "Hello! I\u0027m Babs the Bankingbot. I can help you with transferring money, requesting your balance, or I can tell you your payment history. How can I help you?"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [
+    {
+      "name": "websitewelcome"
+    },
+    {
+      "name": "GOOGLE_ASSISTANT_WELCOME"
+    }
+  ],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

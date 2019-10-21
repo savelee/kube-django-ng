@@ -1,0 +1,227 @@
+[
+  {
+    "id": "274073d6-0d46-4798-884d-0833fd61cc9d",
+    "data": [
+      {
+        "text": "Did I receive ",
+        "userDefined": false
+      },
+      {
+        "text": "bank transfers",
+        "alias": "category",
+        "meta": "@incomingpayments",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "8dbd25e9-539b-4eff-95ec-b8d350ff8c23",
+    "data": [
+      {
+        "text": "Did I receive a ",
+        "userDefined": false
+      },
+      {
+        "text": "refund",
+        "alias": "category",
+        "meta": "@incomingpayments",
+        "userDefined": false
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "596567ef-0811-4ae2-b11c-e9a38f37ff20",
+    "data": [
+      {
+        "text": "Did",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      },
+      {
+        "text": " my employer transfer ",
+        "userDefined": false
+      },
+      {
+        "text": "salary",
+        "alias": "category",
+        "meta": "@incomingpayments",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "46212044-0c4d-4afb-8755-aebef23d10ad",
+    "data": [
+      {
+        "text": "Did my employer ",
+        "userDefined": false
+      },
+      {
+        "text": "pay",
+        "alias": "category",
+        "meta": "@incomingpayments",
+        "userDefined": true
+      },
+      {
+        "text": " me?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "271dc6f3-a8eb-4145-8922-494759109c95",
+    "data": [
+      {
+        "text": "Where is my ",
+        "userDefined": false
+      },
+      {
+        "text": "payslip",
+        "alias": "category",
+        "meta": "@incomingpayments",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "649e28aa-ae70-43e5-a394-d1a33a74d2e3",
+    "data": [
+      {
+        "text": "How much ",
+        "userDefined": false
+      },
+      {
+        "text": "salary",
+        "alias": "category",
+        "meta": "@incomingpayments",
+        "userDefined": true
+      },
+      {
+        "text": " did I receive?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "d1506c1e-97e7-4266-a251-ad8765eadab6",
+    "data": [
+      {
+        "text": "When will I receive my ",
+        "userDefined": false
+      },
+      {
+        "text": "salary",
+        "alias": "category",
+        "meta": "@incomingpayments",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "da388b0c-0e2f-42f5-a0e9-6438bc455e88",
+    "data": [
+      {
+        "text": "Did my company sent me my ",
+        "userDefined": false
+      },
+      {
+        "text": "salary",
+        "alias": "category",
+        "meta": "@incomingpayments",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "f43695b7-b99e-4a4e-b1e0-5ffd5b77552e",
+    "data": [
+      {
+        "text": "Is my ",
+        "userDefined": false
+      },
+      {
+        "text": "salary",
+        "alias": "category",
+        "meta": "@incomingpayments",
+        "userDefined": true
+      },
+      {
+        "text": " already transferred?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "9965b774-4cf1-4b05-9630-1b9ac382bfec",
+    "data": [
+      {
+        "text": "Did I receive my ",
+        "userDefined": false
+      },
+      {
+        "text": "salary",
+        "alias": "category",
+        "meta": "@incomingpayments",
+        "userDefined": true
+      },
+      {
+        "text": " yet?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

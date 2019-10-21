@@ -1,0 +1,30 @@
+[
+  {
+    "value": "H001",
+    "synonyms": [
+      "H001",
+      "huis"
+    ]
+  },
+  {
+    "value": "H002",
+    "synonyms": [
+      "H002",
+      "villa"
+    ]
+  },
+  {
+    "value": "H003",
+    "synonyms": [
+      "H003",
+      "appartement"
+    ]
+  },
+  {
+    "value": "H004",
+    "synonyms": [
+      "H004",
+      "bungalow"
+    ]
+  }
+]

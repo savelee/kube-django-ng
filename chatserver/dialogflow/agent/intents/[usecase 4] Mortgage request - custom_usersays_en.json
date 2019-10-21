@@ -1,0 +1,137 @@
+[
+  {
+    "id": "23c90ec0-7b04-4419-a161-083ba3e4a651",
+    "data": [
+      {
+        "text": "We are looking to for a ",
+        "userDefined": false
+      },
+      {
+        "text": "villa",
+        "alias": "housing_type",
+        "meta": "@housing_type",
+        "userDefined": false
+      },
+      {
+        "text": ".",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "70ba094d-6329-4976-8ae2-c89cacb059e4",
+    "data": [
+      {
+        "text": "Apartment",
+        "alias": "housing_type",
+        "meta": "@housing_type",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "cfa7be2a-d67d-4af3-927f-1860c2821e10",
+    "data": [
+      {
+        "text": "We want to move to a ",
+        "userDefined": false
+      },
+      {
+        "text": "new",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "apartment",
+        "alias": "housing_type",
+        "meta": "@housing_type",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "eb59f344-3c6f-4c88-8e6c-99985f5c4712",
+    "data": [
+      {
+        "text": "We want to buy a ",
+        "userDefined": false
+      },
+      {
+        "text": "house",
+        "alias": "housing_type",
+        "meta": "@housing_type",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "42c5aabc-4e57-4cdc-8386-867f772011cb",
+    "data": [
+      {
+        "text": "I want to buy a ",
+        "userDefined": false
+      },
+      {
+        "text": "house",
+        "alias": "housing_type",
+        "meta": "@housing_type",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "cac6ed44-c9bf-461e-900f-31b6d4571bca",
+    "data": [
+      {
+        "text": "I want a ",
+        "userDefined": false
+      },
+      {
+        "text": "house",
+        "alias": "housing_type",
+        "meta": "@housing_type",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "fbb75b7b-33aa-490e-a4b3-3e67c802632b",
+    "data": [
+      {
+        "text": "A ",
+        "userDefined": false
+      },
+      {
+        "text": "bungalow",
+        "alias": "housing_type",
+        "meta": "@housing_type",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

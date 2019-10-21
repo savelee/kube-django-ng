@@ -1,0 +1,125 @@
+{
+  "id": "46ed01d0-21cb-4b5b-809f-b2ab4822bfca",
+  "name": "[usecase 2] bIock/renew a service",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [
+        {
+          "name": "usecase2bIockrenewaservice-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [
+        {
+          "id": "da084be7-961e-4b87-8904-ba6c3a9f270d",
+          "required": true,
+          "dataType": "@service",
+          "name": "service",
+          "value": "$service",
+          "prompts": [
+            {
+              "lang": "nl",
+              "value": "Gaat dit om je bankpas of om je creditcard?"
+            },
+            {
+              "lang": "nl",
+              "value": "Bedoel je, je bankpas of je creditcard?"
+            },
+            {
+              "lang": "en",
+              "value": "Do you mean your creditcard or debitcard?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        },
+        {
+          "id": "c4e1ea3f-0e21-4ce2-9680-2c9f77811ec5",
+          "required": true,
+          "dataType": "@cardaction",
+          "name": "cardaction",
+          "value": "$cardaction",
+          "prompts": [
+            {
+              "lang": "nl",
+              "value": "Wil je dit vernieuwen of blokkeren?"
+            },
+            {
+              "lang": "nl",
+              "value": "Blokkeren of vernieuwen?"
+            },
+            {
+              "lang": "en",
+              "value": "What would you like to do? I can block the card or renew it."
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        },
+        {
+          "id": "d32ce658-a266-4f94-b448-b52ec792e365",
+          "required": true,
+          "dataType": "@sys.any",
+          "name": "any",
+          "value": "$any",
+          "prompts": [
+            {
+              "lang": "nl",
+              "value": "Wat is het kaart nummer?"
+            },
+            {
+              "lang": "en",
+              "value": "No problem. I just need to know the number of your current card."
+            },
+            {
+              "lang": "en",
+              "value": "Of course. What\u0027s the number that\u0027s on your current card?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": "Geen probleem! We hebben je $service met kaart nummer: $any $cardaction! Is er nog iets anders waarbij ik je mag helpen?"
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": [
+            "No problem. Your $service is $cardaction with the number $any at the end. Is there anything else I can help you with?",
+            "Sure. I\u0027ve $cardaction your $service with the number $any at the end. Is there something else I can do for you?"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

@@ -1,0 +1,9 @@
+{
+  "id": "89c42130-0b71-4a80-81ec-7614f3a9f2d1",
+  "name": "cardaction",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}

@@ -1,0 +1,45 @@
+{
+  "id": "347880de-a050-4226-9019-a7e38dc5ac89",
+  "name": "[search] Spent",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "spent",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "id": "8efcf638-eb2e-4f3d-8530-2a670ec5bbae",
+          "required": false,
+          "dataType": "@paymentcategories",
+          "name": "category",
+          "value": "$category",
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": true
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

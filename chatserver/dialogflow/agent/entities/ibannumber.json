@@ -1,0 +1,9 @@
+{
+  "id": "c776cef2-85d7-49fb-8e13-a7589dc2099a",
+  "name": "ibannumber",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": true,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}

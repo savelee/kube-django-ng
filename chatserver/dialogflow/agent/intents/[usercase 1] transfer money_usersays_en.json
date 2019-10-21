@@ -1,0 +1,184 @@
+[
+  {
+    "id": "9be3cfcb-7d25-407b-95f9-ff7651218a03",
+    "data": [
+      {
+        "text": "Give ",
+        "userDefined": false
+      },
+      {
+        "text": "14.50 euro",
+        "alias": "amount",
+        "meta": "@sys.unit-currency",
+        "userDefined": false
+      },
+      {
+        "text": " to ",
+        "userDefined": false
+      },
+      {
+        "text": "NL20INGB0001234567",
+        "alias": "account",
+        "meta": "@ibannumber",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "f141a368-1815-4c41-962f-ca26d87be9d9",
+    "data": [
+      {
+        "text": "Please send ",
+        "userDefined": false
+      },
+      {
+        "text": "12 euro",
+        "alias": "amount",
+        "meta": "@sys.unit-currency",
+        "userDefined": true
+      },
+      {
+        "text": " to ",
+        "userDefined": false
+      },
+      {
+        "text": "NL20INGB0001234567",
+        "alias": "account",
+        "meta": "@ibannumber",
+        "userDefined": true
+      },
+      {
+        "text": " In ",
+        "userDefined": false
+      },
+      {
+        "text": "Germany",
+        "alias": "destination",
+        "meta": "@sys.geo-country",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "015d1f5e-6c70-461d-9add-ccaf2dffd975",
+    "data": [
+      {
+        "text": "I like to transfer money to ",
+        "userDefined": false
+      },
+      {
+        "text": "destination",
+        "alias": "destination",
+        "meta": "@sys.geo-country",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "8e603eeb-3856-48e5-9d84-b0ee12e95f82",
+    "data": [
+      {
+        "text": "I like to send money",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "fc674495-06db-425c-ad62-e07930eb1957",
+    "data": [
+      {
+        "text": "I have money that I want to tranfer",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "c51e6f7d-e942-45b4-9ccf-2bedb084ca71",
+    "data": [
+      {
+        "text": "I like to transfer ",
+        "userDefined": false
+      },
+      {
+        "text": "400 euro",
+        "alias": "amount",
+        "meta": "@sys.unit-currency",
+        "userDefined": true
+      },
+      {
+        "text": " to my friend.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "cd0edb11-2e9a-445e-ad9f-8ac61f0bc740",
+    "data": [
+      {
+        "text": "I like to transfer ",
+        "userDefined": false
+      },
+      {
+        "text": "40 dollar",
+        "alias": "amount",
+        "meta": "@sys.unit-currency",
+        "userDefined": true
+      },
+      {
+        "text": " to ",
+        "userDefined": false
+      },
+      {
+        "text": "destination",
+        "alias": "destination",
+        "meta": "@sys.geo-country",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "ece13acc-371a-4ee3-8a03-715d574de52d",
+    "data": [
+      {
+        "text": "I like to transfer money",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "3a4473fb-d577-4471-8a05-2a26e92453c1",
+    "data": [
+      {
+        "text": "I would like to transfer money",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

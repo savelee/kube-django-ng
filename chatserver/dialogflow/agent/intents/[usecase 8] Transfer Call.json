@@ -1,0 +1,46 @@
+{
+  "id": "f6138ddf-3346-41e7-a382-322cfb27f8c2",
+  "name": "[usecase 8] Transfer Call",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 14,
+          "platform": "telephony",
+          "lang": "en",
+          "condition": "",
+          "text": "Ok, I will transfer your call to an employee.",
+          "ssml": ""
+        },
+        {
+          "type": 15,
+          "platform": "telephony",
+          "lang": "en",
+          "condition": "",
+          "phoneNumber": "+12125659233"
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": "No problem. I will connect you to a live agent."
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

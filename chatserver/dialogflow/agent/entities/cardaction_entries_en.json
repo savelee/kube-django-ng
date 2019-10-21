@@ -1,0 +1,17 @@
+[
+  {
+    "value": "blocked",
+    "synonyms": [
+      "block",
+      "disable",
+      "stop"
+    ]
+  },
+  {
+    "value": "renewed",
+    "synonyms": [
+      "new",
+      "renew"
+    ]
+  }
+]

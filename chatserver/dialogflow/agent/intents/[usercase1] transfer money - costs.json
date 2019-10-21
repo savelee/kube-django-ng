@@ -1,0 +1,42 @@
+{
+  "id": "93a9eaee-fd18-4cce-9e4d-c83c82408097",
+  "parentId": "c7be0275-2d9f-4268-a95f-dc5693d4cebd",
+  "rootParentId": "c7be0275-2d9f-4268-a95f-dc5693d4cebd",
+  "name": "[usercase1] transfer money - costs",
+  "auto": true,
+  "contexts": [
+    "usercase1transfermoney-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "usercase1transfermoney.usercase1transfermoney-custom",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": []
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": "It costs 15 euro to transfer money to #usercase1transfermoney-followup.destination."
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

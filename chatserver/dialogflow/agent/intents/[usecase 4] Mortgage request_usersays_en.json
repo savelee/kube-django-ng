@@ -1,0 +1,74 @@
+[
+  {
+    "id": "6a6cb8e9-76d2-427f-8435-af72c9d9e8f5",
+    "data": [
+      {
+        "text": "I need to get a loan",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "03e50efa-3db0-4580-8f32-cd9b2244d6e6",
+    "data": [
+      {
+        "text": "I want to get a loan",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "98da1858-f790-4903-ac5a-9499a5469aca",
+    "data": [
+      {
+        "text": "I want to borrow money",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "257a8399-be9c-4fd6-ab6e-5bf3abc5a8b0",
+    "data": [
+      {
+        "text": "I need a ",
+        "userDefined": false
+      },
+      {
+        "text": "mortgage",
+        "alias": "paymentcategories",
+        "meta": "@paymentcategories",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "1cd61515-c94e-4507-be0d-e1403bb40227",
+    "data": [
+      {
+        "text": "I want to take a ",
+        "userDefined": false
+      },
+      {
+        "text": "mortgage",
+        "alias": "paymentcategories",
+        "meta": "@paymentcategories",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

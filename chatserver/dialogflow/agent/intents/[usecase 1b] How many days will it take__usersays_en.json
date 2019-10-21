@@ -1,0 +1,107 @@
+[
+  {
+    "id": "2a38023d-101f-420a-a07f-56a8973c846c",
+    "data": [
+      {
+        "text": "How long",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "7179edbb-9c6c-409d-ab1b-2f294a7b15d4",
+    "data": [
+      {
+        "text": "How long will it take",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "05b995d6-9ddf-4d87-9cd8-cd05df0b56d2",
+    "data": [
+      {
+        "text": "When will this been ",
+        "userDefined": false
+      },
+      {
+        "text": "transferred",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "a6c01b7c-acdf-49b5-b954-7c637f3cd540",
+    "data": [
+      {
+        "text": "When will I receive it?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "8925fc05-0d8a-48c3-abbe-1bf0e31c00d3",
+    "data": [
+      {
+        "text": "When will this be done?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "dc9222fb-ad32-4cd0-b81c-ad5e09fdd4e1",
+    "data": [
+      {
+        "text": "When will the transaction been processed?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "333a7188-5fdc-4661-bb96-23126fe98bdc",
+    "data": [
+      {
+        "text": "How long will that take?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "061570bc-41b5-4720-a68b-be98ce19b65b",
+    "data": [
+      {
+        "text": "How many days will it take?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

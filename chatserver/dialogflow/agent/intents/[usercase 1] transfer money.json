@@ -1,0 +1,129 @@
+{
+  "id": "c7be0275-2d9f-4268-a95f-dc5693d4cebd",
+  "name": "[usercase 1] transfer money",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [
+        {
+          "name": "usercase1transfermoney-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [
+        {
+          "id": "6833a8f7-c651-4f54-b528-bf502e4676e5",
+          "required": true,
+          "dataType": "@ibannumber",
+          "name": "account",
+          "value": "$account",
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "To which bank IBAN number do you want to transfer money?"
+            },
+            {
+              "lang": "en",
+              "value": "What bank account number would you like to transfer money to?"
+            },
+            {
+              "lang": "nl",
+              "value": "Naar welk rekening nummer?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        },
+        {
+          "id": "bff66dc5-3932-4827-a4dc-94d15ca1f325",
+          "required": true,
+          "dataType": "@sys.unit-currency",
+          "name": "amount",
+          "value": "$amount",
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "How much do you want to transfer?"
+            },
+            {
+              "lang": "en",
+              "value": "What\u0027s the amount you want to transfer?"
+            },
+            {
+              "lang": "nl",
+              "value": "Wat is het bedrag?"
+            },
+            {
+              "lang": "nl",
+              "value": "Hoeveel wil je overmaken?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        },
+        {
+          "id": "1f46822e-ad54-447b-8efe-65bb38be84d4",
+          "required": true,
+          "dataType": "@sys.geo-country",
+          "name": "destination",
+          "value": "$destination",
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "What\u0027s the destination country?"
+            },
+            {
+              "lang": "nl",
+              "value": "Naar welke locatie?"
+            },
+            {
+              "lang": "nl",
+              "value": "Naar welk land?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": [
+            "Alright, I will transfer $amount to bank account $account $destination. Is there anything else I can help you with?",
+            "Alright then, I will transfer $amount to bank account $account $destination. Can I help you with anything else?"
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": "Ok! Ik ga $amount overmaken naar $destination . Is er nog iets anders waarbij ik je mag helpen?"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "value": "loteries",
+    "synonyms": [
+      "casino",
+      "game",
+      "lotery",
+      "win"
+    ]
+  },
+  {
+    "value": "presents",
+    "synonyms": [
+      "present",
+      "presents"
+    ]
+  },
+  {
+    "value": "refunds",
+    "synonyms": [
+      "refund",
+      "refunds"
+    ]
+  },
+  {
+    "value": "salary",
+    "synonyms": [
+      "job",
+      "pay",
+      "pay slip",
+      "pay slips",
+      "salary"
+    ]
+  },
+  {
+    "value": "transfers",
+    "synonyms": [
+      "bank transfers",
+      "transfers"
+    ]
+  }
+]

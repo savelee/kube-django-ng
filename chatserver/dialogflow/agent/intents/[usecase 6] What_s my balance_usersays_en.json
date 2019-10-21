@@ -1,0 +1,86 @@
+[
+  {
+    "id": "5c91b8c7-5be9-4091-b82b-d3aa9a784c16",
+    "data": [
+      {
+        "text": "How much do I have in my account?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "eb61c69e-686a-4536-bfe4-b93525e79d5a",
+    "data": [
+      {
+        "text": "What\u0027s the balance?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "2c90e9d3-7143-4586-9e37-edb6ff920423",
+    "data": [
+      {
+        "text": "Can you tell me my account balance?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "8b69ce24-a775-48e0-9605-1e218e808904",
+    "data": [
+      {
+        "text": "How much money do I have in my account?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "d138cc55-22a5-4630-94d3-b33bab5df681",
+    "data": [
+      {
+        "text": "What\u0027s my balance?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "f8fe8efa-ed55-474d-9330-570fdf21979d",
+    "data": [
+      {
+        "text": "What is my bank saldo?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "fa2dcec8-ac81-4fd8-8c96-b4dea962a361",
+    "data": [
+      {
+        "text": "What\u0027s my saldo?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

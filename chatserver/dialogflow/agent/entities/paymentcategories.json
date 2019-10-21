@@ -1,0 +1,9 @@
+{
+  "id": "bb1a590c-bf75-40f3-94ba-d5043fd2e1a7",
+  "name": "paymentcategories",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}

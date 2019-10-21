@@ -1,0 +1,56 @@
+{
+  "id": "29ed82e0-937a-4860-a251-0e71d0ed43ca",
+  "name": "[usecase 4] Mortgage request",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [
+        {
+          "name": "usecase4Mortgagerequest-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [
+        {
+          "id": "7c7e0882-6be9-4601-8a8a-002791044635",
+          "required": false,
+          "dataType": "@housing_type",
+          "name": "housing_type",
+          "value": "$housing_type",
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": "Wat voor soort woning zoekt u? Een huis, villa, appartement of bungalow?"
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": "What type of housing are you looking for? House, Villa, Apartment or Bungalow?"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

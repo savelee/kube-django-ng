@@ -1,0 +1,232 @@
+[
+  {
+    "id": "d4f06e11-a6a4-4952-b844-23852ec2a1a4",
+    "data": [
+      {
+        "text": "I want to ",
+        "userDefined": false
+      },
+      {
+        "text": "renew",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": false
+      },
+      {
+        "text": " my ",
+        "userDefined": false
+      },
+      {
+        "text": "bank pass",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "a93b342c-3b35-475f-b271-dcce5a1b3212",
+    "data": [
+      {
+        "text": "I want a ",
+        "userDefined": false
+      },
+      {
+        "text": "new",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "creditcard",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "81ab48ce-4a04-4daa-b370-71bb4524c2b8",
+    "data": [
+      {
+        "text": "Could you please ",
+        "userDefined": false
+      },
+      {
+        "text": "block",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": true
+      },
+      {
+        "text": " my ",
+        "userDefined": false
+      },
+      {
+        "text": "card",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      },
+      {
+        "text": " for now",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "238c31ee-bec5-4fd4-93b6-d357e9122982",
+    "data": [
+      {
+        "text": "Stop",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": true
+      },
+      {
+        "text": " my ",
+        "userDefined": false
+      },
+      {
+        "text": "card",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "d7f7ab04-909e-4566-ae06-d14477999346",
+    "data": [
+      {
+        "text": "Block",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": true
+      },
+      {
+        "text": " my ",
+        "userDefined": false
+      },
+      {
+        "text": "card",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      },
+      {
+        "text": " which ends with ",
+        "userDefined": false
+      },
+      {
+        "text": "12",
+        "alias": "any",
+        "meta": "@sys.any",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "9326e413-3af4-40ca-bef4-6810f7bd4779",
+    "data": [
+      {
+        "text": "I want to ",
+        "userDefined": false
+      },
+      {
+        "text": "disable",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": true
+      },
+      {
+        "text": " my ",
+        "userDefined": false
+      },
+      {
+        "text": "card",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "fac5aebd-34fb-440b-bd56-13c5ed987229",
+    "data": [
+      {
+        "text": "Can you please ",
+        "userDefined": false
+      },
+      {
+        "text": "block",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": true
+      },
+      {
+        "text": " my ",
+        "userDefined": false
+      },
+      {
+        "text": "card",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "61f7a0bd-7bf2-465b-9a97-7d91235f8ff1",
+    "data": [
+      {
+        "text": "I would like to ",
+        "userDefined": false
+      },
+      {
+        "text": "block",
+        "alias": "cardaction",
+        "meta": "@cardaction",
+        "userDefined": true
+      },
+      {
+        "text": " my ",
+        "userDefined": false
+      },
+      {
+        "text": "card",
+        "alias": "service",
+        "meta": "@service",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

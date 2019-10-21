@@ -1,0 +1,68 @@
+{
+  "id": "e589461e-4009-4b24-bbee-ffd854b9e2be",
+  "name": "[usecase 5] Undo transaction",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "id": "304e59d1-6fd8-4287-9676-5a3158b8c880",
+          "required": true,
+          "dataType": "@sys.number",
+          "name": "account",
+          "value": "$account",
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "I\u0027m sorry to hear, what\u0027s the IBAN number of the wrong transaction?"
+            },
+            {
+              "lang": "en",
+              "value": "No problem, let me check this. What\u0027s the IBAN number of the wrong transaction?"
+            },
+            {
+              "lang": "nl",
+              "value": "Oh nee. Wat is het IBAN nummer van de verkeerde transactie?"
+            },
+            {
+              "lang": "nl",
+              "value": "Wat vervelend. Ik zal voor u kijken. Kunt u mij het IBAN nummer doorgeven?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": "The transaction has been cancelled."
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": "De transactie is ongedaan gemaakt."
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

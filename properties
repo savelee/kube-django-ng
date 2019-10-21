@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # install script
-PROJECT_ID=$(gcloud info --format='value(config.project)')
+PROJECT_ID=chatbotportal-prod
+PROD_AGENT_NAME=chatbotportal
 PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
+
 VERSION=1.0.0
 COMMIT_SHA=`git rev-parse HEAD`
 CLOUD_BUILD_EMAIL=$PROJECT_NUMBER@cloudbuild.gserviceaccount.com
@@ -23,29 +25,9 @@ MAX_NODES=4
 GKE_CLUSTER=chatbotportal
 REGION=europe-west4-a
 REGION_ALTERNATIVE=europe-west1
-
-DEV_AGENT_PROJECT_ID=chatbotportal-dev
-TEST_AGENT_PROJECT_ID=chatbotportal-test
+# setup Cloud Functions
+CF_ANALYTICS=chatanalytics
 
 # TODO get environment vars
 
-# setup Cloud Functions
-CF_ANALYTICS=chatanalytics
-LANGUAGE_CODE=en-US
-TOPIC=user-content
-
-# setup BigQuery Chatbot Analytics
-BQ_LOCATION=EU
-DATASET=chatanalytics
-TABLE=chatmessages
-SCHEMA=BOT_NAME,TEXT,POSTED:TIMESTAMP,SCORE:FLOAT,MAGNITUDE:FLOAT, INTENT_RESPONSE,INTENT_NAME,CONFIDENCE:FLOAT,IS_FALLBACK: BOOLEAN,IS_FULFILLMENT: BOOLEAN,IS_END_INTERACTION: BOOLEAN,PLATFORM,SESSION
-# setup BigQuery Test Metrics
-DATASET_TEST_METRICS=conversationcoverage
-TABLE_TEST_METRICS=testmetrics
-SCHEMA_TEST_METRICS=TEST_DATE:TIMESTAMP,TEST_LANGUAGE,TEST_QUERY,EXPECTED_INTENT,DETECTED_INTENT,IS_FALLBACK: BOOLEAN,TEST_RESULT
-
-# other configs for configmap
-MY_CHATBASE_KEY=TODO
-MY_CHATBASE_VERSION=1.0
-MY_CHATBASE_BOT_NAME=babsthebankingbot
 

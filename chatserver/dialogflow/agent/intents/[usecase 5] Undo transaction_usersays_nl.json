@@ -1,0 +1,157 @@
+[
+  {
+    "id": "c8456141-af40-4b92-bfb9-5a2111872d58",
+    "data": [
+      {
+        "text": "Ik heb naar het verkeerde bank ",
+        "userDefined": false
+      },
+      {
+        "text": "account",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " geld overgemaakt, wat ",
+        "userDefined": false
+      },
+      {
+        "text": "nu",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "cdce9536-2354-4830-ab60-37cf56bef8fc",
+    "data": [
+      {
+        "text": "Ik wil graag ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "alias": "account",
+        "meta": "@sys.number",
+        "userDefined": false
+      },
+      {
+        "text": " transactie ongedaan maken.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "592d053c-a86d-4a52-bd49-6abb6ce51edc",
+    "data": [
+      {
+        "text": "Hoe kan ik ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " transactie cancellen?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "0df45029-0951-4e3f-9654-df7e5b08d3a9",
+    "data": [
+      {
+        "text": "Hoe kan ik ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " transactie ongedaan maken?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "14ca0d8d-8c5b-40fe-a31f-af7cedf1f3be",
+    "data": [
+      {
+        "text": "I heb per ongeluk ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " bedrag overgemaakt naar het verkeerde ",
+        "userDefined": false
+      },
+      {
+        "text": "account",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " nummer, wat ",
+        "userDefined": false
+      },
+      {
+        "text": "nu",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "f9c16bf3-da78-445b-881e-118aea05e3cd",
+    "data": [
+      {
+        "text": "Ik heb per ongeluk geld overgemaakt aan IBAN ",
+        "userDefined": false
+      },
+      {
+        "text": "11122",
+        "alias": "account",
+        "meta": "@sys.number",
+        "userDefined": false
+      },
+      {
+        "text": ", hoe kan ik dit ongedaan maken?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

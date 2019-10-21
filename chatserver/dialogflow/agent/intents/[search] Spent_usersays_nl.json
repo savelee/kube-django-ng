@@ -1,0 +1,196 @@
+[
+  {
+    "id": "68784bcf-e49f-4cb9-950b-a6e8d6ac9eb3",
+    "data": [
+      {
+        "text": "Hoeveel spendeer ik aan ",
+        "userDefined": false
+      },
+      {
+        "text": "taxis",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "34677e73-1d68-48c5-aaa3-b9f98c3981df",
+    "data": [
+      {
+        "text": "Hoeveel heb ik betaald aan ",
+        "userDefined": false
+      },
+      {
+        "text": "restaurants",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "62437158-425e-4271-92f6-0f35016e3f71",
+    "data": [
+      {
+        "text": "Laat me alle ",
+        "userDefined": false
+      },
+      {
+        "text": "boodschappen",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": true
+      },
+      {
+        "text": " uitgaves zien.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "0332abf5-33b8-43af-b27b-d92de424a489",
+    "data": [
+      {
+        "text": "Wat zijn mijn ",
+        "userDefined": false
+      },
+      {
+        "text": "schoenen",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": true
+      },
+      {
+        "text": " uitgaves?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "b56bd58a-a687-42df-a480-7b9ff13ff346",
+    "data": [
+      {
+        "text": "Hoeveel geef ik uit aan ",
+        "userDefined": false
+      },
+      {
+        "text": "schoenen",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "3ddab3e8-ac62-457f-8b77-b0e2607051fc",
+    "data": [
+      {
+        "text": "Hoeveel geld heb ik uitgegeven aan ",
+        "userDefined": false
+      },
+      {
+        "text": "boodschappen",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "1d143184-5291-4d1c-b46a-768fb308e478",
+    "data": [
+      {
+        "text": "Hoeveel heb ik ",
+        "userDefined": false
+      },
+      {
+        "text": "de",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "afgelopen maand",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " besteed aan ",
+        "userDefined": false
+      },
+      {
+        "text": "restaurants",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "393331d7-2dd9-4c82-b4e0-b4035d96ba00",
+    "data": [
+      {
+        "text": "Hoeveel heb ik besteed aan ",
+        "userDefined": false
+      },
+      {
+        "text": "restaurants",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": true
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "id": "77c185ad-6c28-4040-b2c9-694eac26e775",
+  "parentId": "46ed01d0-21cb-4b5b-809f-b2ab4822bfca",
+  "rootParentId": "46ed01d0-21cb-4b5b-809f-b2ab4822bfca",
+  "name": "[usecase 2] bIock/renew a service - yes",
+  "auto": true,
+  "contexts": [
+    "usecase2bIockrenewaservice-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "usecase2bIockrenewaservice.usecase2bIockrenewaservice-yes",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": []
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

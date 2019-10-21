@@ -1,0 +1,59 @@
+{
+  "id": "9647b583-fad8-4f0f-a50e-4601e22ba471",
+  "name": "Default Welcome Intent",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "input.welcome",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 14,
+          "platform": "telephony",
+          "lang": "en",
+          "condition": "",
+          "text": "If you want to speak with an employee, please say: \"I would like to speak to someone\"",
+          "ssml": ""
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": [
+            "Hi there! I\u0027m Babs the banking bot. I can help you with transferring money. Or I can tell you how much balance you have in your account. How can I help you?",
+            "Hello! I\u0027m Babs the banking bot. I\u0027m here to help you with transferring money. Also, I can tell you how much money you have in your account. Please tell me, how can I help you?"
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": [
+            "Hallo!",
+            "Goedendag!",
+            "Hoi Hoi"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "telephony": true
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [
+    {
+      "name": "WELCOME"
+    }
+  ],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

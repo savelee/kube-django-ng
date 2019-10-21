@@ -1,0 +1,171 @@
+[
+  {
+    "id": "3e1e1548-7f39-4bb8-b4cc-238552e41606",
+    "data": [
+      {
+        "text": "How much have I spent on ",
+        "userDefined": false
+      },
+      {
+        "text": "restaurants",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": false
+      },
+      {
+        "text": " lately?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "4b3cabee-f45d-4e60-958a-aa593140e07e",
+    "data": [
+      {
+        "text": "How much have I spent on ",
+        "userDefined": false
+      },
+      {
+        "text": "restaurants",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "67d8e5ea-50c9-44fb-91bd-ea92828dc538",
+    "data": [
+      {
+        "text": "What did I spent on ",
+        "userDefined": false
+      },
+      {
+        "text": "food",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "this month",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "815130c6-3f9a-4e3f-bf1a-32874c18062f",
+    "data": [
+      {
+        "text": "What did I spent on ",
+        "userDefined": false
+      },
+      {
+        "text": "restaurants",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "8f84bb2d-3179-44a1-80e7-166d65728f0d",
+    "data": [
+      {
+        "text": "Show me all payments about ",
+        "userDefined": false
+      },
+      {
+        "text": "vacations",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "758f82c7-436c-4772-bddc-cc9987ed3390",
+    "data": [
+      {
+        "text": "Show me what I spent on ",
+        "userDefined": false
+      },
+      {
+        "text": "vacations",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": false
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "b4bd9cff-4922-42cb-957a-73051749d579",
+    "data": [
+      {
+        "text": "How much money did I spent on ",
+        "userDefined": false
+      },
+      {
+        "text": "shoes",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": false
+      },
+      {
+        "text": "?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "6b90cbdf-3203-4287-84ad-82c404fc1d9c",
+    "data": [
+      {
+        "text": "How much did I spent on ",
+        "userDefined": false
+      },
+      {
+        "text": "clothing",
+        "alias": "category",
+        "meta": "@paymentcategories",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "id": "b40bd3dd-36a8-4504-a548-b67f636e59ee",
+  "name": "sys.color",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}

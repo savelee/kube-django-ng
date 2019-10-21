@@ -1,0 +1,91 @@
+[
+  {
+    "id": "4365e383-da6a-4c4d-8726-70c2b809a3e9",
+    "data": [
+      {
+        "text": "Maak geld over.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "2151f76a-e337-403c-b610-3cc0d4209c40",
+    "data": [
+      {
+        "text": "Ik wil geld sturen",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "4677bbac-c599-4d10-aba4-cdf4a1082db5",
+    "data": [
+      {
+        "text": "Ik wil graag geld overmaken.",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "5606481c-ad72-4b2d-8c20-333cd8968bad",
+    "data": [
+      {
+        "text": "Ik wil graag ",
+        "userDefined": false
+      },
+      {
+        "text": "100 euro",
+        "meta": "@sys.ignore",
+        "userDefined": true
+      },
+      {
+        "text": " overmaken naar ",
+        "userDefined": false
+      },
+      {
+        "text": "Rusland",
+        "alias": "destination",
+        "meta": "@sys.geo-country",
+        "userDefined": true
+      },
+      {
+        "text": ".",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "63d50e91-b3a7-4fbd-990d-d63c9813b3bc",
+    "data": [
+      {
+        "text": "Ik wil graag geld overmaken naar ",
+        "userDefined": false
+      },
+      {
+        "text": "Rusland",
+        "alias": "destination",
+        "meta": "@sys.geo-country",
+        "userDefined": true
+      },
+      {
+        "text": ".",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

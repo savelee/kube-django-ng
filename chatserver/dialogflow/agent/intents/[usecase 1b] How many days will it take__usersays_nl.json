@@ -1,0 +1,74 @@
+[
+  {
+    "id": "aeba7b0b-3ec6-4f08-b957-9211b4ce342b",
+    "data": [
+      {
+        "text": "Wat is de wachttijd?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 1,
+    "updated": 0
+  },
+  {
+    "id": "2c300ec5-45ed-490a-8e4a-5bdf706a4381",
+    "data": [
+      {
+        "text": "Wat bedraagt de wachttijd?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "1dfc7861-d22c-40cd-be79-85e5d62dad61",
+    "data": [
+      {
+        "text": "Hoe lang moet ik hier op wachten?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "3cc3ed8f-bb8c-427d-ba96-61bc9c0378ee",
+    "data": [
+      {
+        "text": "Hoe lang duurt het verwerken?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "9757f321-3da6-4148-abef-ba012951edcd",
+    "data": [
+      {
+        "text": "Hoe lang duur het om dit te processen?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "73a592b5-2282-4370-a3e5-9d2d6f753b50",
+    "data": [
+      {
+        "text": "Hoe lang duurt het?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

@@ -1,0 +1,117 @@
+[
+  {
+    "id": "11737be5-ffb7-4897-9c22-6b6a7fdf34be",
+    "data": [
+      {
+        "text": "Ik wil graag geld lenen",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "2605df7a-6999-4d4c-b6b0-b0d24881414e",
+    "data": [
+      {
+        "text": "Ik heb ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " lening nodig",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "af8b1c7c-cb61-4081-be0a-b19bd0aa7d74",
+    "data": [
+      {
+        "text": "Ik wil ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " ",
+        "userDefined": false
+      },
+      {
+        "text": "huis",
+        "alias": "housing_type",
+        "meta": "@housing_type",
+        "userDefined": false
+      },
+      {
+        "text": " kopen en ik heb ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " lening nodig",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "97c1f275-1229-409e-8542-65cf6171e394",
+    "data": [
+      {
+        "text": "Ik graag ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " lening afsluiten",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "82b4bae4-f59d-4df6-8e5f-5e1cc8ef7f94",
+    "data": [
+      {
+        "text": "Ik wil ",
+        "userDefined": false
+      },
+      {
+        "text": "een",
+        "meta": "@sys.ignore",
+        "userDefined": false
+      },
+      {
+        "text": " lening afsluiten",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

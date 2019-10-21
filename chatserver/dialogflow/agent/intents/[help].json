@@ -1,0 +1,59 @@
+{
+  "id": "33786206-0cfa-4ecf-bdc7-42e2fc5f73b4",
+  "name": "[help]",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": "suggestion_chips",
+          "platform": "google",
+          "lang": "en",
+          "condition": "",
+          "suggestions": [
+            {
+              "title": "Block"
+            },
+            {
+              "title": "Renew"
+            },
+            {
+              "title": "Transfer money"
+            }
+          ]
+        },
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": "I can help you with transferring money, requesting your balance or I can tell you your payment history."
+        },
+        {
+          "type": 0,
+          "lang": "nl",
+          "condition": "",
+          "speech": [
+            "Ik kan een transactie maken of je pas blokkeren of vernieuwen? Wat zal ik vandaag voor je doen?",
+            "Ik kan je helpen met het overmaken van een bedrag, of ik kan kaarten vernieuwen en blokkeren. Wat wil je dat ik voor je doe?"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "google": true
+      },
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

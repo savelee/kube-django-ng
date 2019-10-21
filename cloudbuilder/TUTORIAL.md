@@ -1,8 +1,33 @@
-# Google Cloud - Dialogflow Enterprise Demo
+# Google Cloud - Chatbot Platform Demo
 
-**By Lee Boonstra, Customer Engineer @ Google Cloud.**
+**By Lee Boonstra, Developer Advocate @ Google Cloud.**
 
 ## Setup Steps
+
+### Setup Chatbase
+
+1. Navigate to http://www.chatbase.com/bots and login
+
+1. Create a new bot
+
+1. Copy the API_KEY to *env.txt* into the **MY_CHATBASE_KEY** variable.
+
+### Prepare the environement variables.
+
+1. Modify Chat Container environment variables
+
+   ```
+   cd chatserver/my-app/
+   nano env.txt
+   mv env.txt .env
+   ```
+
+1. Modify the cloudbuilder properties. (These need to be the same, as some of the .env properties)
+
+   ```
+   cd cloudbuilder/
+   nano .properties
+   ```
 
 ### Run Setup Script
 
@@ -49,32 +74,6 @@ Check for the endpoint address after deployment finishes (can take 10-15 mins)
 1. Click on **Export & Import**
 
 1. On your hard drive navigate to *chatserver/dialogflow* zip this folder, and then **Import from Zip** in the Dialogflow settings screen. These are some example chatbot dialogs.
-
-### Setup Chatbase
-
-1. Navigate to http://www.chatbase.com/bots and login
-
-1. Create a new bot
-
-1. Copy the API_KEY to *env.txt* into the **MY_CHATBASE_KEY** variable.
-
-### Prepare the environement variables.
-
-1. Modify Chat Container environment variables
-
-   ```
-   cd chatserver/my-app/
-   nano env.txt
-   mv env.txt .env
-   ```
-
-1. Modify the cloudbuilder properties. (These need to be the same, as some of the .env properties)
-
-   ```
-   cd cloudbuilder/
-   nano .properties
-   ```
-
    
 ## Uninstall
 

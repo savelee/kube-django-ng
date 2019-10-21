@@ -1,0 +1,74 @@
+[
+  {
+    "id": "45fe2c89-a05d-4dba-a08a-23995c460a89",
+    "data": [
+      {
+        "text": "How much will the transfer cost?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "45229329-7b5a-49a2-a3ca-6504ef0111ce",
+    "data": [
+      {
+        "text": "How much does it cost?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "23f2502f-ecd9-4978-86ff-07a04234d4ca",
+    "data": [
+      {
+        "text": "What are the costs for the transfer?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "32dea23b-d5ce-42b7-a925-b506a01867df",
+    "data": [
+      {
+        "text": "How much will it cost?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 1,
+    "updated": 0
+  },
+  {
+    "id": "63f35e85-5c44-49b8-a97d-da709954d567",
+    "data": [
+      {
+        "text": "What\u0027s the price for this transfer?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "86952ee0-1b40-4637-8706-15f0b3d85356",
+    "data": [
+      {
+        "text": "How much will this cost?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

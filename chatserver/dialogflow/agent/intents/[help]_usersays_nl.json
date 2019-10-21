@@ -1,0 +1,74 @@
+[
+  {
+    "id": "72f393bb-6629-40b9-baa3-f4584aa9b3f8",
+    "data": [
+      {
+        "text": "Welke vragen mag ik stellen?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "d109ac2a-2d4e-415d-8f65-ad1f55619069",
+    "data": [
+      {
+        "text": "Hoe kun jij mij helpen?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "e3cac3fb-1203-4f66-b827-13e01f4987e9",
+    "data": [
+      {
+        "text": "Wat kan ik aan je vragen?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "90235ea9-11ef-4285-bf3a-34ff7481dae1",
+    "data": [
+      {
+        "text": "Huh, help?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "61ab67dd-ddb4-44be-b42c-38e169b8894b",
+    "data": [
+      {
+        "text": "Help mij",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "51c3aca3-e881-471e-baa0-7af5372773e1",
+    "data": [
+      {
+        "text": "Ik heb hulp nodig",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

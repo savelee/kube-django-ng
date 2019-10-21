@@ -1,0 +1,86 @@
+[
+  {
+    "id": "dffa874a-f360-41a1-8033-93854b1f92a0",
+    "data": [
+      {
+        "text": "Fijne dag nog",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "544a655c-386f-46bd-85bd-8a52b39d1b9d",
+    "data": [
+      {
+        "text": "Daag",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "2ee799c4-908f-49f6-9637-5a1d583832fe",
+    "data": [
+      {
+        "text": "Dank je wel",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "610a3dec-7591-4880-945d-c5a60e787293",
+    "data": [
+      {
+        "text": "Nee je hoeft niets meer te doen",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "bffa91b8-bc83-4cf6-8ba9-ece1489a8bd8",
+    "data": [
+      {
+        "text": "Nee dat is het",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "0e54c9e9-4da2-4b0a-9501-33ff1401cf04",
+    "data": [
+      {
+        "text": "Nee dat was het",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "6b745019-a0ff-4b12-9db7-e2656baaa382",
+    "data": [
+      {
+        "text": "Doei",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

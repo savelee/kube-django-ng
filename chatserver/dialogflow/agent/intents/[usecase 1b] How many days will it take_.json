@@ -1,0 +1,34 @@
+{
+  "id": "39c1cfe1-39d8-49bf-a67f-9bc8c48643f3",
+  "name": "[usecase 1b] How many days will it take?",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": [
+            "The receiving banks often take 2-4 days for funds to be released to customers to make sure it\u0027s not a fraudulent transaction. Can I help you with anything else?",
+            "The receiving banks often take 2-4 days for funds to be released to customers to make sure it\u0027s not a fraudulent transaction. Is there anything else I can help you?"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

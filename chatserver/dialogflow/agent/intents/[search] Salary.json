@@ -1,0 +1,45 @@
+{
+  "id": "dc94ea04-da2a-496f-b0df-1466fd45b9dc",
+  "name": "[search] Salary",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "income",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "id": "ff5f4ee7-03ec-40c5-94bc-d2f0730f6703",
+          "required": false,
+          "dataType": "@incomingpayments",
+          "name": "category",
+          "value": "$category",
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": [],
+          "isList": true
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "condition": "",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

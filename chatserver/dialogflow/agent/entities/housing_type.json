@@ -1,0 +1,9 @@
+{
+  "id": "10a4f56a-d900-48a9-bce9-8453c35ca598",
+  "name": "housing_type",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}

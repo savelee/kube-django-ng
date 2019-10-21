@@ -12,11 +12,19 @@ bold "Set all vars..."
 set -a
   source ./properties
   set +a
+bold "Set all .env vars..."
+set -a
+  source chatserver/.env
+  set +a
 
-if [ -z "$PROJECT_ID" ]; then
-  err "Not running in a GCP project. Please run gcloud config set project $PROJECT_ID."
-  exit 1
-fi
+bold "Creating GCP project for Test"
+gcloud projects create $PROJECT_ID
+
+bold "Creating GCP project for Dev"
+gcloud projects create $DEV_AGENT_PROJECT_ID
+
+bold "Creating GCP project for Test"
+gcloud projects create $TEST_AGENT_PROJECT_ID
 
 if [ -z "$CLOUD_BUILD_EMAIL" ]; then
   err "Cloud Build email is empty. Exiting."
@@ -143,6 +151,58 @@ bold "Creating Test Metrics BQ table..."
 bq mk \
 $DATASET.$TABLE \
 $SCHEMA_TEST_METRICS
+
+bold "Loading Chatbot Data in BQ"
+bq --location=$BQ_LOCATION load \
+--source_format=CSV \
+$PROJECT_ID:$DATASET.$TABLE \
+bq/data/chatbotdata.csv \
+$SCHEMA
+
+bold "Zipping Intents..."
+zip -r agent.zip chatserver/dialogflow/agent
+bold "Uploading Intents to $GCLOUD_STORAGE_BUCKET_NAME..."
+gsutil cp chatserver/dialogflow/agent/agent.zip gs://$GCLOUD_STORAGE_BUCKET_NAME/
+
+bold "Create a Dialogflow Agent..."
+ACCESS_TOKEN="$(gcloud auth application-default print-access-token)"
+JSONPROD="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$PROD_AGENT_NAME\",\"parent\":\"projects/$PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
+JSONTEST="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$TEST_AGENT_NAME\",\"parent\":\"projects/$TEST_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
+JSONDEV="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$DEV_AGENT_NAME\",\"parent\":\"projects/$DEV_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
+IMPORTFILES="{\"agentUri\":\"gs:\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
+
+curl -H "Content-Type: application/json; charset=utf-8"  \
+-H "Authorization: Bearer $ACCESS_TOKEN" \
+-d $JSONPROD "https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent"
+
+curl -H "Content-Type: application/json; charset=utf-8"  \
+-H "Authorization: Bearer $ACCESS_TOKEN" \
+-d $JSONTEST "https://dialogflow.googleapis.com/v2/projects/$TEST_AGENT_PROJECT_ID/agent"
+
+curl -H "Content-Type: application/json; charset=utf-8"  \
+-H "Authorization: Bearer $ACCESS_TOKEN" \
+-d $JSONDEV "https://dialogflow.googleapis.com/v2/projects/$DEV_AGENT_PROJECT_ID/agent"
+
+bold "Import Intents to Dev"
+curl -X POST \
+-H "Authorization: Bearer $ACCESS_TOKEN" \
+-H "Content-Type: application/json; charset=utf-8" \
+-d $IMPORTFILES \
+https://dialogflow.googleapis.com/v2/projects/$DEV_AGENT_PROJECT_ID/agent:restore
+
+bold "Import Intents to Test"
+curl -X POST \
+-H "Authorization: Bearer $ACCESS_TOKEN" \
+-H "Content-Type: application/json; charset=utf-8" \
+-d $IMPORTFILES \
+https://dialogflow.googleapis.com/v2/projects/$TEST_AGENT_PROJECT_ID/agent:restore
+
+bold "Import Intents to Prod"
+curl -X POST \
+-H "Authorization: Bearer $ACCESS_TOKEN" \
+-H "Content-Type: application/json; charset=utf-8" \
+-d $IMPORTFILES \
+https://dialogflow.googleapis.com/v2/projects/$DPROJECT_ID/agent:restore
 
 bold "Creating cluster..."
 gcloud container clusters create $GKE_CLUSTER \

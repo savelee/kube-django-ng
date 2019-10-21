@@ -1,0 +1,85 @@
+[
+  {
+    "value": "boodschappen",
+    "synonyms": [
+      "albert heijn",
+      "boodschappen",
+      "supermarket"
+    ]
+  },
+  {
+    "value": "fun",
+    "synonyms": [
+      "fun",
+      "hobbies"
+    ]
+  },
+  {
+    "value": "kleding",
+    "synonyms": [
+      "kleding",
+      "kleren"
+    ]
+  },
+  {
+    "value": "ov",
+    "synonyms": [
+      "openbaar vervoer",
+      "trams",
+      "treinen"
+    ]
+  },
+  {
+    "value": "restaurants",
+    "synonyms": [
+      "dinner",
+      "dinners",
+      "lunch",
+      "restaurants",
+      "uit eten"
+    ]
+  },
+  {
+    "value": "schoenen",
+    "synonyms": [
+      "pumps",
+      "schoenen",
+      "sneakers",
+      "sport schoenen"
+    ]
+  },
+  {
+    "value": "taxis",
+    "synonyms": [
+      "taxis",
+      "ubers"
+    ]
+  },
+  {
+    "value": "transfer",
+    "synonyms": [
+      "bank transfer",
+      "transfer"
+    ]
+  },
+  {
+    "value": "vakanties",
+    "synonyms": [
+      "wintersport",
+      "zomer vakantie"
+    ]
+  },
+  {
+    "value": "vluchten",
+    "synonyms": [
+      "vliegtuig tickets"
+    ]
+  },
+  {
+    "value": "winkelen",
+    "synonyms": [
+      "aankopen",
+      "winkelen"
+    ]
+  }
+]
