@@ -102,10 +102,10 @@ gcloud projects remove-iam-policy-binding $PROJECT_ID \
 bold "Deleting service account $SERVICE_ACCOUNT_NAME..."
 gcloud iam service-accounts delete $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com --quiet
 
-bold "Deleting git clone dir..."
-cd ..
-rm -rf kube-django-ng
-bold "Deleting key..."
-rm master.json
+#bold "Deleting git clone dir..."
+#cd ..
+#rm -rf kube-django-ng
+#bold "Deleting key..."
+#rm master.json
 
 bold "Uninstallation complete!"

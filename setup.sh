@@ -26,11 +26,11 @@ ACCESS_TOKEN="$(gcloud auth application-default print-access-token)"
 echo $MY_CHATBASE_VERSION;
 echo $ACCESS_TOKEN;
 
-bold "Creating GCP project for Dev"
-gcloud projects create $DEV_AGENT_PROJECT_ID
+#bold "Creating GCP project for Dev"
+#gcloud projects create $DEV_AGENT_PROJECT_ID
 
-bold "Creating GCP project for Test"
-gcloud projects create $TEST_AGENT_PROJECT_ID
+#bold "Creating GCP project for Test"
+#gcloud projects create $TEST_AGENT_PROJECT_ID
 
 if [ -z "$CLOUD_BUILD_EMAIL" ]; then
   err "Cloud Build email is empty. Exiting."
@@ -157,7 +157,7 @@ $SCHEMA
 
 bold "Creating Test Metrics BQ table..."
 bq mk \
-$DATASET.$TABLE \
+$DATASET.$TABLE_TEST_METRICS \
 $SCHEMA_TEST_METRICS
 
 bold "Loading Chatbot Data in BQ"
@@ -173,23 +173,24 @@ bold "Uploading Intents to $GCLOUD_STORAGE_BUCKET_NAME..."
 gsutil cp chatserver/dialogflow/agent/agent.zip gs://$GCLOUD_STORAGE_BUCKET_NAME/
 
 bold "Create a Dialogflow Agent..."
-JSONPROD="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$PROD_AGENT_NAME\",\"parent\":\"projects/$PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
-JSONTEST="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$TEST_AGENT_NAME\",\"parent\":\"projects/$TEST_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
-JSONDEV="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$DEV_AGENT_NAME\",\"parent\":\"projects/$DEV_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
-IMPORTFILES="{\"agentUri\":\"gs:\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
+echo $ACCESS_TOKEN
 
+JSONPROD="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$PROD_AGENT_NAME\",\"parent\":\"projects/$PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
 curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONPROD "https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent"
 
+JSONTEST="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$TEST_AGENT_NAME\",\"parent\":\"projects/$TEST_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
 curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONTEST "https://dialogflow.googleapis.com/v2/projects/$TEST_AGENT_PROJECT_ID/agent"
 
+JSONDEV="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$DEV_AGENT_NAME\",\"parent\":\"projects/$DEV_AGENT_PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
 curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONDEV "https://dialogflow.googleapis.com/v2/projects/$DEV_AGENT_PROJECT_ID/agent"
 
+IMPORTFILES="{\"agentUri\":\"gs:\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
 bold "Import Intents to Dev"
 curl -X POST \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
