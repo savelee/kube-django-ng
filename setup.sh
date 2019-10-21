@@ -8,7 +8,10 @@ err() {
   echo "$*" >&2;
 }
 
-source ./properties
+bold "Set all vars..."
+set -a
+  source ./properties
+  set +a
 
 if [ -z "$PROJECT_ID" ]; then
   err "Not running in a GCP project. Please run gcloud config set project $PROJECT_ID."
@@ -49,6 +52,13 @@ gcloud iam service-accounts create \
   $SERVICE_ACCOUNT_NAME \
   --display-name $SERVICE_ACCOUNT_NAME
 
+SA_EMAIL=$(gcloud iam service-accounts list \
+  --filter="displayName:$SERVICE_ACCOUNT_NAME" \
+  --format='value(email)')
+  
+if [ -z "$SA_EMAIL" ]; then
+  err "Service Account email is empty. Exiting."
+fi
 
 bold "Adding policy binding to $SERVICE_ACCOUNT_NAME email: $SA_EMAIL..."
 gcloud projects add-iam-policy-binding $PROJECT_ID \
