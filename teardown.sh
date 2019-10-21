@@ -85,9 +85,9 @@ gcloud services disable \
   sourcerepo.googleapis.com \
   translate.googleapis.com
 
-gcloud projects delete $DEV_AGENT_PROJECT_ID
-gcloud projects delete $TEST_AGENT_PROJECT_ID
-gcloud projects delete $PROJECT_ID
+#gcloud projects delete $DEV_AGENT_PROJECT_ID
+#gcloud projects delete $TEST_AGENT_PROJECT_ID
+#gcloud projects delete $PROJECT_ID
 
 bold "Removing Kuberentes Admin role from $CLOUD_BUILD_EMAIL..."
 gcloud projects remove-iam-policy-binding $PROJECT_ID \
