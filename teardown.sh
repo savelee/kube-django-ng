@@ -43,11 +43,12 @@ bold "Remove network addresses"
 gcloud compute --project=$PROJECT_ID addresses delete $GKE_CLUSTER --global
 
 bold "Deleting Pub/Sub Topics"
-gcloud pubsub topics delete $TOPIC
+PTOPIC=projects/$PROJECT_ID/topics/$TOPIC 
+gcloud pubsub topics delete $PTOPIC
 
 bold "Deleting BigQuery datasets..."
-bq rm -r --force $DATASET
-bq rm -r --force $DATASET_TEST_METRICS
+bq rm -r -f -d $PROJECT_ID:$DATASET
+bq rm -r -f -d $PROJECT_ID:$DATASET_TEST_METRICS
 
 bold "Removing Kuberentes Admin role from $CLOUD_BUILD_EMAIL..."
 gcloud projects remove-iam-policy-binding $PROJECT_ID \
