@@ -18,11 +18,15 @@ Review *.properties* & *chatserver/.env* and edit if needed.
 
 ### Run Setup Script
 
-1. Make sure `$PROJECT_ID` is set: `gcloud config set project $PROJECT_ID`
+1. Create the following 3 projects, and assign billing accounts to it:
 
-2. To start installation: `. setup.sh`
+  - chatbotportal-prod
+  - chatbotportal-test
+  - chatbotportal-dev
 
-Check for the endpoint address after deployment finishes (can take 10-15 mins)
+2. Make sure `$PROJECT_ID` is set: `gcloud config set project $PROJECT_ID`
+
+3. To start installation: `. setup.sh`
 
 ## Uninstall
 

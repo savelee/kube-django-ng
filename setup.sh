@@ -123,7 +123,7 @@ bold "Saving the key..."
 gcloud iam service-accounts keys create ../master.json \
   --iam-account $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com
 
-export GOOGLE_APPLICATION_CREDENTIALS = ../master.json
+GOOGLE_APPLICATION_CREDENTIALS=../master.json
 
 bold "Creating Storage bucket..."
 gsutil mb gs://$GCLOUD_STORAGE_BUCKET_NAME/
