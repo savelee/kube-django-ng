@@ -50,6 +50,23 @@ bold "Deleting BigQuery datasets..."
 bq rm -r -f -d $PROJECT_ID:$DATASET
 bq rm -r -f -d $PROJECT_ID:$DATASET_TEST_METRICS
 
+bold "Disable APIs..."
+gcloud services disable \
+  automl.googleapis.com \
+  bigquery-json.googleapis.com \
+  cloudfunctions.googleapis.com \
+  cloudbuild.googleapis.com \
+  container.googleapis.com \
+  cloudtrace.googleapis.com \
+  dialogflow.googleapis.com \
+  dlp.googleapis.com \
+  language.googleapis.com \
+  logging.googleapis.com \
+  monitoring.googleapis.com \
+  pubsub.googleapis.com \
+  sourcerepo.googleapis.com \
+  translate.googleapis.com
+
 bold "Removing Kuberentes Admin role from $CLOUD_BUILD_EMAIL..."
 gcloud projects remove-iam-policy-binding $PROJECT_ID \
     --member=serviceAccount:$CLOUD_BUILD_EMAIL \
