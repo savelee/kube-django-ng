@@ -239,7 +239,7 @@ kubectl create configmap chatserver-config \
   --from-literal "TABLE=$TABLE" \
   --from-literal "DATASET_TEST_METRICS=$DATASET_TEST_METRICS" \
   --from-literal "TABLE_TEST_METRICS=$TABLE_TEST_METRICS" \
-  --from-literal "MY_CHATBASE_KEY=$MY_CHATBASE_KEY" 
+  --from-literal "MY_CHATBASE_KEY=$MY_CHATBASE_KEY" \
   --from-literal "MY_CHATBASE_BOT_NAME=$MY_CHATBASE_BOT_NAME" \
   --from-literal "MY_CHATBASE_VERSION=$MY_CHATBASE_VERSION" \
   --from-literal "GCLOUD_STORAGE_BUCKET_NAME=$GCLOUD_STORAGE_BUCKET_NAME"
