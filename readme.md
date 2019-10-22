@@ -106,7 +106,6 @@ authentication:
 * [Additional scopes](https://cloud.google.com/compute/docs/authentication#using)
 * [Service Account key file](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount)
 
-
 ### Install Dependencies
 
 1. Install [Node](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/get-npm) if you do not already have them.
@@ -118,185 +117,22 @@ authentication:
 5. Install [Angular CLI](http://cli.angular.io) - 
 `npm install -g @angular-cli`
 
-### Enable the APIs
-
-1. Navigate to the Cloud Console: http://console.cloud.google.com
-
-1. Click on **APIs & Services > Dashboard**
-
-2. Enable the following APIS via gcloud:
-
-```
-gcloud services enable \
-  automl.googleapis.com \
-  bigquery-json.googleapis.com \
-  cloudfunctions.googleapis.com \
-  cloudbuild.googleapis.com \
-  container.googleapis.com \
-  cloudtrace.googleapis.com \
-  dialogflow.googleapis.com \
-  dlp.googleapis.com \
-  language.googleapis.com \
-  logging.googleapis.com \
-  monitoring.googleapis.com
-  pubsub.googleapis.com \
-  sourcerepo.googleapis.com \
-  translate.googleapis.com
-```
-
-### Setup Service Account
-
-1. Download the Service Account Key
-
-2. Open http://console.cloud.google.com, and navigate to *APIs & Services > Credentials*.
-
-3. Click **Create Credentials**
-
-4. Select **Dialogflow Integrations**
-
-5. Give it the name: *master.json*,  - select for now Project Owner (in production, you might want to fine tune this on least privaliges)
-
-6. Select **JSON**
-
-7. **Create**
-
-8. Download the key, and store it somewhere on your hard drive, and remember the path.
-
-9. In the cloud console, click on **IAM & admin**
-
-10. Pick the Dialogflow Service Account, and add the following roles to it:
-
-   NOTE: For testing purposes, I might add also the *Owner* role to this service account. Though, for production is best to make use of the least privilidges. 
-
-   * Dialogflow Console Agent Editor
-   * Dialogflow Reader
-   * Logs Writer
-   * Storage Object Creator
-   * Storage Object Viewer
-
-11. Write down the name of the service account email address. (We will use it, in one of the later steps). The format will look like [service account name]@[projectId].iam.gserviceaccount.com
-
-12. Navigate to Cloud Functions, and take a note of the service account that is used.
-
-    It might the App Engine service account which is created by default.
-
-13. Go back to the **IAM & admin** settings, and make sure the service account used by the Cloud Function,
- has the following roles:
-
- * BigQuery Data Viewer
- * BigQuery Job User
- * Pub/Sub Editor
- * Pub/Sub Viewer
-
-See also: https://cloud.google.com/iam/docs/permissions-reference
-
-### Setup the Dialogflow Agent
-
-1. (optional) In the cloud console, search for Dialogflow API
-
-2. On the left hand side, select **Dialogflow Agent**
-
-3. Click on **Open or Create Agent at dialogflow.com**
-
-4. Select your google account
-
-5. Allow the terms & conditions
-
-6. Give your agent the name **ContactCenterDemo**
-
-7. For language choose: **English**
-
-8. For time zone choose: **Europe/Madrid**
-
-9. Click **Create**
- 
-### Configure Dialogflow
-
-1. In the left hand menu, click the **Upgrade button**
-
-1. Choose **Enterprise Edition Essentials**
-
-1. Click on the **gear** icon, in the left menu, next to your project name.
-
-1. Enter the following agent description: **Contact Center Demo**
-
-1. Click **Languages** add Additional Language **NL**
-
-1. Click: **Enable beta features & APIs**
-
-1. Click **Save**
-
-1. Click on **Export & Import**
-
-5. On your hard drive navigate to *chatserver/dialogflow* zip this folder, and then **Import from Zip** in the Dialogflow settings screen. These are some example chatbot dialogs.
-
-### Create Dev and Test Dialogflow Agents
-
-To create automated Dev & Test environments, we will create 2 more Dialogflow agents.
-Both enviroments can be created with the Standard edition of Dialogflow.
-
-1. Open http://console.dialogflow.com
-
-1. In the top left drop down box; select: **Create new agent**
-
-1. Give your agent the name **ContactCenterDemo-Dev**
-
-1. Click **Languages** add Additional Language **NL**
-
-1. Click: **Enable beta features & APIs**
-
-1. Click **Save**
-
-1. Repeat this process, but name the agent: **ContactCenterDemo-Test**
-
-1. Visit https://pantheon.corp.google.com/iam-admin/iam?project=ContactCenterDemo-Dev 
-and add the email address (written down earlier - [service account name]@[projectId].iam.gserviceaccount.com) from your production service account to this list with **Dialogflow API Admin** rights.
-
-1. Visit https://pantheon.corp.google.com/iam-admin/iam?project=ContactCenterDemo-Test 
-and add the email address (written down earlier - [service account name]@[projectId].iam.gserviceaccount.com) from your production service account to this list with **Dialogflow API Admin** rights.
-
-1. Add the two new projectIds to *env.txt*:
-DEV_AGENT_PROJECT_ID=
-TEST_AGENT_PROJECT_ID=
-
 ### Setup Chatbase
 
 1. Navigate to http://www.chatbase.com/bots and login
 2. Create a new bot
 3. Copy the API_KEY to *env.txt* into the **MY_CHATBASE_KEY** variable.
 
-### Setup Cloud Functions
+### Setup Cloud Resources
 
-1. Choose in the left hand menu: **Cloud Functions**
-
-1. Click **Create Function**
-
-1. Name: **chatanalytics**
-
-1. Select Trigger: **Cloud Pub/Sub**
-
-1. Choose topic: **user-content**
-
-1. Runtime: Node JS 8
-
-1. Paste the contents of *cloudfunctions/chatanalytics/index.js* into the **index.js** textarea
-
-1. Paste the contents of *cloudfunctions/chatanalytics/package.json* into the **package.json** textarea (tab)
-
-1. The function to execute is: **subscribe**
-
-1. Set the following environment variables:
-
-```
-DATASET=chatanalytics
-TABLE=chatmessages
-```
-
-1. Click **Create**
-
+1. (Optional) In case you only want to run the demo locally, you can comment out the part of GKE in the **setup.sh** script.
+2. Create a Google Cloud Project, and assign a Billig Account to it.
+3. Run: `gcloud config set project <cloud project id>`
+4. Run: `. setup.sh`
+   
 ## Run the code locally
 
-### Django CMS
+### Run Django CMS
 
 In case you want to run this for the first time:
 
@@ -317,9 +153,20 @@ source myenv/bin/activate .
 python3 manage.py runserver 8080
 ```
 
+SSH into the Django POD and run the following commands:
+
+`kubectl exec -it [podname] -- /bin/bash`
+`python manage.py migrate`
+`python manage.py collectstatic`
+`python manage.py createsuperuser`
+`exit;`
+
+For example: kubectl exec -it django-585776b9f-wx52b  -- /bin/bash
+kubectl exec -it front-end-79bb7f4f45-jw7p9-- /bin/bash
+
 Django can be reached via http://localhost:8080
 
-### Start Client Container
+### Run the Front-end Container
 
 Run on the command-line:
 
@@ -331,7 +178,7 @@ ng serve
 
 The Front-end can be reached via http://localhost:4200
 
-### Start ChatServer Container
+### Run the ChatServer Container
 
 In case you want to run this for the first time:
 
@@ -344,14 +191,14 @@ In case you want to run this for the first time:
    nano .env
    ```
 
-1. Modify the code:
+2. Modify the code:
 
    ```
    GCLOUD_PROJECT=<PROJECT NAME>
    GOOGLE_APPLICATION_CREDENTIALS=<LOCATION OF YOUR SERVICE ACCOUNT FILE>
    ```
 
-1. Then run on the command-line:
+3. Then run on the command-line:
 
    ```
    npm start
@@ -423,101 +270,3 @@ You will need more than one Q&A pair and not more than 200.
 It helps when you use valid HTML5 markup for your Q&As, and base it on schema.org notations.
 See the markup of: https://github.com/savelee/kube-django-ng/blob/master/front-end/src/assets/html/faq/faq.html for a good overview.*
 
-## AutoML Demo flow:
-
-TODO
-
-## Deploy your code to GKE with Cloud Builder
-
-1. Create a GKE Cluster:
-
-    `gcloud container clusters create futurebank --region europe-west4-a --num-nodes 1 --enable-autoscaling --min-nodes 1 --max-nodes 4`
-
-    (when you already have a cluster, and you get the error **The connection to the server localhost:8080 was refused - did you specify the right host or port?**, type: `gcloud container clusters get-credentials "futurebank" --zone europe-west4-a`)
-
-2. Set your **PROJECT_ID**, **DEV_AGENT_PROJECT_ID**, **TEST_AGENT_PROJECT_ID**, **GCLOUD_STORAGE_BUCKET_NAME** and **MY_CHATBASE_KEY** variables, which points to your GCP project id. For example:
-
-    `export PROJECT_ID=dialogflow-production-agent`
-    `export DEV_AGENT_PROJECT_ID=dialogflow-dev-agent`
-    `export TEST_AGENT_PROJECT_ID=dialogflow-test-agent`
-    `export MY_CHATBASE_KEY=123...`
-    `export MY_CHATBASE_VERSION=1.0`
-    `export GCLOUD_STORAGE_BUCKET_NAME=mybucket`
-
-3. Navigate to the root of this repository.
-
-4. Create a secret from your service account **master.json** key
-
-    `kubectl create secret generic credentials --from-file=./master.json`
-
-5. Create a config map:
-   
-    `kubectl create configmap chatserver-config --from-literal "GCLOUD_PROJECT=${PROJECT_ID}" --from-literal "DEV_AGENT_PROJECT_ID=${DEV_AGENT_PROJECT_ID}" --from-literal "TEST_AGENT_PROJECT_ID=${TEST_AGENT_PROJECT_ID}" --from-literal "LANGUAGE_CODE=en-US" --from-literal "TOPIC=user-content" --from-literal "DATASET=chatanalytics" --from-literal "TABLE=chatmessages" --from-literal "DATASET_TEST_METRICS=conversationcoverage" --from-literal "TABLE_TEST_METRICS=testmetrics" --from-literal "MY_CHATBASE_KEY=${MY_CHATBASE_KEY}" --from-literal "MY_CHATBASE_BOT_NAME=Babs the Banking Bot" --from-literal "MY_CHATBASE_VERSION=${MY_CHATBASE_VERSION}" --from-literal "GCLOUD_STORAGE_BUCKET_NAME=${GCLOUD_STORAGE_BUCKET_NAME}"`
-
-6. Fix paths to your images of the **-deployment.yaml** & **setup** files (in the cloudbuilder folder) to match the container names in your Container Registry.
-
-7. When you setup your cluster for the first time, you can run this command from the root directory:
-
-    `gcloud builds submit --config cloudbuilder/setup.yaml`
-
-8. In case you want to re-deploy individual containers, run the following build scripts:
-
-   `gcloud builds submit --config cloudbuilder/chatserver.yaml`
-
-   `gcloud builds submit --config cloudbuilder/front-end.yaml`
-
-   `gcloud builds submit --config cloudbuilder/django.yaml`
-
-9.  To delete deployments use:
-
-   `kubectl delete deployment front-end`
-
-   `kubectl delete deployment chatserver`
-    
-   `kubectl delete deployment django`
-
-
-10. To deploy another deployment:
-
-   `kubectl apply -f cloudbuilder/front-end-deployment.yaml`
-
-   `kubectl apply -f cloudbuilder/chatserver-deployment.yaml`
-
-   `kubectl apply -f cloudbuilder/django-deployment.yaml`
-
-  In case you run into problems, with pods that crash, run:
-  `kubectl get pods`
-  And retrieve the logs for the crashing pod: `kubectl logs [podname]`
-  or ssh into it with `kubectl exec -it [podname] -- /bin/bash`
-
-11. SSH into the Django POD and run the following commands:
-
-    `kubectl exec -it [podname] -- /bin/bash`
-    `python manage.py migrate`
-    `python manage.py collectstatic`
-    `python manage.py createsuperuser`
-    `exit;`
-
-
-    For example: kubectl exec -it django-585776b9f-wx52b  -- /bin/bash
-    kubectl exec -it front-end-79bb7f4f45-jw7p9-- /bin/bash
-
-1.  Get a static IP:
-
-  A domain name is needed for an SSL certificate. We also want to create a fixed ‘A record’ for it on the name registrar. With an Ingress, the external IP keeps changing as it is deleted and created. We can solve this problem on GCP by reserving an external IP address which we can then assign to the Ingress each time.
-
-  https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address
-
-  `gcloud compute --project=${PROJECT_ID} addresses create futurebank --global --network-tier=PREMIUM`
-
-13. Now setup the services and loadbalancer:
-
-    `kubectl apply -f cloudbuilder/services.yaml`
-
-    *NOTE: The important thing here is specifying the type of the Service as NodePort . This allocates a high port on each node in the cluster which will proxy requests to the Service.
-    Google’s Load Balancer performs health checks on the associated backend service. The service must return a status of 200. If it does not, the load balancer marks the instance as unhealthy and does not send it any traffic until the health check shows that it is healthy again.*
-
-
-14. Attach a domain name:
-
-  To have browsers querying your domain name (such as example.com) or subdomain name (such as blog.example.com) point to the static IP address you reserved, you must update the DNS (Domain Name Server) records of your domain name. You must create an **A (Address) type DNS record** for your domain or subdomain name and have its value configured **with the reserved external IP address**.

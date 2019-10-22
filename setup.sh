@@ -181,6 +181,8 @@ curl -X POST \
 -d $IMPORTFILES \
 https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent:import
 
+## WHEN YOU WANT TO RUN THE DEMO ONLY LOCALLY, YOU CAN COMMENT OUT THE GKE PART BELOW HERE
+
 bold "Creating cluster..."
 gcloud container clusters create $GKE_CLUSTER \
   --region $REGION \

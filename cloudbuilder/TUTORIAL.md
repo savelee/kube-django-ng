@@ -28,7 +28,7 @@ Review *.properties* & *chatserver/.env* and edit if needed.
 
 3. To start installation: `. setup.sh`
 
-## Uninstall
+### Uninstall
 
 **WARNING!!** This will delete everything installed during the Install step above
 
