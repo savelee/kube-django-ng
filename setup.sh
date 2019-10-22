@@ -181,6 +181,7 @@ curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONPROD "https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent"
 
+IMPORTFILES="{\"agentUri\":\"gs:\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
 bold "Import Intents to Prod"
 curl -X POST \
 -H "Authorization: Bearer $ACCESS_TOKEN" \

@@ -31,6 +31,8 @@ gsutil cp chatserver/dialogflow/agent/agent.zip gs://$GCLOUD_STORAGE_BUCKET_NAME
 bold "Create a Dialogflow Agent..."
 echo $ACCESS_TOKEN
 
+IMPORTFILES="{\"agentUri\":\"gs:\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
+
 ## TODO SOMETHING BREAKS THE IMPORT
 
 JSONPROD="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$PROD_AGENT_NAME\",\"parent\":\"projects/$PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
@@ -62,7 +64,6 @@ https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent:import
 
 ## TODO ITS IN A DIFFERENT PROJECT SO YOU NEED
 ## THE RIGHTS
-IMPORTFILES="{\"agentUri\":\"gs:\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
 bold "Import Intents to Dev"
 curl -X POST \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
