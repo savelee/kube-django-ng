@@ -10,7 +10,7 @@ COMMIT_SHA=`git rev-parse HEAD`
 CLOUD_BUILD_EMAIL=$PROJECT_NUMBER@cloudbuild.gserviceaccount.com
 
 # setup service account
-SERVICE_ACCOUNT_NAME="chatbotportal-app-$(date +"%s")"
+SERVICE_ACCOUNT_NAME="chatbotportal-app-$PROJECT_NUMBER"
 SA_EMAIL=$(gcloud iam service-accounts list \
   --filter="displayName:$SERVICE_ACCOUNT_NAME" \
   --format='value(email)')

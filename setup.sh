@@ -119,6 +119,9 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member=serviceAccount:$CLOUD_BUILD_EMAIL \
     --role=roles/container.admin
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member=serviceAccount:$CLOUD_BUILD_EMAIL \
+    --role=roles/dialogflow.admin
 
 bold "Saving the key..."
 gcloud iam service-accounts keys create ../master.json \
