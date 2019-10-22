@@ -21,12 +21,8 @@ set -a
   source chatserver/.env
   set +a
 
-ACCESS_TOKEN="$(gcloud auth application-default print-access-token)"
 DEV_PROJECT_ID="$(gcloud projects list --filter="name:$DEV_AGENT_PROJECT_ID" --format="value(projectId)")"
 TEST_PROJECT_ID="$(gcloud projects list --filter="name:$TEST_AGENT_PROJECT_ID" --format="value(projectId)")"
-
-echo $CLOUD_BUILD_EMAIL
-echo $SA_EMAIL
 
 echo $MY_CHATBASE_VERSION;
 echo $ACCESS_TOKEN;
@@ -115,18 +111,12 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SA_EMAIL \
   --role roles/iam.serviceAccountKeyAdmin
 
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member=serviceAccount:$CLOUD_BUILD_EMAIL \
-    --role=roles/container.admin
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member=serviceAccount:$CLOUD_BUILD_EMAIL \
-    --role=roles/dialogflow.admin
-
 bold "Saving the key..."
 gcloud iam service-accounts keys create ../master.json \
   --iam-account $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gserviceaccount.com
 
 GOOGLE_APPLICATION_CREDENTIALS=../master.json
+ACCESS_TOKEN="$(gcloud auth application-default print-access-token)"
 
 bold "Creating Storage bucket..."
 gsutil mb gs://$GCLOUD_STORAGE_BUCKET_NAME/
@@ -183,7 +173,7 @@ curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -d $JSONPROD "https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent"
 
-IMPORTFILES="{\"agentUri\":\"gs:\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
+IMPORTFILES="{\"agentUri\":\"gs:\\\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
 bold "Import Intents to Prod"
 curl -X POST \
 -H "Authorization: Bearer $ACCESS_TOKEN" \

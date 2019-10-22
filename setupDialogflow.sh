@@ -31,9 +31,7 @@ gsutil cp chatserver/dialogflow/agent/agent.zip gs://$GCLOUD_STORAGE_BUCKET_NAME
 bold "Create a Dialogflow Agent..."
 echo $ACCESS_TOKEN
 
-IMPORTFILES="{\"agentUri\":\"gs:\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
-
-## TODO SOMETHING BREAKS THE IMPORT
+IMPORTFILES="{\"agentUri\":\"gs:\\\\$GCLOUD_STORAGE_BUCKET_NAME\agent.zip\"}"
 
 JSONPROD="{\"defaultLanguageCode\":\"en\",\"displayName\":\"$PROD_AGENT_NAME\",\"parent\":\"projects/$PROJECT_ID\",\"timeZone\":\"America/Los_Angeles\"}"
 curl -H "Content-Type: application/json; charset=utf-8"  \
