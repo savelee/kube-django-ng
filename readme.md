@@ -6,6 +6,8 @@
 
 **By Lee Boonstra, Customer Engineer @ Google Cloud.**
 
+[![Open in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https%3A%2F%2Fgithub.com%2Fsavelee%2Fkube-django-ng&cloudshell_tutorial=cloudbuilder/TUTORIAL.md)
+
 ![alt text](https://github.com/savelee/kube-django-ng/blob/master/images/architecture1.png "Containers")
 
 This demo, showcases a dummy banking portal.
