@@ -197,21 +197,21 @@ curl -X POST \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -H "Content-Type: application/json; charset=utf-8" \
 -d $IMPORTFILES \
-https://dialogflow.googleapis.com/v2/projects/$DEV_AGENT_PROJECT_ID/agent:restore
+https://dialogflow.googleapis.com/v2/projects/$DEV_AGENT_PROJECT_ID/agent:import
 
 bold "Import Intents to Test"
 curl -X POST \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -H "Content-Type: application/json; charset=utf-8" \
 -d $IMPORTFILES \
-https://dialogflow.googleapis.com/v2/projects/$TEST_AGENT_PROJECT_ID/agent:restore
+https://dialogflow.googleapis.com/v2/projects/$TEST_AGENT_PROJECT_ID/agent:import
 
 bold "Import Intents to Prod"
 curl -X POST \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -H "Content-Type: application/json; charset=utf-8" \
 -d $IMPORTFILES \
-https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent:restore
+https://dialogflow.googleapis.com/v2/projects/$PROJECT_ID/agent:import
 
 bold "Creating cluster..."
 gcloud container clusters create $GKE_CLUSTER \
