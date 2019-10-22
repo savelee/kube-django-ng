@@ -25,6 +25,9 @@ ACCESS_TOKEN="$(gcloud auth application-default print-access-token)"
 DEV_PROJECT_ID="$(gcloud projects list --filter="name:$DEV_AGENT_PROJECT_ID" --format="value(projectId)")"
 TEST_PROJECT_ID="$(gcloud projects list --filter="name:$TEST_AGENT_PROJECT_ID" --format="value(projectId)")"
 
+echo $CLOUD_BUILD_EMAIL
+echo $SA_EMAIL
+
 echo $MY_CHATBASE_VERSION;
 echo $ACCESS_TOKEN;
 
@@ -58,10 +61,6 @@ gcloud services enable \
   translate.googleapis.com
 
 bold "Creating a service account $SERVICE_ACCOUNT_NAME..."
-
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member=serviceAccount:$CLOUD_BUILD_EMAIL \
-    --role=roles/container.admin
 
 gcloud iam service-accounts create \
   $SERVICE_ACCOUNT_NAME \
