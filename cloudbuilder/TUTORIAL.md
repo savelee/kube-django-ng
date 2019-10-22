@@ -28,6 +28,22 @@ Review *.properties* & *chatserver/.env* and edit if needed.
 
 3. To start installation: `. setup.sh`
 
+4. Create a Django Super User
+
+First retrieve the pods, to get the podname of Django:
+
+`kubectl get pods`
+
+Then SSH into the Pod:
+`kubectl exec -it [podname] -- /bin/bash`
+
+Run the following commands to create a super user:
+`python manage.py migrate`
+`python manage.py collectstatic`
+`python manage.py createsuperuser`
+`exit;`
+
+
 ### Uninstall
 
 **WARNING!!** This will delete everything installed during the Install step above

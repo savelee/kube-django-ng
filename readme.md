@@ -131,12 +131,18 @@ authentication:
 2. Create a Google Cloud Project, and assign a Billig Account to it.
 3. Run: `gcloud config set project <cloud project id>`
 4. Run: `. setup.sh`
+
+### Remove Cloud Resources
+
+Done with the demo, and you want to tear down all your Cloud resources?
+
+1. Run: `. teardown.sh`
    
 ## Run the code locally
 
 ### Run Django CMS
 
-In case you want to run this for the first time:
+1. In case you want to run this for the first time:
 
 ```
 virtualenv -p python3 myenv
@@ -147,7 +153,7 @@ python3 manage.py migrate
 python3 manage.py createsuperuser
 ```
 
-Run on the command-line:
+2. Run on the command-line:
 
 ```
 cd server/
@@ -155,16 +161,12 @@ source myenv/bin/activate .
 python3 manage.py runserver 8080
 ```
 
-SSH into the Django POD and run the following commands:
+3. SSH into the Django POD and run the following commands:
 
-`kubectl exec -it [podname] -- /bin/bash`
 `python manage.py migrate`
 `python manage.py collectstatic`
 `python manage.py createsuperuser`
 `exit;`
-
-For example: kubectl exec -it django-585776b9f-wx52b  -- /bin/bash
-kubectl exec -it front-end-79bb7f4f45-jw7p9-- /bin/bash
 
 Django can be reached via http://localhost:8080
 
