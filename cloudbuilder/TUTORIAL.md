@@ -15,6 +15,7 @@
 ### (Optional) prepare the environement variables.
 
 Review *.properties* & *chatserver/.env* and edit if needed.
+For example change the bucketname to a unique name.
 
 ### Run Setup Script
 
