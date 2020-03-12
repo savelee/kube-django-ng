@@ -68,6 +68,10 @@ curl -H "Content-Type: application/json; charset=utf-8"  \
 -H "Authorization: Bearer $ACCESS_TOKEN" \
 -X "DELETE" "https://dialogflow.googleapis.com/v2/projects/$TEST_AGENT_PROJECT_ID/agent"
 
+## Problem deleting linked Dialogflow Projects?
+## gcloud alpha resource-manager liens list
+## gcloud alpha resource-manager liens delete <lien-id>
+
 bold "Disable APIs..."
 gcloud services disable \
   automl.googleapis.com \
@@ -109,3 +113,5 @@ gcloud iam service-accounts delete $SERVICE_ACCOUNT_NAME@$PROJECT_ID.iam.gservic
 #rm master.json
 
 bold "Uninstallation complete!"
+
+

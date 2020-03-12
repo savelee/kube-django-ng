@@ -4,7 +4,7 @@
 
 # Google Cloud / Dialogflow - Banking Portal Demo
 
-**By Lee Boonstra, Customer Engineer @ Google Cloud.**
+**By Lee Boonstra, Developer Advocate @ Google Cloud.**
 
 [![Open in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https%3A%2F%2Fgithub.com%2Fsavelee%2Fkube-django-ng&cloudshell_tutorial=cloudbuilder/TUTORIAL.md)
 
