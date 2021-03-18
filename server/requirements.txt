@@ -1,5 +1,5 @@
 bcrypt==3.1.4
-Django==2.2.2
+Django==2.2.18
 django-axes==4.0.1
 django-brutebuster==0.1.8
 django-cors-headers==2.1.0
