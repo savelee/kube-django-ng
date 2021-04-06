@@ -5,7 +5,7 @@ django-brutebuster==0.1.8
 django-cors-headers==2.1.0
 django-formtools==2.1
 django-polls==0.2.1
-django-registration==3.0.1
+django-registration==3.1.2
 djangorestframework==3.7.7
 djangorestframework-jwt==1.11.0
 flake8==3.5.0
