@@ -51,7 +51,7 @@
     "dir-compare": "^1.7.2",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.5.0",
     "source-map-support": "^0.5.11",
     "unzipper": "^0.10.1",
     "uuid": "^3.3.2"
